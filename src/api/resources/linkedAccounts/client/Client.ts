@@ -12,8 +12,6 @@ import * as errors from "../../../../errors/index";
 export declare namespace LinkedAccounts {
     interface Options {
         token: core.Supplier<core.BearerToken>;
-        /** Override the X-Account-Token header */
-        xAccountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -23,8 +21,6 @@ export declare namespace LinkedAccounts {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the X-Account-Token header */
-        xAccountToken?: string | undefined;
     }
 }
 
@@ -61,14 +57,9 @@ export class LinkedAccounts {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.xAccountToken)) != null
-                        ? await core.Supplier.get(this._options.xAccountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
@@ -188,14 +179,9 @@ export class LinkedAccounts {
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.xAccountToken)) != null
-                        ? await core.Supplier.get(this._options.xAccountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": accountToken,

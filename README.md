@@ -1,7 +1,7 @@
 # Keet TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-[![npm shield](https://img.shields.io/npm/v/@keet-tech/keet-node-client)](https://www.npmjs.com/package/@keet-tech/keet-node-client)
+[![npm shield](https://img.shields.io/npm/v/)](https://www.npmjs.com/package/)
 
 The Keet TypeScript library provides convenient access to the Keet API from TypeScript.
 
@@ -12,7 +12,7 @@ API reference documentation is available [here](https://docs.trykeet.com/).
 ## Installation
 
 ```sh
-npm i -s @keet-tech/keet-node-client
+npm i -s
 ```
 
 ## Usage
@@ -20,9 +20,9 @@ npm i -s @keet-tech/keet-node-client
 Instantiate and use the client with the following:
 
 ```typescript
-import { KeetClient } from "@keet-tech/keet-node-client";
+import { KeetClient } from "";
 
-const client = new KeetClient({ token: "YOUR_TOKEN", xAccountToken: "YOUR_X_ACCOUNT_TOKEN" });
+const client = new KeetClient({ token: "YOUR_TOKEN" });
 await client.integrations.amazonBusiness.createSession({
     xAccountToken: "string",
 });
@@ -34,7 +34,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Keet } from "@keet-tech/keet-node-client";
+import { Keet } from "Keet";
 
 const request: Keet.CreateAmazonBusinessSession = {
     ...
@@ -47,7 +47,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { KeetError } from "@keet-tech/keet-node-client";
+import { KeetError } from "Keet";
 
 try {
     await client.integrations.amazonBusiness.createSession(...);
@@ -122,7 +122,7 @@ The SDK provides a way for your to customize the underlying HTTP client / Fetch 
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { KeetClient } from "@keet-tech/keet-node-client";
+import { KeetClient } from "Keet";
 
 const client = new KeetClient({
     ...

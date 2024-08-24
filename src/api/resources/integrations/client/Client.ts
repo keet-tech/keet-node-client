@@ -9,8 +9,6 @@ import { Venmo } from "../resources/venmo/client/Client";
 export declare namespace Integrations {
     interface Options {
         token: core.Supplier<core.BearerToken>;
-        /** Override the X-Account-Token header */
-        xAccountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -20,8 +18,6 @@ export declare namespace Integrations {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the X-Account-Token header */
-        xAccountToken?: string | undefined;
     }
 }
 

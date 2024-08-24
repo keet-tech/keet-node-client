@@ -9,8 +9,6 @@ import { LinkedAccounts } from "./api/resources/linkedAccounts/client/Client";
 export declare namespace KeetClient {
     interface Options {
         token: core.Supplier<core.BearerToken>;
-        /** Override the X-Account-Token header */
-        xAccountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -20,8 +18,6 @@ export declare namespace KeetClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the X-Account-Token header */
-        xAccountToken?: string | undefined;
     }
 }
 
