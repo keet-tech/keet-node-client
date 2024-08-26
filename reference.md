@@ -2,9 +2,24 @@
 
 ## Integrations AmazonBusiness
 
-<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">createSession</a>({ ...params }) -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Venmo session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -15,9 +30,7 @@
 <dd>
 
 ```typescript
-await client.integrations.amazonBusiness.createSession({
-    xAccountToken: "string",
-});
+await client.integrations.amazonBusiness.createSession();
 ```
 
 </dd>
@@ -29,14 +42,6 @@ await client.integrations.amazonBusiness.createSession({
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request:** `Keet.integrations.CreateAmazonBusinessSession`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -66,7 +71,6 @@ await client.integrations.amazonBusiness.createSession({
 
 ```typescript
 await client.integrations.amazonBusiness.getOrders({
-    xAccountToken: "string",
     page: 1,
     limit: 1,
 });
@@ -106,9 +110,24 @@ await client.integrations.amazonBusiness.getOrders({
 
 ## Integrations Venmo
 
-<details><summary><code>client.integrations.venmo.<a href="/src/api/resources/integrations/resources/venmo/client/Client.ts">createSession</a>({ ...params }) -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.venmo.<a href="/src/api/resources/integrations/resources/venmo/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Venmo session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -119,9 +138,7 @@ await client.integrations.amazonBusiness.getOrders({
 <dd>
 
 ```typescript
-await client.integrations.venmo.createSession({
-    xAccountToken: "string",
-});
+await client.integrations.venmo.createSession();
 ```
 
 </dd>
@@ -133,14 +150,6 @@ await client.integrations.venmo.createSession({
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request:** `Keet.integrations.CreateVenmoSession`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -185,7 +194,6 @@ Make a payment to a user in Venmo
 
 ```typescript
 await client.integrations.venmo.makePayment({
-    xAccountToken: "string",
     amount: 1,
     description: "string",
 });
@@ -223,7 +231,7 @@ await client.integrations.venmo.makePayment({
 </dl>
 </details>
 
-<details><summary><code>client.integrations.venmo.<a href="/src/api/resources/integrations/resources/venmo/client/Client.ts">getTransactions</a>({ ...params }) -> Keet.GetTransactionsResponse</code></summary>
+<details><summary><code>client.integrations.venmo.<a href="/src/api/resources/integrations/resources/venmo/client/Client.ts">getTransactions</a>() -> Keet.GetTransactionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -236,8 +244,68 @@ await client.integrations.venmo.makePayment({
 <dd>
 
 ```typescript
-await client.integrations.venmo.getTransactions({
-    xAccountToken: "string",
+await client.integrations.venmo.getTransactions();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Venmo.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Link
+
+<details><summary><code>client.link.<a href="/src/api/resources/link/client/Client.ts">createLinkToken</a>({ ...params }) -> Keet.CreateLinkResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a link token that can be used to link accounts
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.link.createLinkToken({
+    linkConfig: {
+        endUserId: "<userId>",
+        integration: Keet.OfferedIntegrations.Instagram,
+    },
 });
 ```
 
@@ -254,7 +322,7 @@ await client.integrations.venmo.getTransactions({
 <dl>
 <dd>
 
-**request:** `Keet.integrations.GetTransactionsRequest`
+**request:** `Keet.CreateLinkRequest`
 
 </dd>
 </dl>
@@ -262,7 +330,7 @@ await client.integrations.venmo.getTransactions({
 <dl>
 <dd>
 
-**requestOptions:** `Venmo.RequestOptions`
+**requestOptions:** `Link.RequestOptions`
 
 </dd>
 </dl>
@@ -275,7 +343,7 @@ await client.integrations.venmo.getTransactions({
 
 ## LinkedAccounts
 
-<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">getLinkedAccount</a>(linkedAccountId, { ...params }) -> Keet.GetLinkedAccountResponse</code></summary>
+<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">getLinkedAccount</a>(linkedAccountId) -> Keet.GetLinkedAccountResponse</code></summary>
 <dl>
 <dd>
 
@@ -288,9 +356,7 @@ await client.integrations.venmo.getTransactions({
 <dd>
 
 ```typescript
-await client.linkedAccounts.getLinkedAccount("string", {
-    xAccountToken: "string",
-});
+await client.linkedAccounts.getLinkedAccount("string");
 ```
 
 </dd>
@@ -307,14 +373,6 @@ await client.linkedAccounts.getLinkedAccount("string", {
 <dd>
 
 **linkedAccountId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Keet.GetLinkedAccountRequest`
 
 </dd>
 </dl>
@@ -333,7 +391,7 @@ await client.linkedAccounts.getLinkedAccount("string", {
 </dl>
 </details>
 
-<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">deleteLinkedAccount</a>(linkedAccountId, { ...params }) -> Keet.DeleteLinkedAccountResponse</code></summary>
+<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">deleteLinkedAccount</a>(linkedAccountId) -> Keet.DeleteLinkedAccountResponse</code></summary>
 <dl>
 <dd>
 
@@ -346,9 +404,7 @@ await client.linkedAccounts.getLinkedAccount("string", {
 <dd>
 
 ```typescript
-await client.linkedAccounts.deleteLinkedAccount("string", {
-    accountToken: "string",
-});
+await client.linkedAccounts.deleteLinkedAccount("string");
 ```
 
 </dd>
@@ -365,14 +421,6 @@ await client.linkedAccounts.deleteLinkedAccount("string", {
 <dd>
 
 **linkedAccountId:** `string`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Keet.DeleteLinkedAccountRequest`
 
 </dd>
 </dl>

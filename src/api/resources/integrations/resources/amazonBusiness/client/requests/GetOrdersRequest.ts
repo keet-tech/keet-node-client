@@ -5,7 +5,6 @@
 /**
  * @example
  *     {
- *         xAccountToken: "string",
  *         page: 1,
  *         limit: 1
  *     }
@@ -13,8 +12,4 @@
 export interface GetOrdersRequest {
     page?: number;
     limit?: number;
-    /**
-     * The account token that is associated with the end user linked to this account
-     */
-    xAccountToken: string;
 }

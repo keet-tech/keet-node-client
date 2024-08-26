@@ -4,11 +4,14 @@
 
 import * as core from "./core";
 import { Integrations } from "./api/resources/integrations/client/Client";
+import { Link } from "./api/resources/link/client/Client";
 import { LinkedAccounts } from "./api/resources/linkedAccounts/client/Client";
 
 export declare namespace KeetClient {
     interface Options {
         token: core.Supplier<core.BearerToken>;
+        /** Override the X-Account-Token header */
+        accountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -18,6 +21,8 @@ export declare namespace KeetClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the X-Account-Token header */
+        accountToken?: string | undefined;
     }
 }
 
@@ -28,6 +33,12 @@ export class KeetClient {
 
     public get integrations(): Integrations {
         return (this._integrations ??= new Integrations(this._options));
+    }
+
+    protected _link: Link | undefined;
+
+    public get link(): Link {
+        return (this._link ??= new Link(this._options));
     }
 
     protected _linkedAccounts: LinkedAccounts | undefined;

@@ -12,6 +12,8 @@ import * as errors from "../../../../../../errors/index";
 export declare namespace AmazonBusiness {
     interface Options {
         token: core.Supplier<core.BearerToken>;
+        /** Override the X-Account-Token header */
+        accountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -21,6 +23,8 @@ export declare namespace AmazonBusiness {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the X-Account-Token header */
+        accountToken?: string | undefined;
     }
 }
 
@@ -28,7 +32,8 @@ export class AmazonBusiness {
     constructor(protected readonly _options: AmazonBusiness.Options) {}
 
     /**
-     * @param {Keet.integrations.CreateAmazonBusinessSession} request
+     * Create a Venmo session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+     *
      * @param {AmazonBusiness.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -38,26 +43,25 @@ export class AmazonBusiness {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.amazonBusiness.createSession({
-     *         xAccountToken: "string"
-     *     })
+     *     await client.integrations.amazonBusiness.createSession()
      */
     public async createSession(
-        request: Keet.integrations.CreateAmazonBusinessSession,
         requestOptions?: AmazonBusiness.RequestOptions
     ): Promise<Keet.common.CreateSessionResponse> {
-        const { xAccountToken } = request;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/amazon-business/session"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             requestType: "json",
@@ -156,16 +160,15 @@ export class AmazonBusiness {
      *
      * @example
      *     await client.integrations.amazonBusiness.getOrders({
-     *         xAccountToken: "string",
      *         page: 1,
      *         limit: 1
      *     })
      */
     public async getOrders(
-        request: Keet.integrations.GetOrdersRequest,
+        request: Keet.integrations.GetOrdersRequest = {},
         requestOptions?: AmazonBusiness.RequestOptions
     ): Promise<Keet.integrations.GetOrdersResponse> {
-        const { page, limit, xAccountToken } = request;
+        const { page, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (page != null) {
             _queryParams["page"] = page.toString();
@@ -180,12 +183,15 @@ export class AmazonBusiness {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             queryParameters: _queryParams,

@@ -5,16 +5,11 @@
 /**
  * @example
  *     {
- *         xAccountToken: "string",
  *         amount: 1,
  *         description: "string"
  *     }
  */
 export interface MakePaymentRequest {
-    /**
-     * The account token that is associated with the end user linked to this account
-     */
-    xAccountToken: string;
     amount: number;
     description: string;
 }

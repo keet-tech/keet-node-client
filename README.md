@@ -22,10 +22,8 @@ Instantiate and use the client with the following:
 ```typescript
 import { KeetClient } from "";
 
-const client = new KeetClient({ token: "YOUR_TOKEN" });
-await client.integrations.amazonBusiness.createSession({
-    xAccountToken: "string",
-});
+const client = new KeetClient({ token: "YOUR_TOKEN", accountToken: "YOUR_ACCOUNT_TOKEN" });
+await client.integrations.amazonBusiness.createSession();
 ```
 
 ## Request And Response Types
@@ -36,7 +34,7 @@ following namespace:
 ```typescript
 import { Keet } from "Keet";
 
-const request: Keet.CreateAmazonBusinessSession = {
+const request: Keet.GetOrdersRequest = {
     ...
 };
 ```

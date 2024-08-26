@@ -7,5 +7,5 @@ import * as Keet from "../../../../../index";
 export interface GetOrdersResponse {
     status: Keet.common.ResponseStatus;
     orders: Keet.integrations.Order[];
-    nextPage?: number;
+    pageInfo: Keet.integrations.PageInfo;
 }

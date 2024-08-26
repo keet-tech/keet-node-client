@@ -12,6 +12,8 @@ import * as errors from "../../../../errors/index";
 export declare namespace LinkedAccounts {
     interface Options {
         token: core.Supplier<core.BearerToken>;
+        /** Override the X-Account-Token header */
+        accountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -21,6 +23,8 @@ export declare namespace LinkedAccounts {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the X-Account-Token header */
+        accountToken?: string | undefined;
     }
 }
 
@@ -29,7 +33,6 @@ export class LinkedAccounts {
 
     /**
      * @param {string} linkedAccountId
-     * @param {Keet.GetLinkedAccountRequest} request
      * @param {LinkedAccounts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -39,16 +42,12 @@ export class LinkedAccounts {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.linkedAccounts.getLinkedAccount("string", {
-     *         xAccountToken: "string"
-     *     })
+     *     await client.linkedAccounts.getLinkedAccount("string")
      */
     public async getLinkedAccount(
         linkedAccountId: string,
-        request: Keet.GetLinkedAccountRequest,
         requestOptions?: LinkedAccounts.RequestOptions
     ): Promise<Keet.GetLinkedAccountResponse> {
-        const { xAccountToken } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 environments.KeetEnvironment.Production,
@@ -57,12 +56,15 @@ export class LinkedAccounts {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             requestType: "json",
@@ -151,7 +153,6 @@ export class LinkedAccounts {
 
     /**
      * @param {string} linkedAccountId
-     * @param {Keet.DeleteLinkedAccountRequest} request
      * @param {LinkedAccounts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -161,16 +162,12 @@ export class LinkedAccounts {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.linkedAccounts.deleteLinkedAccount("string", {
-     *         accountToken: "string"
-     *     })
+     *     await client.linkedAccounts.deleteLinkedAccount("string")
      */
     public async deleteLinkedAccount(
         linkedAccountId: string,
-        request: Keet.DeleteLinkedAccountRequest,
         requestOptions?: LinkedAccounts.RequestOptions
     ): Promise<Keet.DeleteLinkedAccountResponse> {
-        const { accountToken } = request;
         const _response = await core.fetcher({
             url: urlJoin(
                 environments.KeetEnvironment.Production,
@@ -179,12 +176,15 @@ export class LinkedAccounts {
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Account-Token": accountToken,
             },
             contentType: "application/json",
             requestType: "json",

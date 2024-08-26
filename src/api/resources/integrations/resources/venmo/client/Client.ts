@@ -12,6 +12,8 @@ import * as errors from "../../../../../../errors/index";
 export declare namespace Venmo {
     interface Options {
         token: core.Supplier<core.BearerToken>;
+        /** Override the X-Account-Token header */
+        accountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -21,6 +23,8 @@ export declare namespace Venmo {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the X-Account-Token header */
+        accountToken?: string | undefined;
     }
 }
 
@@ -28,7 +32,8 @@ export class Venmo {
     constructor(protected readonly _options: Venmo.Options) {}
 
     /**
-     * @param {Keet.integrations.CreateVenmoSession} request
+     * Create a Venmo session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+     *
      * @param {Venmo.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -38,26 +43,23 @@ export class Venmo {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.venmo.createSession({
-     *         xAccountToken: "string"
-     *     })
+     *     await client.integrations.venmo.createSession()
      */
-    public async createSession(
-        request: Keet.integrations.CreateVenmoSession,
-        requestOptions?: Venmo.RequestOptions
-    ): Promise<Keet.common.CreateSessionResponse> {
-        const { xAccountToken } = request;
+    public async createSession(requestOptions?: Venmo.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/venmo/session"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             requestType: "json",
@@ -158,7 +160,6 @@ export class Venmo {
      *
      * @example
      *     await client.integrations.venmo.makePayment({
-     *         xAccountToken: "string",
      *         amount: 1,
      *         description: "string"
      *     })
@@ -167,22 +168,24 @@ export class Venmo {
         request: Keet.integrations.MakePaymentRequest,
         requestOptions?: Venmo.RequestOptions
     ): Promise<void> {
-        const { xAccountToken, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/venmo/payment"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.integrations.MakePaymentRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.integrations.MakePaymentRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -262,7 +265,6 @@ export class Venmo {
     }
 
     /**
-     * @param {Keet.integrations.GetTransactionsRequest} request
      * @param {Venmo.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -272,26 +274,25 @@ export class Venmo {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.venmo.getTransactions({
-     *         xAccountToken: "string"
-     *     })
+     *     await client.integrations.venmo.getTransactions()
      */
     public async getTransactions(
-        request: Keet.integrations.GetTransactionsRequest,
         requestOptions?: Venmo.RequestOptions
     ): Promise<Keet.integrations.GetTransactionsResponse> {
-        const { xAccountToken } = request;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/venmo/transactions"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
                 "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             requestType: "json",

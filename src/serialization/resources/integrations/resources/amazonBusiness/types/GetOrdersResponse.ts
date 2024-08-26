@@ -7,6 +7,7 @@ import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { ResponseStatus } from "../../../../common/resources/types/types/ResponseStatus";
 import { Order } from "./Order";
+import { PageInfo } from "./PageInfo";
 
 export const GetOrdersResponse: core.serialization.ObjectSchema<
     serializers.integrations.GetOrdersResponse.Raw,
@@ -14,13 +15,13 @@ export const GetOrdersResponse: core.serialization.ObjectSchema<
 > = core.serialization.object({
     status: ResponseStatus,
     orders: core.serialization.list(Order),
-    nextPage: core.serialization.number().optional(),
+    pageInfo: PageInfo,
 });
 
 export declare namespace GetOrdersResponse {
     interface Raw {
         status: ResponseStatus.Raw;
         orders: Order.Raw[];
-        nextPage?: number | null;
+        pageInfo: PageInfo.Raw;
     }
 }

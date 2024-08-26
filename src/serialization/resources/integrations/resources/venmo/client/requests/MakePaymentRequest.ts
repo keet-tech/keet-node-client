@@ -8,7 +8,7 @@ import * as core from "../../../../../../../core";
 
 export const MakePaymentRequest: core.serialization.Schema<
     serializers.integrations.MakePaymentRequest.Raw,
-    Omit<Keet.integrations.MakePaymentRequest, "xAccountToken">
+    Keet.integrations.MakePaymentRequest
 > = core.serialization.object({
     amount: core.serialization.number(),
     description: core.serialization.string(),
