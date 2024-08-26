@@ -65,8 +65,9 @@ export class Link {
                         ? await core.Supplier.get(this._options.accountToken)
                         : undefined,
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "0.0.177",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "0.0.1",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
