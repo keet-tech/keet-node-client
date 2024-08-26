@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
-export const BaseError: core.serialization.ObjectSchema<serializers.common.BaseError.Raw, KeetApi.common.BaseError> =
+export const BaseError: core.serialization.ObjectSchema<serializers.common.BaseError.Raw, Keet.common.BaseError> =
     core.serialization.object({
         error: core.serialization.string(),
     });

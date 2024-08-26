@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { Story } from "./Story";
 
 export const StoryResponse: core.serialization.ObjectSchema<
     serializers.integrations.StoryResponse.Raw,
-    KeetApi.integrations.StoryResponse
+    Keet.integrations.StoryResponse
 > = core.serialization.object({
     nextId: core.serialization.string(),
     stories: core.serialization.list(Story),

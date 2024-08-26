@@ -3,14 +3,14 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { ResponseStatus } from "../../../../common/resources/types/types/ResponseStatus";
 import { StoryResponse } from "./StoryResponse";
 
 export const GetTransactionsResponse: core.serialization.ObjectSchema<
     serializers.integrations.GetTransactionsResponse.Raw,
-    KeetApi.integrations.GetTransactionsResponse
+    Keet.integrations.GetTransactionsResponse
 > = core.serialization.object({
     status: ResponseStatus,
     transactions: StoryResponse,

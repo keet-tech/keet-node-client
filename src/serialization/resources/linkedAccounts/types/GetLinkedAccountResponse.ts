@@ -3,14 +3,14 @@
  */
 
 import * as serializers from "../../../index";
-import * as KeetApi from "../../../../api/index";
+import * as Keet from "../../../../api/index";
 import * as core from "../../../../core";
 import { ResponseStatus } from "../../common/resources/types/types/ResponseStatus";
 import { LinkedAccount } from "../../common/resources/types/types/LinkedAccount";
 
 export const GetLinkedAccountResponse: core.serialization.ObjectSchema<
     serializers.GetLinkedAccountResponse.Raw,
-    KeetApi.GetLinkedAccountResponse
+    Keet.GetLinkedAccountResponse
 > = core.serialization.object({
     status: ResponseStatus,
     linkedAccount: LinkedAccount,

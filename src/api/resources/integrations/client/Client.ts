@@ -15,7 +15,7 @@ import { X } from "../resources/x/client/Client";
 
 export declare namespace Integrations {
     interface Options {
-        environment?: core.Supplier<environments.KeetApiEnvironment | string>;
+        environment?: core.Supplier<environments.KeetEnvironment | string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
         accountToken?: core.Supplier<string | undefined>;

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const OfferedIntegrations: core.serialization.Schema<
     serializers.common.OfferedIntegrations.Raw,
-    KeetApi.common.OfferedIntegrations
+    Keet.common.OfferedIntegrations
 > = core.serialization.enum_(["Venmo", "LinkedIn", "Amazon Business", "Amazon", "Uber", "Instagram", "X", "DoorDash"]);
 
 export declare namespace OfferedIntegrations {

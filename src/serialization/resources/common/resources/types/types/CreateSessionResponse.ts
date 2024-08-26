@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { ResponseStatus } from "./ResponseStatus";
 
 export const CreateSessionResponse: core.serialization.ObjectSchema<
     serializers.common.CreateSessionResponse.Raw,
-    KeetApi.common.CreateSessionResponse
+    Keet.common.CreateSessionResponse
 > = core.serialization.object({
     status: ResponseStatus,
     wsUrl: core.serialization.string(),

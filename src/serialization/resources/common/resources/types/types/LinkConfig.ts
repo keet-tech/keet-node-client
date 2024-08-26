@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { OfferedIntegrations } from "./OfferedIntegrations";
 
-export const LinkConfig: core.serialization.ObjectSchema<serializers.common.LinkConfig.Raw, KeetApi.common.LinkConfig> =
+export const LinkConfig: core.serialization.ObjectSchema<serializers.common.LinkConfig.Raw, Keet.common.LinkConfig> =
     core.serialization.object({
         endUserId: core.serialization.string(),
         integration: OfferedIntegrations,

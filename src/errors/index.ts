@@ -1,2 +1,2 @@
-export { KeetApiError } from "./KeetApiError";
-export { KeetApiTimeoutError } from "./KeetApiTimeoutError";
+export { KeetError } from "./KeetError";
+export { KeetTimeoutError } from "./KeetTimeoutError";

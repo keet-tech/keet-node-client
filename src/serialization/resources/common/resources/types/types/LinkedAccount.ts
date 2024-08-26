@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { Integration } from "./Integration";
 
 export const LinkedAccount: core.serialization.ObjectSchema<
     serializers.common.LinkedAccount.Raw,
-    KeetApi.common.LinkedAccount
+    Keet.common.LinkedAccount
 > = core.serialization.object({
     endUserId: core.serialization.string(),
     createdAt: core.serialization.date(),

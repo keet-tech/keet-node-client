@@ -3,16 +3,14 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
-export const Payload: core.serialization.ObjectSchema<
-    serializers.integrations.Payload.Raw,
-    KeetApi.integrations.Payload
-> = core.serialization.object({
-    action: core.serialization.string(),
-    subType: core.serialization.string(),
-});
+export const Payload: core.serialization.ObjectSchema<serializers.integrations.Payload.Raw, Keet.integrations.Payload> =
+    core.serialization.object({
+        action: core.serialization.string(),
+        subType: core.serialization.string(),
+    });
 
 export declare namespace Payload {
     interface Raw {

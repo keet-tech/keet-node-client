@@ -3,10 +3,10 @@
  */
 
 import * as errors from "../../../../../../errors/index";
-import * as KeetApi from "../../../../../index";
+import * as Keet from "../../../../../index";
 
-export class BadRequestError extends errors.KeetApiError {
-    constructor(body: KeetApi.common.BaseError) {
+export class BadRequestError extends errors.KeetError {
+    constructor(body: Keet.common.BaseError) {
         super({
             message: "BadRequestError",
             statusCode: 400,

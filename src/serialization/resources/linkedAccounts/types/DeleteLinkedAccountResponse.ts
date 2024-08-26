@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../../index";
-import * as KeetApi from "../../../../api/index";
+import * as Keet from "../../../../api/index";
 import * as core from "../../../../core";
 import { ResponseStatus } from "../../common/resources/types/types/ResponseStatus";
 
 export const DeleteLinkedAccountResponse: core.serialization.ObjectSchema<
     serializers.DeleteLinkedAccountResponse.Raw,
-    KeetApi.DeleteLinkedAccountResponse
+    Keet.DeleteLinkedAccountResponse
 > = core.serialization.object({
     status: ResponseStatus,
 });

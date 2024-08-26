@@ -3,18 +3,16 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
-export const Address: core.serialization.ObjectSchema<
-    serializers.integrations.Address.Raw,
-    KeetApi.integrations.Address
-> = core.serialization.object({
-    name: core.serialization.string().optional(),
-    addressLine1: core.serialization.string().optional(),
-    addressLine2: core.serialization.string().optional(),
-    country: core.serialization.string().optional(),
-});
+export const Address: core.serialization.ObjectSchema<serializers.integrations.Address.Raw, Keet.integrations.Address> =
+    core.serialization.object({
+        name: core.serialization.string().optional(),
+        addressLine1: core.serialization.string().optional(),
+        addressLine2: core.serialization.string().optional(),
+        country: core.serialization.string().optional(),
+    });
 
 export declare namespace Address {
     interface Raw {

@@ -8,9 +8,9 @@ import { Integrations } from "./api/resources/integrations/client/Client";
 import { Link } from "./api/resources/link/client/Client";
 import { LinkedAccounts } from "./api/resources/linkedAccounts/client/Client";
 
-export declare namespace KeetApiClient {
+export declare namespace KeetClient {
     interface Options {
-        environment?: core.Supplier<environments.KeetApiEnvironment | string>;
+        environment?: core.Supplier<environments.KeetEnvironment | string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
         accountToken?: core.Supplier<string | undefined>;
@@ -28,8 +28,8 @@ export declare namespace KeetApiClient {
     }
 }
 
-export class KeetApiClient {
-    constructor(protected readonly _options: KeetApiClient.Options) {}
+export class KeetClient {
+    constructor(protected readonly _options: KeetClient.Options) {}
 
     protected _integrations: Integrations | undefined;
 

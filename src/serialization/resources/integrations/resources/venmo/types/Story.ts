@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { Note } from "./Note";
 import { Title } from "./Title";
@@ -11,7 +11,7 @@ import { Mentions } from "./Mentions";
 import { Likes } from "./Likes";
 import { Comments } from "./Comments";
 
-export const Story: core.serialization.ObjectSchema<serializers.integrations.Story.Raw, KeetApi.integrations.Story> =
+export const Story: core.serialization.ObjectSchema<serializers.integrations.Story.Raw, Keet.integrations.Story> =
     core.serialization.object({
         amount: core.serialization.string(),
         avatar: core.serialization.string(),

@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as KeetApi from "../../../../../index";
+import * as Keet from "../../../../../index";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Venmo {
     interface Options {
-        environment?: core.Supplier<environments.KeetApiEnvironment | string>;
+        environment?: core.Supplier<environments.KeetEnvironment | string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
         accountToken?: core.Supplier<string | undefined>;
@@ -37,19 +37,19 @@ export class Venmo {
      *
      * @param {Venmo.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link KeetApi.common.UnAuthorizedError}
-     * @throws {@link KeetApi.common.InternalServerError}
-     * @throws {@link KeetApi.common.NotFoundError}
-     * @throws {@link KeetApi.common.BadRequestError}
-     * @throws {@link KeetApi.common.NotImplementedError}
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
      *     await client.integrations.venmo.createSession()
      */
-    public async createSession(requestOptions?: Venmo.RequestOptions): Promise<KeetApi.common.CreateSessionResponse> {
+    public async createSession(requestOptions?: Venmo.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.KeetApiEnvironment.Production,
+                (await core.Supplier.get(this._options.environment)) ?? environments.KeetEnvironment.Production,
                 "/v1/venmo/session"
             ),
             method: "POST",
@@ -61,8 +61,8 @@ export class Venmo {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.2-beta",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.2-beta",
+                "X-Fern-SDK-Version": "0.0.3-alpha",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.3-alpha",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -84,7 +84,7 @@ export class Venmo {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new KeetApi.common.UnAuthorizedError(
+                    throw new Keet.common.UnAuthorizedError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -93,7 +93,7 @@ export class Venmo {
                         })
                     );
                 case 500:
-                    throw new KeetApi.common.InternalServerError(
+                    throw new Keet.common.InternalServerError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -102,7 +102,7 @@ export class Venmo {
                         })
                     );
                 case 404:
-                    throw new KeetApi.common.NotFoundError(
+                    throw new Keet.common.NotFoundError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -111,7 +111,7 @@ export class Venmo {
                         })
                     );
                 case 400:
-                    throw new KeetApi.common.BadRequestError(
+                    throw new Keet.common.BadRequestError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -120,7 +120,7 @@ export class Venmo {
                         })
                     );
                 case 500:
-                    throw new KeetApi.common.NotImplementedError(
+                    throw new Keet.common.NotImplementedError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -129,7 +129,7 @@ export class Venmo {
                         })
                     );
                 default:
-                    throw new errors.KeetApiError({
+                    throw new errors.KeetError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -138,14 +138,14 @@ export class Venmo {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.KeetApiError({
+                throw new errors.KeetError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetApiTimeoutError();
+                throw new errors.KeetTimeoutError();
             case "unknown":
-                throw new errors.KeetApiError({
+                throw new errors.KeetError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -154,21 +154,21 @@ export class Venmo {
     /**
      * @param {Venmo.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link KeetApi.common.UnAuthorizedError}
-     * @throws {@link KeetApi.common.InternalServerError}
-     * @throws {@link KeetApi.common.NotFoundError}
-     * @throws {@link KeetApi.common.BadRequestError}
-     * @throws {@link KeetApi.common.NotImplementedError}
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
      *     await client.integrations.venmo.getTransactions()
      */
     public async getTransactions(
         requestOptions?: Venmo.RequestOptions
-    ): Promise<KeetApi.integrations.GetTransactionsResponse> {
+    ): Promise<Keet.integrations.GetTransactionsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.KeetApiEnvironment.Production,
+                (await core.Supplier.get(this._options.environment)) ?? environments.KeetEnvironment.Production,
                 "/v1/venmo/transactions"
             ),
             method: "GET",
@@ -180,8 +180,8 @@ export class Venmo {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.2-beta",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.2-beta",
+                "X-Fern-SDK-Version": "0.0.3-alpha",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.3-alpha",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -203,7 +203,7 @@ export class Venmo {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new KeetApi.common.UnAuthorizedError(
+                    throw new Keet.common.UnAuthorizedError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -212,7 +212,7 @@ export class Venmo {
                         })
                     );
                 case 500:
-                    throw new KeetApi.common.InternalServerError(
+                    throw new Keet.common.InternalServerError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -221,7 +221,7 @@ export class Venmo {
                         })
                     );
                 case 404:
-                    throw new KeetApi.common.NotFoundError(
+                    throw new Keet.common.NotFoundError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -230,7 +230,7 @@ export class Venmo {
                         })
                     );
                 case 400:
-                    throw new KeetApi.common.BadRequestError(
+                    throw new Keet.common.BadRequestError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -239,7 +239,7 @@ export class Venmo {
                         })
                     );
                 case 500:
-                    throw new KeetApi.common.NotImplementedError(
+                    throw new Keet.common.NotImplementedError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -248,7 +248,7 @@ export class Venmo {
                         })
                     );
                 default:
-                    throw new errors.KeetApiError({
+                    throw new errors.KeetError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -257,14 +257,14 @@ export class Venmo {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.KeetApiError({
+                throw new errors.KeetError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetApiTimeoutError();
+                throw new errors.KeetTimeoutError();
             case "unknown":
-                throw new errors.KeetApiError({
+                throw new errors.KeetError({
                     message: _response.error.errorMessage,
                 });
         }

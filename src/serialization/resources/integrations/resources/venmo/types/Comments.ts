@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as KeetApi from "../../../../../../api/index";
+import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const Comments: core.serialization.ObjectSchema<
     serializers.integrations.Comments.Raw,
-    KeetApi.integrations.Comments
+    Keet.integrations.Comments
 > = core.serialization.object({
     count: core.serialization.number(),
     userCommentedOrLiked: core.serialization.boolean(),

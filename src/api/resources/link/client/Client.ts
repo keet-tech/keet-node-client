@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as KeetApi from "../../../index";
+import * as Keet from "../../../index";
 import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Link {
     interface Options {
-        environment?: core.Supplier<environments.KeetApiEnvironment | string>;
+        environment?: core.Supplier<environments.KeetEnvironment | string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
         accountToken?: core.Supplier<string | undefined>;
@@ -35,30 +35,30 @@ export class Link {
     /**
      * Create a link token that can be used to link accounts
      *
-     * @param {KeetApi.CreateLinkRequest} request
+     * @param {Keet.CreateLinkRequest} request
      * @param {Link.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link KeetApi.common.UnAuthorizedError}
-     * @throws {@link KeetApi.common.InternalServerError}
-     * @throws {@link KeetApi.common.NotFoundError}
-     * @throws {@link KeetApi.common.BadRequestError}
-     * @throws {@link KeetApi.common.NotImplementedError}
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
      *     await client.link.createLinkToken({
      *         linkConfig: {
      *             endUserId: "<userId>",
-     *             integration: KeetApi.common.OfferedIntegrations.Instagram
+     *             integration: Keet.common.OfferedIntegrations.Instagram
      *         }
      *     })
      */
     public async createLinkToken(
-        request: KeetApi.CreateLinkRequest,
+        request: Keet.CreateLinkRequest,
         requestOptions?: Link.RequestOptions
-    ): Promise<KeetApi.CreateLinkResponse> {
+    ): Promise<Keet.CreateLinkResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.KeetApiEnvironment.Production,
+                (await core.Supplier.get(this._options.environment)) ?? environments.KeetEnvironment.Production,
                 "/v1/link/token"
             ),
             method: "POST",
@@ -70,8 +70,8 @@ export class Link {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.2-beta",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.2-beta",
+                "X-Fern-SDK-Version": "0.0.3-alpha",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.3-alpha",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -94,7 +94,7 @@ export class Link {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new KeetApi.common.UnAuthorizedError(
+                    throw new Keet.common.UnAuthorizedError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -103,7 +103,7 @@ export class Link {
                         })
                     );
                 case 500:
-                    throw new KeetApi.common.InternalServerError(
+                    throw new Keet.common.InternalServerError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -112,7 +112,7 @@ export class Link {
                         })
                     );
                 case 404:
-                    throw new KeetApi.common.NotFoundError(
+                    throw new Keet.common.NotFoundError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -121,7 +121,7 @@ export class Link {
                         })
                     );
                 case 400:
-                    throw new KeetApi.common.BadRequestError(
+                    throw new Keet.common.BadRequestError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -130,7 +130,7 @@ export class Link {
                         })
                     );
                 case 500:
-                    throw new KeetApi.common.NotImplementedError(
+                    throw new Keet.common.NotImplementedError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -139,7 +139,7 @@ export class Link {
                         })
                     );
                 default:
-                    throw new errors.KeetApiError({
+                    throw new errors.KeetError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -148,14 +148,14 @@ export class Link {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.KeetApiError({
+                throw new errors.KeetError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetApiTimeoutError();
+                throw new errors.KeetTimeoutError();
             case "unknown":
-                throw new errors.KeetApiError({
+                throw new errors.KeetError({
                     message: _response.error.errorMessage,
                 });
         }
