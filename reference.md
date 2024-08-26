@@ -2,7 +2,7 @@
 
 ## Integrations Amazon
 
-<details><summary><code>client.integrations.amazon.<a href="/src/api/resources/integrations/resources/amazon/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.amazon.<a href="/src/api/resources/integrations/resources/amazon/client/Client.ts">createSession</a>() -> KeetApi.CreateSessionResponse</code></summary>
 <dl>
 <dd>
 
@@ -59,7 +59,7 @@ await client.integrations.amazon.createSession();
 
 ## Integrations AmazonBusiness
 
-<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">createSession</a>() -> KeetApi.CreateSessionResponse</code></summary>
 <dl>
 <dd>
 
@@ -114,7 +114,7 @@ await client.integrations.amazonBusiness.createSession();
 </dl>
 </details>
 
-<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">getOrders</a>({ ...params }) -> Keet.GetOrdersResponse</code></summary>
+<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">getOrders</a>({ ...params }) -> KeetApi.GetOrdersResponse</code></summary>
 <dl>
 <dd>
 
@@ -146,7 +146,7 @@ await client.integrations.amazonBusiness.getOrders({
 <dl>
 <dd>
 
-**request:** `Keet.integrations.GetOrdersRequest`
+**request:** `KeetApi.integrations.GetOrdersRequest`
 
 </dd>
 </dl>
@@ -167,7 +167,7 @@ await client.integrations.amazonBusiness.getOrders({
 
 ## Integrations DoorDash
 
-<details><summary><code>client.integrations.doorDash.<a href="/src/api/resources/integrations/resources/doorDash/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.doorDash.<a href="/src/api/resources/integrations/resources/doorDash/client/Client.ts">createSession</a>() -> KeetApi.CreateSessionResponse</code></summary>
 <dl>
 <dd>
 
@@ -224,7 +224,7 @@ await client.integrations.doorDash.createSession();
 
 ## Integrations Instagram
 
-<details><summary><code>client.integrations.instagram.<a href="/src/api/resources/integrations/resources/instagram/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.instagram.<a href="/src/api/resources/integrations/resources/instagram/client/Client.ts">createSession</a>() -> KeetApi.CreateSessionResponse</code></summary>
 <dl>
 <dd>
 
@@ -281,7 +281,7 @@ await client.integrations.instagram.createSession();
 
 ## Integrations Linkedin
 
-<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">createSession</a>() -> KeetApi.CreateSessionResponse</code></summary>
 <dl>
 <dd>
 
@@ -338,7 +338,7 @@ await client.integrations.linkedin.createSession();
 
 ## Integrations Uber
 
-<details><summary><code>client.integrations.uber.<a href="/src/api/resources/integrations/resources/uber/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.uber.<a href="/src/api/resources/integrations/resources/uber/client/Client.ts">createSession</a>() -> KeetApi.CreateSessionResponse</code></summary>
 <dl>
 <dd>
 
@@ -395,7 +395,7 @@ await client.integrations.uber.createSession();
 
 ## Integrations Venmo
 
-<details><summary><code>client.integrations.venmo.<a href="/src/api/resources/integrations/resources/venmo/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.venmo.<a href="/src/api/resources/integrations/resources/venmo/client/Client.ts">createSession</a>() -> KeetApi.CreateSessionResponse</code></summary>
 <dl>
 <dd>
 
@@ -450,7 +450,7 @@ await client.integrations.venmo.createSession();
 </dl>
 </details>
 
-<details><summary><code>client.integrations.venmo.<a href="/src/api/resources/integrations/resources/venmo/client/Client.ts">getTransactions</a>() -> Keet.GetTransactionsResponse</code></summary>
+<details><summary><code>client.integrations.venmo.<a href="/src/api/resources/integrations/resources/venmo/client/Client.ts">getTransactions</a>() -> KeetApi.GetTransactionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -492,7 +492,7 @@ await client.integrations.venmo.getTransactions();
 
 ## Integrations X
 
-<details><summary><code>client.integrations.x.<a href="/src/api/resources/integrations/resources/x/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<details><summary><code>client.integrations.x.<a href="/src/api/resources/integrations/resources/x/client/Client.ts">createSession</a>() -> KeetApi.CreateSessionResponse</code></summary>
 <dl>
 <dd>
 
@@ -549,7 +549,7 @@ await client.integrations.x.createSession();
 
 ## Link
 
-<details><summary><code>client.link.<a href="/src/api/resources/link/client/Client.ts">createLinkToken</a>({ ...params }) -> Keet.CreateLinkResponse</code></summary>
+<details><summary><code>client.link.<a href="/src/api/resources/link/client/Client.ts">createLinkToken</a>({ ...params }) -> KeetApi.CreateLinkResponse</code></summary>
 <dl>
 <dd>
 
@@ -580,7 +580,7 @@ Create a link token that can be used to link accounts
 await client.link.createLinkToken({
     linkConfig: {
         endUserId: "<userId>",
-        integration: Keet.OfferedIntegrations.Instagram,
+        integration: KeetApi.OfferedIntegrations.Instagram,
     },
 });
 ```
@@ -598,7 +598,7 @@ await client.link.createLinkToken({
 <dl>
 <dd>
 
-**request:** `Keet.CreateLinkRequest`
+**request:** `KeetApi.CreateLinkRequest`
 
 </dd>
 </dl>
@@ -619,7 +619,7 @@ await client.link.createLinkToken({
 
 ## LinkedAccounts
 
-<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">getLinkedAccount</a>(linkedAccountId) -> Keet.GetLinkedAccountResponse</code></summary>
+<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">getLinkedAccount</a>(linkedAccountId) -> KeetApi.GetLinkedAccountResponse</code></summary>
 <dl>
 <dd>
 
@@ -667,7 +667,7 @@ await client.linkedAccounts.getLinkedAccount("string");
 </dl>
 </details>
 
-<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">deleteLinkedAccount</a>(linkedAccountId) -> Keet.DeleteLinkedAccountResponse</code></summary>
+<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">deleteLinkedAccount</a>(linkedAccountId) -> KeetApi.DeleteLinkedAccountResponse</code></summary>
 <dl>
 <dd>
 

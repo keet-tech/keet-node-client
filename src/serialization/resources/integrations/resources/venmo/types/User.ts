@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as Keet from "../../../../../../api/index";
+import * as KeetApi from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
-export const User: core.serialization.ObjectSchema<serializers.integrations.User.Raw, Keet.integrations.User> =
+export const User: core.serialization.ObjectSchema<serializers.integrations.User.Raw, KeetApi.integrations.User> =
     core.serialization.object({
         id: core.serialization.string(),
         displayName: core.serialization.string(),

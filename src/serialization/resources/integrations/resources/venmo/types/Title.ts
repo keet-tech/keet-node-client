@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as Keet from "../../../../../../api/index";
+import * as KeetApi from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { Payload } from "./Payload";
 import { User } from "./User";
 
-export const Title: core.serialization.ObjectSchema<serializers.integrations.Title.Raw, Keet.integrations.Title> =
+export const Title: core.serialization.ObjectSchema<serializers.integrations.Title.Raw, KeetApi.integrations.Title> =
     core.serialization.object({
         titleType: core.serialization.string(),
         payload: Payload,

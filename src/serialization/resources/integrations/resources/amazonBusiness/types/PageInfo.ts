@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as Keet from "../../../../../../api/index";
+import * as KeetApi from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const PageInfo: core.serialization.ObjectSchema<
     serializers.integrations.PageInfo.Raw,
-    Keet.integrations.PageInfo
+    KeetApi.integrations.PageInfo
 > = core.serialization.object({
     total: core.serialization.number(),
     next: core.serialization.number().optional(),

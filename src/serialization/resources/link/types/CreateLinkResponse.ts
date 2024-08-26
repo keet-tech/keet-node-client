@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../../index";
-import * as Keet from "../../../../api/index";
+import * as KeetApi from "../../../../api/index";
 import * as core from "../../../../core";
 import { ResponseStatus } from "../../common/resources/types/types/ResponseStatus";
 
 export const CreateLinkResponse: core.serialization.ObjectSchema<
     serializers.CreateLinkResponse.Raw,
-    Keet.CreateLinkResponse
+    KeetApi.CreateLinkResponse
 > = core.serialization.object({
     status: ResponseStatus,
     linkToken: core.serialization.string(),

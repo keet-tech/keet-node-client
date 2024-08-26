@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as Keet from "../../../../../../api/index";
+import * as KeetApi from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { Address } from "./Address";
 
-export const Order: core.serialization.ObjectSchema<serializers.integrations.Order.Raw, Keet.integrations.Order> =
+export const Order: core.serialization.ObjectSchema<serializers.integrations.Order.Raw, KeetApi.integrations.Order> =
     core.serialization.object({
         date: core.serialization.date(),
         total: core.serialization.string(),

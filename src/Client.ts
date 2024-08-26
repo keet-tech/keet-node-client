@@ -7,7 +7,7 @@ import { Integrations } from "./api/resources/integrations/client/Client";
 import { Link } from "./api/resources/link/client/Client";
 import { LinkedAccounts } from "./api/resources/linkedAccounts/client/Client";
 
-export declare namespace KeetClient {
+export declare namespace KeetApiClient {
     interface Options {
         environment: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
@@ -27,8 +27,8 @@ export declare namespace KeetClient {
     }
 }
 
-export class KeetClient {
-    constructor(protected readonly _options: KeetClient.Options) {}
+export class KeetApiClient {
+    constructor(protected readonly _options: KeetApiClient.Options) {}
 
     protected _integrations: Integrations | undefined;
 

@@ -3,7 +3,7 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as Keet from "../../../../../../api/index";
+import * as KeetApi from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { ResponseStatus } from "../../../../common/resources/types/types/ResponseStatus";
 import { Order } from "./Order";
@@ -11,7 +11,7 @@ import { PageInfo } from "./PageInfo";
 
 export const GetOrdersResponse: core.serialization.ObjectSchema<
     serializers.integrations.GetOrdersResponse.Raw,
-    Keet.integrations.GetOrdersResponse
+    KeetApi.integrations.GetOrdersResponse
 > = core.serialization.object({
     status: ResponseStatus,
     orders: core.serialization.list(Order),

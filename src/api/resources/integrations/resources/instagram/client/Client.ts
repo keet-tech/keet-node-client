@@ -3,7 +3,7 @@
  */
 
 import * as core from "../../../../../../core";
-import * as Keet from "../../../../../index";
+import * as KeetApi from "../../../../../index";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
@@ -36,16 +36,18 @@ export class Instagram {
      *
      * @param {Instagram.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Keet.common.UnAuthorizedError}
-     * @throws {@link Keet.common.InternalServerError}
-     * @throws {@link Keet.common.NotFoundError}
-     * @throws {@link Keet.common.BadRequestError}
-     * @throws {@link Keet.common.NotImplementedError}
+     * @throws {@link KeetApi.common.UnAuthorizedError}
+     * @throws {@link KeetApi.common.InternalServerError}
+     * @throws {@link KeetApi.common.NotFoundError}
+     * @throws {@link KeetApi.common.BadRequestError}
+     * @throws {@link KeetApi.common.NotImplementedError}
      *
      * @example
      *     await client.integrations.instagram.createSession()
      */
-    public async createSession(requestOptions?: Instagram.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
+    public async createSession(
+        requestOptions?: Instagram.RequestOptions
+    ): Promise<KeetApi.common.CreateSessionResponse> {
         const _response = await core.fetcher({
             url: urlJoin(await core.Supplier.get(this._options.environment), "/v1/instagram/session"),
             method: "POST",
@@ -57,8 +59,8 @@ export class Instagram {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.2",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.2",
+                "X-Fern-SDK-Version": "0.0.2-alpha",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.2-alpha",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -80,7 +82,7 @@ export class Instagram {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new Keet.common.UnAuthorizedError(
+                    throw new KeetApi.common.UnAuthorizedError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -89,7 +91,7 @@ export class Instagram {
                         })
                     );
                 case 500:
-                    throw new Keet.common.InternalServerError(
+                    throw new KeetApi.common.InternalServerError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -98,7 +100,7 @@ export class Instagram {
                         })
                     );
                 case 404:
-                    throw new Keet.common.NotFoundError(
+                    throw new KeetApi.common.NotFoundError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -107,7 +109,7 @@ export class Instagram {
                         })
                     );
                 case 400:
-                    throw new Keet.common.BadRequestError(
+                    throw new KeetApi.common.BadRequestError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -116,7 +118,7 @@ export class Instagram {
                         })
                     );
                 case 500:
-                    throw new Keet.common.NotImplementedError(
+                    throw new KeetApi.common.NotImplementedError(
                         serializers.common.BaseError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -125,7 +127,7 @@ export class Instagram {
                         })
                     );
                 default:
-                    throw new errors.KeetError({
+                    throw new errors.KeetApiError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -134,14 +136,14 @@ export class Instagram {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.KeetError({
+                throw new errors.KeetApiError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetApiTimeoutError();
             case "unknown":
-                throw new errors.KeetError({
+                throw new errors.KeetApiError({
                     message: _response.error.errorMessage,
                 });
         }

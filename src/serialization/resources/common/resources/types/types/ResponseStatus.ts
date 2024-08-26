@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../../index";
-import * as Keet from "../../../../../../api/index";
+import * as KeetApi from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
 export const ResponseStatus: core.serialization.Schema<
     serializers.common.ResponseStatus.Raw,
-    Keet.common.ResponseStatus
+    KeetApi.common.ResponseStatus
 > = core.serialization.enum_(["ok", "error"]);
 
 export declare namespace ResponseStatus {

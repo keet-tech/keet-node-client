@@ -3,10 +3,10 @@
  */
 
 import * as errors from "../../../../../../errors/index";
-import * as Keet from "../../../../../index";
+import * as KeetApi from "../../../../../index";
 
-export class NotFoundError extends errors.KeetError {
-    constructor(body: Keet.common.BaseError) {
+export class NotFoundError extends errors.KeetApiError {
+    constructor(body: KeetApi.common.BaseError) {
         super({
             message: "NotFoundError",
             statusCode: 404,
