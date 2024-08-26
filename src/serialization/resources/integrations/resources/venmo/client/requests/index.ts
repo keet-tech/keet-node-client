@@ -1,1 +1,0 @@
-export { MakePaymentRequest } from "./MakePaymentRequest";

@@ -4,13 +4,13 @@
 
 import * as core from "../../../../../../core";
 import * as Keet from "../../../../../index";
-import * as environments from "../../../../../../environments";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace AmazonBusiness {
     interface Options {
+        environment: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
         accountToken?: core.Supplier<string | undefined>;
@@ -49,7 +49,7 @@ export class AmazonBusiness {
         requestOptions?: AmazonBusiness.RequestOptions
     ): Promise<Keet.common.CreateSessionResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/amazon-business/session"),
+            url: urlJoin(await core.Supplier.get(this._options.environment), "/v1/amazon-business/session"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -59,7 +59,7 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "0.0.1",
+                "X-Fern-SDK-Version": "0.0.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -179,7 +179,7 @@ export class AmazonBusiness {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/amazon-business/orders"),
+            url: urlJoin(await core.Supplier.get(this._options.environment), "/v1/amazon-business/orders"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -189,7 +189,7 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "0.0.1",
+                "X-Fern-SDK-Version": "0.0.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

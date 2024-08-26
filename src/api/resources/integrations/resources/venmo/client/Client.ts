@@ -4,13 +4,13 @@
 
 import * as core from "../../../../../../core";
 import * as Keet from "../../../../../index";
-import * as environments from "../../../../../../environments";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Venmo {
     interface Options {
+        environment: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
         accountToken?: core.Supplier<string | undefined>;
@@ -47,7 +47,7 @@ export class Venmo {
      */
     public async createSession(requestOptions?: Venmo.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/venmo/session"),
+            url: urlJoin(await core.Supplier.get(this._options.environment), "/v1/venmo/session"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -57,7 +57,7 @@ export class Venmo {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "0.0.1",
+                "X-Fern-SDK-Version": "0.0.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -147,124 +147,6 @@ export class Venmo {
     }
 
     /**
-     * Make a payment to a user in Venmo
-     *
-     * @param {Keet.integrations.MakePaymentRequest} request
-     * @param {Venmo.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Keet.common.UnAuthorizedError}
-     * @throws {@link Keet.common.InternalServerError}
-     * @throws {@link Keet.common.NotFoundError}
-     * @throws {@link Keet.common.BadRequestError}
-     * @throws {@link Keet.common.NotImplementedError}
-     *
-     * @example
-     *     await client.integrations.venmo.makePayment({
-     *         amount: 1,
-     *         description: "string"
-     *     })
-     */
-    public async makePayment(
-        request: Keet.integrations.MakePaymentRequest,
-        requestOptions?: Venmo.RequestOptions
-    ): Promise<void> {
-        const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/venmo/payment"),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "0.0.1",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.integrations.MakePaymentRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Keet.common.UnAuthorizedError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Keet.common.InternalServerError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 404:
-                    throw new Keet.common.NotFoundError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 400:
-                    throw new Keet.common.BadRequestError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Keet.common.NotImplementedError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.KeetError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KeetError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.KeetTimeoutError();
-            case "unknown":
-                throw new errors.KeetError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
      * @param {Venmo.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -280,7 +162,7 @@ export class Venmo {
         requestOptions?: Venmo.RequestOptions
     ): Promise<Keet.integrations.GetTransactionsResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/venmo/transactions"),
+            url: urlJoin(await core.Supplier.get(this._options.environment), "/v1/venmo/transactions"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -290,7 +172,7 @@ export class Venmo {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "0.0.1",
+                "X-Fern-SDK-Version": "0.0.177",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

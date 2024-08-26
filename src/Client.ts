@@ -9,6 +9,7 @@ import { LinkedAccounts } from "./api/resources/linkedAccounts/client/Client";
 
 export declare namespace KeetClient {
     interface Options {
+        environment: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
         accountToken?: core.Supplier<string | undefined>;

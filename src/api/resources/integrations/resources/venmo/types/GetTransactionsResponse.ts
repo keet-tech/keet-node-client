@@ -6,5 +6,5 @@ import * as Keet from "../../../../../index";
 
 export interface GetTransactionsResponse {
     status: Keet.common.ResponseStatus;
-    transactions: string;
+    transactions: Keet.integrations.StoryResponse;
 }
