@@ -165,63 +165,6 @@ await client.integrations.amazonBusiness.getOrders({
 </dl>
 </details>
 
-## Integrations DoorDash
-
-<details><summary><code>client.integrations.doorDash.<a href="/src/api/resources/integrations/resources/doorDash/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a DoorDash session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.integrations.doorDash.createSession();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `DoorDash.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Integrations Instagram
 
 <details><summary><code>client.integrations.instagram.<a href="/src/api/resources/integrations/resources/instagram/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
@@ -321,6 +264,258 @@ await client.integrations.linkedin.createSession();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Linkedin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">getConnectionInvitations</a>() -> Keet.InvitationRequestsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get your the list of pending LinkedIn connection requests.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.linkedin.getConnectionInvitations();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Linkedin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">acceptConnectionInvitation</a>({ ...params }) -> Keet.AcceptInvitationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Accept a LinkedIn connection invitation
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.linkedin.acceptConnectionInvitation({
+    profileUrl: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.AcceptConnectionInvitation`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Linkedin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">createPost</a>({ ...params }) -> Keet.CreatePostResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new LinkedIn post
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.linkedin.createPost({
+    content: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.CreatePost`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Linkedin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">search</a>({ ...params }) -> Keet.SearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search for people on LinkedIn
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.linkedin.search({
+    firstName: "string",
+    lastName: "string",
+    limit: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.Search`
+
+</dd>
+</dl>
 
 <dl>
 <dd>

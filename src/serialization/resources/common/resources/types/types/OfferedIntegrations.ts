@@ -9,8 +9,8 @@ import * as core from "../../../../../../core";
 export const OfferedIntegrations: core.serialization.Schema<
     serializers.common.OfferedIntegrations.Raw,
     Keet.common.OfferedIntegrations
-> = core.serialization.enum_(["Venmo", "LinkedIn", "Amazon Business", "Amazon", "Uber", "Instagram", "X", "DoorDash"]);
+> = core.serialization.enum_(["Venmo", "LinkedIn", "Amazon Business", "Amazon", "Uber", "Instagram", "X"]);
 
 export declare namespace OfferedIntegrations {
-    type Raw = "Venmo" | "LinkedIn" | "Amazon Business" | "Amazon" | "Uber" | "Instagram" | "X" | "DoorDash";
+    type Raw = "Venmo" | "LinkedIn" | "Amazon Business" | "Amazon" | "Uber" | "Instagram" | "X";
 }

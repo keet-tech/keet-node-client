@@ -1,11 +1,12 @@
 export * as amazonBusiness from "./amazonBusiness";
 export * from "./amazonBusiness/types";
+export * as linkedin from "./linkedin";
+export * from "./linkedin/types";
 export * as venmo from "./venmo";
 export * from "./venmo/types";
 export * as amazon from "./amazon";
-export * as doorDash from "./doorDash";
 export * as instagram from "./instagram";
-export * as linkedin from "./linkedin";
 export * as uber from "./uber";
 export * as x from "./x";
 export * from "./amazonBusiness/client/requests";
+export * from "./linkedin/client/requests";
