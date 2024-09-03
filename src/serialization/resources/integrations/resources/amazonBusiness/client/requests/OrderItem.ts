@@ -8,11 +8,13 @@ import * as core from "../../../../../../../core";
 
 export const OrderItem: core.serialization.Schema<serializers.integrations.OrderItem.Raw, Keet.integrations.OrderItem> =
     core.serialization.object({
-        itemUrl: core.serialization.string(),
+        itemUrl: core.serialization.string().optional(),
+        asin: core.serialization.string().optional(),
     });
 
 export declare namespace OrderItem {
     interface Raw {
-        itemUrl: string;
+        itemUrl?: string | null;
+        asin?: string | null;
     }
 }

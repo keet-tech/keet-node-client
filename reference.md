@@ -124,7 +124,7 @@ await client.integrations.amazon.getBuyAgainItems();
 <dl>
 <dd>
 
-Order an item. **The end user must have a default address and payment method set**
+Order an item. **The end user must have a default address and payment method set**. Either ASIN or a valid amazon url to the item must be present. If both are present, the ASIN will be used.
 
 </dd>
 </dl>
@@ -141,6 +141,7 @@ Order an item. **The end user must have a default address and payment method set
 
 ```typescript
 await client.integrations.amazon.buyNow({
+    asin: "string",
     itemUrl: "string",
 });
 ```
@@ -352,7 +353,7 @@ await client.integrations.amazonBusiness.getBuyAgainItems();
 <dl>
 <dd>
 
-Order an item. **The end user must have a default address and payment method set**
+Order an item. **The end user must have a default address and payment method set**. Either ASIN or a valid amazon url to the item must be present. If both are present, the ASIN will be used.
 
 </dd>
 </dl>
@@ -370,6 +371,7 @@ Order an item. **The end user must have a default address and payment method set
 ```typescript
 await client.integrations.amazonBusiness.buyNow({
     itemUrl: "string",
+    asin: "string",
 });
 ```
 

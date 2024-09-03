@@ -10,11 +10,13 @@ export const OrderAmazonItem: core.serialization.Schema<
     serializers.integrations.OrderAmazonItem.Raw,
     Keet.integrations.OrderAmazonItem
 > = core.serialization.object({
-    itemUrl: core.serialization.string(),
+    asin: core.serialization.string().optional(),
+    itemUrl: core.serialization.string().optional(),
 });
 
 export declare namespace OrderAmazonItem {
     interface Raw {
-        itemUrl: string;
+        asin?: string | null;
+        itemUrl?: string | null;
     }
 }

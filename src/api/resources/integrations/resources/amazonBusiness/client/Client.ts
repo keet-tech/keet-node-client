@@ -59,8 +59,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.6",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
+                "X-Fern-SDK-Version": "v0.0.7",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -190,8 +190,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.6",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
+                "X-Fern-SDK-Version": "v0.0.7",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -309,8 +309,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.6",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
+                "X-Fern-SDK-Version": "v0.0.7",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -400,7 +400,7 @@ export class AmazonBusiness {
     }
 
     /**
-     * Order an item. **The end user must have a default address and payment method set**
+     * Order an item. **The end user must have a default address and payment method set**. Either ASIN or a valid amazon url to the item must be present. If both are present, the ASIN will be used.
      *
      * @param {Keet.integrations.OrderItem} request
      * @param {AmazonBusiness.RequestOptions} requestOptions - Request-specific configuration.
@@ -413,11 +413,12 @@ export class AmazonBusiness {
      *
      * @example
      *     await client.integrations.amazonBusiness.buyNow({
-     *         itemUrl: "string"
+     *         itemUrl: "string",
+     *         asin: "string"
      *     })
      */
     public async buyNow(
-        request: Keet.integrations.OrderItem,
+        request: Keet.integrations.OrderItem = {},
         requestOptions?: AmazonBusiness.RequestOptions
     ): Promise<Keet.integrations.AmazonBusinessOrderItemResponse> {
         const _response = await core.fetcher({
@@ -431,8 +432,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.6",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
+                "X-Fern-SDK-Version": "v0.0.7",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

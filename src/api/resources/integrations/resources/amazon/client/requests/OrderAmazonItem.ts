@@ -5,9 +5,11 @@
 /**
  * @example
  *     {
+ *         asin: "string",
  *         itemUrl: "string"
  *     }
  */
 export interface OrderAmazonItem {
-    itemUrl: string;
+    asin?: string;
+    itemUrl?: string;
 }
