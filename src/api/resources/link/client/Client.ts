@@ -47,7 +47,8 @@ export class Link {
      *     await client.link.createLinkToken({
      *         linkConfig: {
      *             endUserId: "<userId>",
-     *             integration: Keet.common.OfferedIntegrations.Instagram
+     *             integration: Keet.common.OfferedIntegrations.Instagram,
+     *             companyLogoUri: "https://example.com/logo.png"
      *         }
      *     })
      */
@@ -66,8 +67,8 @@ export class Link {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.5",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.5",
+                "X-Fern-SDK-Version": "v0.0.6",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

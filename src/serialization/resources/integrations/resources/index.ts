@@ -1,7 +1,11 @@
+export * as amazon from "./amazon";
+export * from "./amazon/types";
 export * as amazonBusiness from "./amazonBusiness";
 export * from "./amazonBusiness/types";
 export * as linkedin from "./linkedin";
 export * from "./linkedin/types";
 export * as venmo from "./venmo";
 export * from "./venmo/types";
+export * from "./amazon/client/requests";
+export * from "./amazonBusiness/client/requests";
 export * from "./linkedin/client/requests";

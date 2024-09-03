@@ -57,6 +57,126 @@ await client.integrations.amazon.createSession();
 </dl>
 </details>
 
+<details><summary><code>client.integrations.amazon.<a href="/src/api/resources/integrations/resources/amazon/client/Client.ts">getBuyAgainItems</a>() -> Keet.AmazonGetBuyAgainResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of products that you can buy again or have purchased before.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.amazon.getBuyAgainItems();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Amazon.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.amazon.<a href="/src/api/resources/integrations/resources/amazon/client/Client.ts">buyNow</a>({ ...params }) -> Keet.AmazonOrderItemResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Order an item. **The end user must have a default address and payment method set**
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.amazon.buyNow({
+    itemUrl: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.OrderAmazonItem`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Amazon.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Integrations AmazonBusiness
 
 <details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
@@ -114,7 +234,7 @@ await client.integrations.amazonBusiness.createSession();
 </dl>
 </details>
 
-<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">getOrders</a>({ ...params }) -> Keet.GetOrdersResponse</code></summary>
+<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">getOrders</a>({ ...params }) -> Keet.AmazonBusinessGetOrdersResponse</code></summary>
 <dl>
 <dd>
 
@@ -155,6 +275,240 @@ await client.integrations.amazonBusiness.getOrders({
 <dd>
 
 **requestOptions:** `AmazonBusiness.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">getBuyAgainItems</a>() -> Keet.AmazonBusinessGetBuyAgainResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of products that you can buy again or have purchased before.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.amazonBusiness.getBuyAgainItems();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `AmazonBusiness.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">buyNow</a>({ ...params }) -> Keet.AmazonBusinessOrderItemResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Order an item. **The end user must have a default address and payment method set**
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.amazonBusiness.buyNow({
+    itemUrl: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.OrderItem`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AmazonBusiness.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Integrations AmazonSeller
+
+<details><summary><code>client.integrations.amazonSeller.<a href="/src/api/resources/integrations/resources/amazonSeller/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Amazon Seller session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.amazonSeller.createSession();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `AmazonSeller.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Integrations Facebook
+
+<details><summary><code>client.integrations.facebook.<a href="/src/api/resources/integrations/resources/facebook/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Facebook session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.facebook.createSession();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Facebook.RequestOptions`
 
 </dd>
 </dl>
@@ -776,6 +1130,7 @@ await client.link.createLinkToken({
     linkConfig: {
         endUserId: "<userId>",
         integration: Keet.OfferedIntegrations.Instagram,
+        companyLogoUri: "https://example.com/logo.png",
     },
 });
 ```

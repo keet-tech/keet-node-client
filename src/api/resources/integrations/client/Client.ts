@@ -5,6 +5,8 @@
 import * as core from "../../../../core";
 import { Amazon } from "../resources/amazon/client/Client";
 import { AmazonBusiness } from "../resources/amazonBusiness/client/Client";
+import { AmazonSeller } from "../resources/amazonSeller/client/Client";
+import { Facebook } from "../resources/facebook/client/Client";
 import { Instagram } from "../resources/instagram/client/Client";
 import { Linkedin } from "../resources/linkedin/client/Client";
 import { Uber } from "../resources/uber/client/Client";
@@ -43,6 +45,18 @@ export class Integrations {
 
     public get amazonBusiness(): AmazonBusiness {
         return (this._amazonBusiness ??= new AmazonBusiness(this._options));
+    }
+
+    protected _amazonSeller: AmazonSeller | undefined;
+
+    public get amazonSeller(): AmazonSeller {
+        return (this._amazonSeller ??= new AmazonSeller(this._options));
+    }
+
+    protected _facebook: Facebook | undefined;
+
+    public get facebook(): Facebook {
+        return (this._facebook ??= new Facebook(this._options));
     }
 
     protected _instagram: Instagram | undefined;

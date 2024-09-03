@@ -59,8 +59,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.5",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.5",
+                "X-Fern-SDK-Version": "v0.0.6",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -168,7 +168,7 @@ export class AmazonBusiness {
     public async getOrders(
         request: Keet.integrations.GetOrdersRequest = {},
         requestOptions?: AmazonBusiness.RequestOptions
-    ): Promise<Keet.integrations.GetOrdersResponse> {
+    ): Promise<Keet.integrations.AmazonBusinessGetOrdersResponse> {
         const { page, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (page != null) {
@@ -190,8 +190,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.5",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.5",
+                "X-Fern-SDK-Version": "v0.0.6",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -203,7 +203,248 @@ export class AmazonBusiness {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.GetOrdersResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.AmazonBusinessGetOrdersResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get a list of products that you can buy again or have purchased before.
+     *
+     * @param {AmazonBusiness.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.amazonBusiness.getBuyAgainItems()
+     */
+    public async getBuyAgainItems(
+        requestOptions?: AmazonBusiness.RequestOptions
+    ): Promise<Keet.integrations.AmazonBusinessGetBuyAgainResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/amazon-business/items/buy-again"),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "v0.0.6",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.AmazonBusinessGetBuyAgainResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Order an item. **The end user must have a default address and payment method set**
+     *
+     * @param {Keet.integrations.OrderItem} request
+     * @param {AmazonBusiness.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.amazonBusiness.buyNow({
+     *         itemUrl: "string"
+     *     })
+     */
+    public async buyNow(
+        request: Keet.integrations.OrderItem,
+        requestOptions?: AmazonBusiness.RequestOptions
+    ): Promise<Keet.integrations.AmazonBusinessOrderItemResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/amazon-business/items/buy-now"),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "v0.0.6",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.6",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.integrations.OrderItem.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.AmazonBusinessOrderItemResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

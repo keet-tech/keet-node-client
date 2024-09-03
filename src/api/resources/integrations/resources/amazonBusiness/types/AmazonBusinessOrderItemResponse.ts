@@ -4,8 +4,6 @@
 
 import * as Keet from "../../../../../index";
 
-export interface GetOrdersResponse {
+export interface AmazonBusinessOrderItemResponse {
     status: Keet.common.ResponseStatus;
-    orders: Keet.integrations.Order[];
-    pageInfo: Keet.integrations.PageInfo;
 }

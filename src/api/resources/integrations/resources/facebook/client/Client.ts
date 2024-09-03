@@ -9,7 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
-export declare namespace Instagram {
+export declare namespace Facebook {
     interface Options {
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
@@ -28,13 +28,13 @@ export declare namespace Instagram {
     }
 }
 
-export class Instagram {
-    constructor(protected readonly _options: Instagram.Options) {}
+export class Facebook {
+    constructor(protected readonly _options: Facebook.Options) {}
 
     /**
-     * Create a Instagram session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+     * Create a Facebook session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
      *
-     * @param {Instagram.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Facebook.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
      * @throws {@link Keet.common.InternalServerError}
@@ -43,11 +43,11 @@ export class Instagram {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.instagram.createSession()
+     *     await client.integrations.facebook.createSession()
      */
-    public async createSession(requestOptions?: Instagram.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
+    public async createSession(requestOptions?: Facebook.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/instagram/session"),
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/facebook/session"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),

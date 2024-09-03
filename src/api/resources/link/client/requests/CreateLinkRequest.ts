@@ -9,7 +9,8 @@ import * as Keet from "../../../../index";
  *     {
  *         linkConfig: {
  *             endUserId: "<userId>",
- *             integration: Keet.common.OfferedIntegrations.Instagram
+ *             integration: Keet.common.OfferedIntegrations.Instagram,
+ *             companyLogoUri: "https://example.com/logo.png"
  *         }
  *     }
  */

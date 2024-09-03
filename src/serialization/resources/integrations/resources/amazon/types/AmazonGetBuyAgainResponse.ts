@@ -6,22 +6,19 @@ import * as serializers from "../../../../../index";
 import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { ResponseStatus } from "../../../../common/resources/types/types/ResponseStatus";
-import { Order } from "./Order";
-import { PageInfo } from "./PageInfo";
+import { AmazonItem } from "./AmazonItem";
 
-export const GetOrdersResponse: core.serialization.ObjectSchema<
-    serializers.integrations.GetOrdersResponse.Raw,
-    Keet.integrations.GetOrdersResponse
+export const AmazonGetBuyAgainResponse: core.serialization.ObjectSchema<
+    serializers.integrations.AmazonGetBuyAgainResponse.Raw,
+    Keet.integrations.AmazonGetBuyAgainResponse
 > = core.serialization.object({
     status: ResponseStatus,
-    orders: core.serialization.list(Order),
-    pageInfo: PageInfo,
+    items: core.serialization.list(AmazonItem),
 });
 
-export declare namespace GetOrdersResponse {
+export declare namespace AmazonGetBuyAgainResponse {
     interface Raw {
         status: ResponseStatus.Raw;
-        orders: Order.Raw[];
-        pageInfo: PageInfo.Raw;
+        items: AmazonItem.Raw[];
     }
 }

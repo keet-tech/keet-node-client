@@ -4,10 +4,10 @@
 
 import * as Keet from "../../../../../index";
 
-export interface Order {
+export interface AmazonBusinessOrder {
     date: Date;
     total: string;
-    address?: Keet.integrations.Address;
+    address?: Keet.integrations.AmazonBusinessAddress;
     orderNumber: string;
     items: string[];
 }
