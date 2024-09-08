@@ -32,7 +32,7 @@ export class AmazonBusiness {
     constructor(protected readonly _options: AmazonBusiness.Options) {}
 
     /**
-     * Create a Venmo session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+     * Create a Amazon business session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
      *
      * @param {AmazonBusiness.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -59,8 +59,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.7",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.7",
+                "X-Fern-SDK-Version": "v0.0.8",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -150,6 +150,8 @@ export class AmazonBusiness {
     }
 
     /**
+     * Get your Amazon Business orders. The default timespan is 30 days and default startIndex is 0.
+     *
      * @param {Keet.integrations.GetOrdersRequest} request
      * @param {AmazonBusiness.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -161,22 +163,27 @@ export class AmazonBusiness {
      *
      * @example
      *     await client.integrations.amazonBusiness.getOrders({
-     *         page: 1,
-     *         limit: 1
+     *         timespan: Keet.integrations.OrdersTimespan.ThirtyDays,
+     *         limit: 1,
+     *         startIndex: 1
      *     })
      */
     public async getOrders(
         request: Keet.integrations.GetOrdersRequest = {},
         requestOptions?: AmazonBusiness.RequestOptions
     ): Promise<Keet.integrations.AmazonBusinessGetOrdersResponse> {
-        const { page, limit } = request;
+        const { timespan, limit, startIndex } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (page != null) {
-            _queryParams["page"] = page.toString();
+        if (timespan != null) {
+            _queryParams["timespan"] = timespan;
         }
 
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
+        }
+
+        if (startIndex != null) {
+            _queryParams["startIndex"] = startIndex.toString();
         }
 
         const _response = await core.fetcher({
@@ -190,8 +197,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.7",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.7",
+                "X-Fern-SDK-Version": "v0.0.8",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -309,8 +316,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.7",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.7",
+                "X-Fern-SDK-Version": "v0.0.8",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -432,8 +439,8 @@ export class AmazonBusiness {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.7",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.7",
+                "X-Fern-SDK-Version": "v0.0.8",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

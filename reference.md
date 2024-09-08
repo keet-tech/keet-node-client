@@ -192,7 +192,7 @@ await client.integrations.amazon.buyNow({
 <dl>
 <dd>
 
-Create a Venmo session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+Create a Amazon business session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
 
 </dd>
 </dl>
@@ -239,6 +239,21 @@ await client.integrations.amazonBusiness.createSession();
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get your Amazon Business orders. The default timespan is 30 days and default startIndex is 0.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -249,8 +264,9 @@ await client.integrations.amazonBusiness.createSession();
 
 ```typescript
 await client.integrations.amazonBusiness.getOrders({
-    page: 1,
+    timespan: Keet.OrdersTimespan.ThirtyDays,
     limit: 1,
+    startIndex: 1,
 });
 ```
 
@@ -506,6 +522,207 @@ await client.integrations.facebook.createSession();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Facebook.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.facebook.<a href="/src/api/resources/integrations/resources/facebook/client/Client.ts">postGroupMessage</a>(groupId, { ...params }) -> Keet.PostGroupMessageResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Post a message to a group
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.facebook.postGroupMessage("string", {
+    message: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.PostGroupMessage`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Facebook.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.facebook.<a href="/src/api/resources/integrations/resources/facebook/client/Client.ts">joinGroup</a>(groupId) -> Keet.JoinGroupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Join a group
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.facebook.joinGroup("string");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Facebook.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.facebook.<a href="/src/api/resources/integrations/resources/facebook/client/Client.ts">searchGroups</a>({ ...params }) -> Keet.SearchGroupsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search for groups
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.facebook.searchGroups({
+    query: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.SearchGroups`
+
+</dd>
+</dl>
 
 <dl>
 <dd>

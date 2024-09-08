@@ -5,3 +5,4 @@ export * from "./AmazonBusinessOrder";
 export * from "./AmazonBusinessItem";
 export * from "./AmazonBusinessGetBuyAgainResponse";
 export * from "./AmazonBusinessOrderItemResponse";
+export * from "./OrdersTimespan";
