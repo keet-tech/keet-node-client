@@ -9,7 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
-export declare namespace Facebook {
+export declare namespace Whatsapp {
     interface Options {
         token: core.Supplier<core.BearerToken>;
         /** Override the X-Account-Token header */
@@ -28,13 +28,13 @@ export declare namespace Facebook {
     }
 }
 
-export class Facebook {
-    constructor(protected readonly _options: Facebook.Options) {}
+export class Whatsapp {
+    constructor(protected readonly _options: Whatsapp.Options) {}
 
     /**
-     * Create a Facebook session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+     * Create a WhatsApp session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
      *
-     * @param {Facebook.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Whatsapp.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
      * @throws {@link Keet.common.InternalServerError}
@@ -43,11 +43,11 @@ export class Facebook {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.facebook.createSession()
+     *     await client.integrations.whatsapp.createSession()
      */
-    public async createSession(requestOptions?: Facebook.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
+    public async createSession(requestOptions?: Whatsapp.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/facebook/session"),
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/whatsapp/session"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -148,11 +148,10 @@ export class Facebook {
     }
 
     /**
-     * Post a message to a group
+     * Send a message to a WhatsApp number.
      *
-     * @param {string} groupId
-     * @param {Keet.integrations.PostGroupMessage} request
-     * @param {Facebook.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Keet.integrations.SendMessageRequest} request
+     * @param {Whatsapp.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
      * @throws {@link Keet.common.InternalServerError}
@@ -161,20 +160,17 @@ export class Facebook {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.facebook.postGroupMessage("string", {
+     *     await client.integrations.whatsapp.sendMessage({
+     *         to: "string",
      *         message: "string"
      *     })
      */
-    public async postGroupMessage(
-        groupId: string,
-        request: Keet.integrations.PostGroupMessage,
-        requestOptions?: Facebook.RequestOptions
-    ): Promise<Keet.integrations.PostGroupMessageResponse> {
+    public async sendMessage(
+        request: Keet.integrations.SendMessageRequest,
+        requestOptions?: Whatsapp.RequestOptions
+    ): Promise<Keet.integrations.SendMessageResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                environments.KeetEnvironment.Production,
-                `/v1/facebook/groups/${encodeURIComponent(groupId)}/message`
-            ),
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/whatsapp/messages"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -191,13 +187,13 @@ export class Facebook {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.integrations.PostGroupMessage.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.integrations.SendMessageRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.PostGroupMessageResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.SendMessageResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -276,133 +272,10 @@ export class Facebook {
     }
 
     /**
-     * Join a group
+     * Change the status on WhatsApp. Text only supported
      *
-     * @param {string} groupId
-     * @param {Facebook.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Keet.common.UnAuthorizedError}
-     * @throws {@link Keet.common.InternalServerError}
-     * @throws {@link Keet.common.NotFoundError}
-     * @throws {@link Keet.common.BadRequestError}
-     * @throws {@link Keet.common.NotImplementedError}
-     *
-     * @example
-     *     await client.integrations.facebook.joinGroup("string")
-     */
-    public async joinGroup(
-        groupId: string,
-        requestOptions?: Facebook.RequestOptions
-    ): Promise<Keet.integrations.JoinGroupResponse> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                environments.KeetEnvironment.Production,
-                `/v1/facebook/groups/${encodeURIComponent(groupId)}/join`
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.10",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.10",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.integrations.JoinGroupResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Keet.common.UnAuthorizedError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Keet.common.InternalServerError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 404:
-                    throw new Keet.common.NotFoundError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 400:
-                    throw new Keet.common.BadRequestError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Keet.common.NotImplementedError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.KeetError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KeetError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.KeetTimeoutError();
-            case "unknown":
-                throw new errors.KeetError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Search for groups
-     *
-     * @param {Keet.integrations.SearchGroups} request
-     * @param {Facebook.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Keet.integrations.ChangeStatusRequest} request
+     * @param {Whatsapp.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
      * @throws {@link Keet.common.InternalServerError}
@@ -411,19 +284,142 @@ export class Facebook {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.facebook.searchGroups({
-     *         query: "string"
+     *     await client.integrations.whatsapp.changeStatus({
+     *         statusMessage: "string"
      *     })
      */
-    public async searchGroups(
-        request: Keet.integrations.SearchGroups,
-        requestOptions?: Facebook.RequestOptions
-    ): Promise<Keet.integrations.SearchGroupsResponse> {
-        const { query } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["query"] = query;
+    public async changeStatus(
+        request: Keet.integrations.ChangeStatusRequest,
+        requestOptions?: Whatsapp.RequestOptions
+    ): Promise<Keet.integrations.ChangeStatusResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/facebook/groups"),
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/whatsapp/status"),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "v0.0.10",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.10",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.integrations.ChangeStatusRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.ChangeStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Read messages from WhatsApp
+     *
+     * @param {string} phoneNumber
+     * @param {Whatsapp.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.whatsapp.readMessages("string")
+     */
+    public async readMessages(
+        phoneNumber: string,
+        requestOptions?: Whatsapp.RequestOptions
+    ): Promise<Keet.integrations.ReadMessagesResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                environments.KeetEnvironment.Production,
+                `/v1/whatsapp/messages/${encodeURIComponent(phoneNumber)}`
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -439,14 +435,13 @@ export class Facebook {
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
-            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.SearchGroupsResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.ReadMessagesResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

@@ -11,6 +11,7 @@ import { Instagram } from "../resources/instagram/client/Client";
 import { Linkedin } from "../resources/linkedin/client/Client";
 import { Uber } from "../resources/uber/client/Client";
 import { Venmo } from "../resources/venmo/client/Client";
+import { Whatsapp } from "../resources/whatsapp/client/Client";
 import { X } from "../resources/x/client/Client";
 
 export declare namespace Integrations {
@@ -81,6 +82,12 @@ export class Integrations {
 
     public get venmo(): Venmo {
         return (this._venmo ??= new Venmo(this._options));
+    }
+
+    protected _whatsapp: Whatsapp | undefined;
+
+    public get whatsapp(): Whatsapp {
+        return (this._whatsapp ??= new Whatsapp(this._options));
     }
 
     protected _x: X | undefined;
