@@ -10,6 +10,8 @@ export * as venmo from "./venmo";
 export * from "./venmo/types";
 export * as whatsapp from "./whatsapp";
 export * from "./whatsapp/types";
+export * as x from "./x";
+export * from "./x/types";
 export * from "./amazon/client/requests";
 export * from "./amazonBusiness/client/requests";
 export * from "./facebook/client/requests";

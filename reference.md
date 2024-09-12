@@ -1104,6 +1104,72 @@ await client.integrations.linkedin.search({
 </dl>
 </details>
 
+<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">getConnections</a>({ ...params }) -> Keet.GetConnectionsResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get your LinkedIn connections
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.linkedin.getConnections({
+    limit: "string",
+    offset: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetConnections`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Linkedin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Integrations Uber
 
 <details><summary><code>client.integrations.uber.<a href="/src/api/resources/integrations/resources/uber/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
@@ -1551,6 +1617,71 @@ await client.integrations.x.createSession();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `X.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.x.<a href="/src/api/resources/integrations/resources/x/client/Client.ts">getFollowers</a>({ ...params }) -> Keet.GetXFollowersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the list of followers associated with this account
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.x.getFollowers({
+    limit: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetXFollowers`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
