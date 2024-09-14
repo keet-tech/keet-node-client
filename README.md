@@ -1,7 +1,7 @@
 # Keet TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-[![npm shield](https://img.shields.io/npm/v/)](https://www.npmjs.com/package/)
+[![npm shield](https://img.shields.io/npm/v/@keet-tech/keet-node-client)](https://www.npmjs.com/package/@keet-tech/keet-node-client)
 
 The Keet TypeScript library provides convenient access to the Keet API from TypeScript.
 
