@@ -6,3 +6,6 @@ export * from "./CreatePostResponse";
 export * from "./SearchResponse";
 export * from "./GetConnectionsResult";
 export * from "./LinkedInConnection";
+export * from "./LinkedInSendMessageResponse";
+export * from "./LinkedInMessage";
+export * from "./LinkedInGetMessagesResponse";

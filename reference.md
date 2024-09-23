@@ -1170,6 +1170,145 @@ await client.integrations.linkedin.getConnections({
 </dl>
 </details>
 
+<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">sendMessage</a>({ ...params }) -> Keet.LinkedInSendMessageResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a LinkedIn message
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.linkedin.sendMessage({
+    to: "string",
+    content: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.SendMessage`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Linkedin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.linkedin.<a href="/src/api/resources/integrations/resources/linkedin/client/Client.ts">getMessages</a>(profileName, { ...params }) -> Keet.LinkedInGetMessagesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get your LinkedIn messages
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.linkedin.getMessages("string", {
+    limit: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**profileName:** `string` — The profile name of the person to get the messages from. For example for the account with the url "https://www.linkedin.com/in/zacharyashen/" the profile name would be "zacharyashen"
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetMessages`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Linkedin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Integrations Uber
 
 <details><summary><code>client.integrations.uber.<a href="/src/api/resources/integrations/resources/uber/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
@@ -1848,6 +1987,56 @@ await client.linkedAccounts.deleteLinkedAccount("string");
 <dd>
 
 **linkedAccountId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `LinkedAccounts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.linkedAccounts.<a href="/src/api/resources/linkedAccounts/client/Client.ts">getToken</a>({ ...params }) -> Keet.GetTokenResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.linkedAccounts.getToken({
+    publicToken: "...",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.GetTokenRequest`
 
 </dd>
 </dl>

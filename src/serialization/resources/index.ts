@@ -5,3 +5,4 @@ export * from "./link/types";
 export * as linkedAccounts from "./linkedAccounts";
 export * from "./linkedAccounts/types";
 export * from "./link/client/requests";
+export * from "./linkedAccounts/client/requests";

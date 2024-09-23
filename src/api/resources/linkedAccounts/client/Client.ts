@@ -62,8 +62,8 @@ export class LinkedAccounts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.11",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.11",
+                "X-Fern-SDK-Version": "v0.0.12",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -183,8 +183,8 @@ export class LinkedAccounts {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.11",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.11",
+                "X-Fern-SDK-Version": "v0.0.12",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -196,6 +196,127 @@ export class LinkedAccounts {
         });
         if (_response.ok) {
             return serializers.DeleteLinkedAccountResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {Keet.GetTokenRequest} request
+     * @param {LinkedAccounts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.linkedAccounts.getToken({
+     *         publicToken: "..."
+     *     })
+     */
+    public async getToken(
+        request: Keet.GetTokenRequest,
+        requestOptions?: LinkedAccounts.RequestOptions
+    ): Promise<Keet.GetTokenResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/linked-accounts/token"),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Account-Token":
+                    (await core.Supplier.get(this._options.accountToken)) != null
+                        ? await core.Supplier.get(this._options.accountToken)
+                        : undefined,
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "v0.0.12",
+                "User-Agent": "@keet-tech/keet-node-client/v0.0.12",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.GetTokenRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.GetTokenResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
