@@ -9,6 +9,7 @@ import { AmazonSeller } from "../resources/amazonSeller/client/Client";
 import { Facebook } from "../resources/facebook/client/Client";
 import { Instagram } from "../resources/instagram/client/Client";
 import { Linkedin } from "../resources/linkedin/client/Client";
+import { Ppp } from "../resources/ppp/client/Client";
 import { Uber } from "../resources/uber/client/Client";
 import { Venmo } from "../resources/venmo/client/Client";
 import { Whatsapp } from "../resources/whatsapp/client/Client";
@@ -70,6 +71,12 @@ export class Integrations {
 
     public get linkedin(): Linkedin {
         return (this._linkedin ??= new Linkedin(this._options));
+    }
+
+    protected _ppp: Ppp | undefined;
+
+    public get ppp(): Ppp {
+        return (this._ppp ??= new Ppp(this._options));
     }
 
     protected _uber: Uber | undefined;

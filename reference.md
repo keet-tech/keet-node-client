@@ -1309,6 +1309,939 @@ await client.integrations.linkedin.getMessages("string", {
 </dl>
 </details>
 
+## Integrations Ppp
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a perfect pricing session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.createSession();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">createCustomer</a>({ ...params }) -> Keet.CreateCustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a perfect pricing customer
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.createCustomer({
+    firstName: "string",
+    lastName: "string",
+    companyName: "string",
+    primaryPhoneType: Keet.PhoneType.Home,
+    primaryPhone: "string",
+    primaryPhoneLabel: "string",
+    primaryEmailType: Keet.EmailType.Work,
+    primaryEmail: "string",
+    commPreferences: Keet.CommPreferences.None,
+    billingTerm: "string",
+    leadSource: "string",
+    customerType: "string",
+    comments: "string",
+    invoiceType: "string",
+    billingLocationName: "string",
+    billingStreet1: "string",
+    billingStreet2: "string",
+    billingCity: "string",
+    billingState: "string",
+    billingZip: "string",
+    billingComments: "string",
+    primaryLocationName: "string",
+    primaryStreet1: "string",
+    primaryStreet2: "string",
+    primaryCity: "string",
+    primaryState: "string",
+    primaryZip: "string",
+    salesTax: "string",
+    primaryComments: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.Customer`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">searchCustomerDetails</a>({ ...params }) -> Keet.SearchCustomerDetailsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search for perfect pricing customer
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.searchCustomerDetails({
+    firstName: "string",
+    lastName: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.SearchCustomer`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">createAppointment</a>({ ...params }) -> Keet.CreateAppointmentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a perfect pricing appointment
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.createAppointment({
+    firstName: "string",
+    lastName: "string",
+    serviceCallRequest: {
+        locationContactInfoId: "string",
+        appointmentType: Keet.AppointmentType.Scheduled,
+        openServiceCallDate: "string",
+        serviceCallTypeId: 1,
+        hours: "string",
+        minutes: "string",
+        arrivalWindow: "string",
+        diagnosticFee: 1.1,
+        serviceCallStatus: "string",
+        leadSourceId: 1,
+        poNumber: "string",
+        description: "string",
+        notes: "string",
+        datepicker1: "string",
+        dispatchBoardId: 1,
+        callTypeId: "string",
+        startTime: "string",
+        endTime: "string",
+        date: "string",
+        technicianId: 1,
+        sendEmail: 1,
+        doNotEmail: 1,
+        arrivalWindowId: 1,
+        id: "string",
+        newCustomer: 1,
+        customerFirstName: "string",
+        customerLastName: "string",
+        customerCompanyName: "string",
+        customerFullName: "string",
+        newServiceCallDefLeadSourId: 1,
+        appointmentSaveFrom: "string",
+        selectedMultiTechSameCall: [
+            {
+                techId: "string",
+                startTime: "string",
+                endTime: "string",
+            },
+        ],
+        primaryOpenCallTech: "string",
+        selectedMultiTechSameCallOrNot: Keet.MultiTechOrNot.AddNewTechnician,
+        isMultipleTech: "string",
+        isPrimaryTechId: 1,
+        isPrimaryTech: "string",
+        isSecondaryServiceCallData: 1,
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.CreateAppointment`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getBillingTerms</a>() -> Keet.GetBillingTermsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing billing terms
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getBillingTerms();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getInvoiceTypes</a>() -> Keet.GetInvoiceTypesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing invoice types
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getInvoiceTypes();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getCustomerTypes</a>() -> Keet.GetCustomerTypesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing customer types
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getCustomerTypes();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getArrivalWindow</a>() -> Keet.GetArrivalWindowResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing arrival window
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getArrivalWindow();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getServiceCallType</a>() -> Keet.GetServiceCallTypeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing service call type
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getServiceCallType();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getDiagnosticFee</a>() -> Keet.GetDiagnosticFeeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing diagnostic fee
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getDiagnosticFee();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getServiceCallStatus</a>() -> Keet.GetServiceCallStatusResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing service call status
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getServiceCallStatus();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getLeadSource</a>() -> Keet.GetLeadSourceResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing lead source
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getLeadSource();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getBoardIds</a>() -> Keet.GetBoardIdsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing board ids
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getBoardIds();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getTechnicians</a>() -> Keet.GetTechniciansResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing technicians
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getTechnicians();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getCalendar</a>() -> Keet.GetCalendarResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get perfect pricing calendar
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.ppp.getCalendar();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Integrations Uber
 
 <details><summary><code>client.integrations.uber.<a href="/src/api/resources/integrations/resources/uber/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
@@ -1818,6 +2751,71 @@ await client.integrations.x.getFollowers({
 <dd>
 
 **request:** `Keet.integrations.GetXFollowers`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `X.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.x.<a href="/src/api/resources/integrations/resources/x/client/Client.ts">getFollowingTweets</a>({ ...params }) -> Keet.GetXFollowingTweetsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the latest tweets from the accounts you follow
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.x.getFollowingTweets({
+    limit: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetXFollowingPosts`
 
 </dd>
 </dl>

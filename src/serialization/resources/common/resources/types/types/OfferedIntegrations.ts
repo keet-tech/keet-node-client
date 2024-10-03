@@ -21,6 +21,7 @@ export const OfferedIntegrations: core.serialization.Schema<
     "Amazon Seller",
     "WhatsApp",
     "Jane",
+    "PPP",
 ]);
 
 export declare namespace OfferedIntegrations {
@@ -35,5 +36,6 @@ export declare namespace OfferedIntegrations {
         | "Facebook"
         | "Amazon Seller"
         | "WhatsApp"
-        | "Jane";
+        | "Jane"
+        | "PPP";
 }

@@ -13,7 +13,8 @@ export type OfferedIntegrations =
     | "Facebook"
     | "Amazon Seller"
     | "WhatsApp"
-    | "Jane";
+    | "Jane"
+    | "PPP";
 
 export const OfferedIntegrations = {
     Venmo: "Venmo",
@@ -27,4 +28,5 @@ export const OfferedIntegrations = {
     AmazonSeller: "Amazon Seller",
     WhatsApp: "WhatsApp",
     Jane: "Jane",
+    Ppp: "PPP",
 } as const;
