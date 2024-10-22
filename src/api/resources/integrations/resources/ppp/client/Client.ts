@@ -57,8 +57,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -207,8 +207,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -335,8 +335,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -503,8 +503,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -622,8 +622,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -740,8 +740,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -858,8 +858,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -976,8 +976,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1094,8 +1094,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1212,8 +1212,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1330,8 +1330,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1446,8 +1446,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1562,8 +1562,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1680,8 +1680,8 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1773,6 +1773,7 @@ export class Ppp {
     /**
      * Get perfect pricing calendar
      *
+     * @param {Keet.integrations.GetCalendar} request
      * @param {Ppp.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -1782,9 +1783,19 @@ export class Ppp {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.ppp.getCalendar()
+     *     await client.integrations.ppp.getCalendar({
+     *         boardId: "string",
+     *         calendarId: "string"
+     *     })
      */
-    public async getCalendar(requestOptions?: Ppp.RequestOptions): Promise<Keet.integrations.GetCalendarResponse> {
+    public async getCalendar(
+        request: Keet.integrations.GetCalendar,
+        requestOptions?: Ppp.RequestOptions
+    ): Promise<Keet.integrations.GetCalendarResponse> {
+        const { boardId, calendarId } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["boardId"] = boardId;
+        _queryParams["calendarId"] = calendarId;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/v1/ppp/calendar"),
             method: "GET",
@@ -1796,12 +1807,13 @@ export class Ppp {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "v0.0.13",
-                "User-Agent": "@keet-tech/keet-node-client/v0.0.13",
+                "X-Fern-SDK-Version": "0.0.14",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,

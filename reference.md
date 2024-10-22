@@ -480,6 +480,335 @@ await client.integrations.amazonSeller.createSession();
 </dl>
 </details>
 
+## Integrations DispatchMe
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Dispatch Me session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.createSession();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">editCustomer</a>(customerId, { ...params }) -> Keet.EditCustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.editCustomer("string", {
+    customer: {
+        firstName: "string",
+        lastName: "string",
+        organizationId: "string",
+        companyName: "string",
+        billingAddress: {
+            street1: "string",
+            street2: "string",
+            city: "string",
+            state: "string",
+            postalCode: "string",
+            district: "string",
+            county: "string",
+            country: "string",
+            formattedAddress: "string",
+            timezone: "string",
+            latitude: 1.1,
+            longitude: 1.1,
+        },
+        homeAddress: {
+            street1: "string",
+            street2: "string",
+            city: "string",
+            state: "string",
+            postalCode: "string",
+            district: "string",
+            county: "string",
+            country: "string",
+            formattedAddress: "string",
+            timezone: "string",
+            latitude: 1.1,
+            longitude: 1.1,
+        },
+        email: "string",
+        notes: "string",
+        phoneNumbers: [
+            {
+                primary: true,
+                number: "string",
+            },
+        ],
+        labels: ["string"],
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.EditCustomer`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">createCustomer</a>({ ...params }) -> Keet.CreateDispatchMeCustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.createCustomer({
+    customer: {
+        firstName: "string",
+        lastName: "string",
+        organizationId: "string",
+        companyName: "string",
+        billingAddress: {
+            street1: "string",
+            street2: "string",
+            city: "string",
+            state: "string",
+            postalCode: "string",
+            district: "string",
+            county: "string",
+            country: "string",
+            formattedAddress: "string",
+            timezone: "string",
+            latitude: 1.1,
+            longitude: 1.1,
+        },
+        homeAddress: {
+            street1: "string",
+            street2: "string",
+            city: "string",
+            state: "string",
+            postalCode: "string",
+            district: "string",
+            county: "string",
+            country: "string",
+            formattedAddress: "string",
+            timezone: "string",
+            latitude: 1.1,
+            longitude: 1.1,
+        },
+        email: "string",
+        notes: "string",
+        phoneNumbers: [
+            {
+                primary: true,
+                number: "string",
+            },
+        ],
+        labels: ["string"],
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.CreateCustomer`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">getCustomers</a>() -> Keet.GetCustomersResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.getCustomers();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">getAccountOrganizations</a>() -> Keet.GetAccountOrganizationsResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.getAccountOrganizations();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Integrations Facebook
 
 <details><summary><code>client.integrations.facebook.<a href="/src/api/resources/integrations/resources/facebook/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
@@ -2187,7 +2516,7 @@ await client.integrations.ppp.getTechnicians();
 </dl>
 </details>
 
-<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getCalendar</a>() -> Keet.GetCalendarResponse</code></summary>
+<details><summary><code>client.integrations.ppp.<a href="/src/api/resources/integrations/resources/ppp/client/Client.ts">getCalendar</a>({ ...params }) -> Keet.GetCalendarResponse</code></summary>
 <dl>
 <dd>
 
@@ -2215,7 +2544,10 @@ Get perfect pricing calendar
 <dd>
 
 ```typescript
-await client.integrations.ppp.getCalendar();
+await client.integrations.ppp.getCalendar({
+    boardId: "string",
+    calendarId: "string",
+});
 ```
 
 </dd>
@@ -2231,7 +2563,389 @@ await client.integrations.ppp.getCalendar();
 <dl>
 <dd>
 
+**request:** `Keet.integrations.GetCalendar`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Ppp.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Integrations Servicebox
+
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Service Box session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.servicebox.createSession();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Servicebox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getLocationIds</a>() -> Keet.LocationIdsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the list of locations associated with this account
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.servicebox.getLocationIds();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Servicebox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getTeamIds</a>() -> Keet.TeamIdsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the list of teams associated with this account
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.servicebox.getTeamIds();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Servicebox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getBarGraph</a>() -> Keet.BarGraphResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a bar graph of the number of events in each location
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.servicebox.getBarGraph();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Servicebox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getCalendar</a>() -> Keet.CalendarResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the calendar
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.servicebox.getCalendar();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Servicebox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Integrations Toast
+
+<details><summary><code>client.integrations.toast.<a href="/src/api/resources/integrations/resources/toast/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Toast session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.toast.createSession();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Toast.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.toast.<a href="/src/api/resources/integrations/resources/toast/client/Client.ts">getMenu</a>() -> Keet.GetMenusResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.toast.getMenu();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Toast.RequestOptions`
 
 </dd>
 </dl>
@@ -2284,6 +2998,64 @@ await client.integrations.uber.createSession();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Uber.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.uber.<a href="/src/api/resources/integrations/resources/uber/client/Client.ts">orderRide</a>({ ...params }) -> Keet.OrderRideResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.uber.orderRide({
+    origin: {
+        addressLine1: "string",
+        addressLine2: "string",
+    },
+    destination: {
+        addressLine1: "string",
+        addressLine2: "string",
+    },
+    carType: Keet.UberCarTypes.UberX,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.OrderRide`
+
+</dd>
+</dl>
 
 <dl>
 <dd>

@@ -6,10 +6,13 @@ import * as core from "../../../../core";
 import { Amazon } from "../resources/amazon/client/Client";
 import { AmazonBusiness } from "../resources/amazonBusiness/client/Client";
 import { AmazonSeller } from "../resources/amazonSeller/client/Client";
+import { DispatchMe } from "../resources/dispatchMe/client/Client";
 import { Facebook } from "../resources/facebook/client/Client";
 import { Instagram } from "../resources/instagram/client/Client";
 import { Linkedin } from "../resources/linkedin/client/Client";
 import { Ppp } from "../resources/ppp/client/Client";
+import { Servicebox } from "../resources/servicebox/client/Client";
+import { Toast } from "../resources/toast/client/Client";
 import { Uber } from "../resources/uber/client/Client";
 import { Venmo } from "../resources/venmo/client/Client";
 import { Whatsapp } from "../resources/whatsapp/client/Client";
@@ -55,6 +58,12 @@ export class Integrations {
         return (this._amazonSeller ??= new AmazonSeller(this._options));
     }
 
+    protected _dispatchMe: DispatchMe | undefined;
+
+    public get dispatchMe(): DispatchMe {
+        return (this._dispatchMe ??= new DispatchMe(this._options));
+    }
+
     protected _facebook: Facebook | undefined;
 
     public get facebook(): Facebook {
@@ -77,6 +86,18 @@ export class Integrations {
 
     public get ppp(): Ppp {
         return (this._ppp ??= new Ppp(this._options));
+    }
+
+    protected _servicebox: Servicebox | undefined;
+
+    public get servicebox(): Servicebox {
+        return (this._servicebox ??= new Servicebox(this._options));
+    }
+
+    protected _toast: Toast | undefined;
+
+    public get toast(): Toast {
+        return (this._toast ??= new Toast(this._options));
     }
 
     protected _uber: Uber | undefined;
