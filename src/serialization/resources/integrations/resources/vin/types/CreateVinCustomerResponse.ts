@@ -7,17 +7,15 @@ import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { ResponseStatus } from "../../../../common/resources/types/types/ResponseStatus";
 
-export const LocationIdsResponse: core.serialization.ObjectSchema<
-    serializers.integrations.LocationIdsResponse.Raw,
-    Keet.integrations.LocationIdsResponse
+export const CreateVinCustomerResponse: core.serialization.ObjectSchema<
+    serializers.integrations.CreateVinCustomerResponse.Raw,
+    Keet.integrations.CreateVinCustomerResponse
 > = core.serialization.object({
     status: ResponseStatus,
-    locations: core.serialization.list(core.serialization.string()),
 });
 
-export declare namespace LocationIdsResponse {
+export declare namespace CreateVinCustomerResponse {
     interface Raw {
         status: ResponseStatus.Raw;
-        locations: string[];
     }
 }

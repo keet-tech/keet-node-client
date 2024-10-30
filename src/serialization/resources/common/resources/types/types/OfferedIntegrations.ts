@@ -25,6 +25,7 @@ export const OfferedIntegrations: core.serialization.Schema<
     "ServiceBox",
     "DispatchMe",
     "Toast",
+    "Vin",
 ]);
 
 export declare namespace OfferedIntegrations {
@@ -43,5 +44,6 @@ export declare namespace OfferedIntegrations {
         | "PPP"
         | "ServiceBox"
         | "DispatchMe"
-        | "Toast";
+        | "Toast"
+        | "Vin";
 }

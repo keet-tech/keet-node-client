@@ -4,7 +4,7 @@
 
 import * as Keet from "../../../../../index";
 
-export interface TeamIdsResponse {
+export interface AmazonSearchItemsResponse {
     status: Keet.common.ResponseStatus;
-    teams: string[];
+    items: Keet.integrations.AmazonItem[];
 }

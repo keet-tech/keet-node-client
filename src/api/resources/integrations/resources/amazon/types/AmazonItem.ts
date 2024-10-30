@@ -4,7 +4,7 @@
 
 export interface AmazonItem {
     title: string;
-    brand: string;
+    brand?: string;
     price: string;
     url: string;
     pricePerUnit?: string;

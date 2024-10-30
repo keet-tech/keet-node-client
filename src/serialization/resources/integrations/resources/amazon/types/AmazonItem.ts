@@ -11,7 +11,7 @@ export const AmazonItem: core.serialization.ObjectSchema<
     Keet.integrations.AmazonItem
 > = core.serialization.object({
     title: core.serialization.string(),
-    brand: core.serialization.string(),
+    brand: core.serialization.string().optional(),
     price: core.serialization.string(),
     url: core.serialization.string(),
     pricePerUnit: core.serialization.string().optional(),
@@ -26,7 +26,7 @@ export const AmazonItem: core.serialization.ObjectSchema<
 export declare namespace AmazonItem {
     interface Raw {
         title: string;
-        brand: string;
+        brand?: string | null;
         price: string;
         url: string;
         pricePerUnit?: string | null;

@@ -7,17 +7,15 @@ import * as Keet from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { ResponseStatus } from "../../../../common/resources/types/types/ResponseStatus";
 
-export const TeamIdsResponse: core.serialization.ObjectSchema<
-    serializers.integrations.TeamIdsResponse.Raw,
-    Keet.integrations.TeamIdsResponse
+export const CreateDispatchMeNoteResponse: core.serialization.ObjectSchema<
+    serializers.integrations.CreateDispatchMeNoteResponse.Raw,
+    Keet.integrations.CreateDispatchMeNoteResponse
 > = core.serialization.object({
     status: ResponseStatus,
-    teams: core.serialization.list(core.serialization.string()),
 });
 
-export declare namespace TeamIdsResponse {
+export declare namespace CreateDispatchMeNoteResponse {
     interface Raw {
         status: ResponseStatus.Raw;
-        teams: string[];
     }
 }

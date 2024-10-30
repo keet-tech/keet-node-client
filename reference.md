@@ -178,6 +178,138 @@ await client.integrations.amazon.buyNow({
 </dl>
 </details>
 
+<details><summary><code>client.integrations.amazon.<a href="/src/api/resources/integrations/resources/amazon/client/Client.ts">addToCart</a>({ ...params }) -> Keet.AmazonAddToCartResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add an item to the cart. **The end user must have a default address and payment method set**. Either ASIN or a valid amazon url to the item must be present. If both are present, the ASIN will be used.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.amazon.addToCart({
+    asin: "string",
+    itemUrl: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.AddToCart`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Amazon.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.amazon.<a href="/src/api/resources/integrations/resources/amazon/client/Client.ts">search</a>({ ...params }) -> Keet.AmazonSearchItemsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search for items.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.amazon.search({
+    query: "string",
+    isWholeFoods: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.AmazonSearchItemsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Amazon.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Integrations AmazonBusiness
 
 <details><summary><code>client.integrations.amazonBusiness.<a href="/src/api/resources/integrations/resources/amazonBusiness/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
@@ -794,6 +926,223 @@ await client.integrations.dispatchMe.getAccountOrganizations();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">getJobs</a>({ ...params }) -> Keet.GetJobsResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.getJobs({
+    organizationId: "string",
+    limit: 1,
+    status: Keet.DispatchMeJobStatus.Offered,
+    offset: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetJobs`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">getUsers</a>({ ...params }) -> Keet.GetDispatchMeUsersResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.getUsers({
+    limit: 1,
+    offset: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetDispatchMeUsers`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">createAppointment</a>({ ...params }) -> Keet.CreateDispatchMeAppointmentResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.createAppointment({
+    appointment: {
+        duration: 1,
+        time: "string",
+        userId: 1,
+        secondaryUserIds: [1],
+        type: "string",
+        organizationId: 1,
+        jobId: 1,
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.CreateDispatchMeAppointment`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DispatchMe.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.dispatchMe.<a href="/src/api/resources/integrations/resources/dispatchMe/client/Client.ts">createNote</a>({ ...params }) -> Keet.CreateDispatchMeNoteResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.dispatchMe.createNote({
+    note: {
+        jobId: 1,
+        description: "string",
+        private: true,
+        priority: true,
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.CreateDispatchMeNote`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -2546,7 +2895,7 @@ Get perfect pricing calendar
 ```typescript
 await client.integrations.ppp.getCalendar({
     boardId: "string",
-    calendarId: "string",
+    date: "string",
 });
 ```
 
@@ -2639,7 +2988,7 @@ await client.integrations.servicebox.createSession();
 </dl>
 </details>
 
-<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getLocationIds</a>() -> Keet.LocationIdsResponse</code></summary>
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getReceptionnaires</a>({ ...params }) -> Keet.ReceptionnairesResponse</code></summary>
 <dl>
 <dd>
 
@@ -2651,7 +3000,7 @@ await client.integrations.servicebox.createSession();
 <dl>
 <dd>
 
-Get the list of locations associated with this account
+Get the list of receptionnaires associated with this account
 
 </dd>
 </dl>
@@ -2667,7 +3016,72 @@ Get the list of locations associated with this account
 <dd>
 
 ```typescript
-await client.integrations.servicebox.getLocationIds();
+await client.integrations.servicebox.getReceptionnaires({
+    equipe: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetServiceBoxReceptionnaires`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Servicebox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getEquippes</a>() -> Keet.EquippesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the list of equippes associated with this account
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.servicebox.getEquippes();
 ```
 
 </dd>
@@ -2694,62 +3108,7 @@ await client.integrations.servicebox.getLocationIds();
 </dl>
 </details>
 
-<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getTeamIds</a>() -> Keet.TeamIdsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the list of teams associated with this account
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.integrations.servicebox.getTeamIds();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `Servicebox.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getBarGraph</a>() -> Keet.BarGraphResponse</code></summary>
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getBarGraph</a>({ ...params }) -> Keet.BarGraphResponse</code></summary>
 <dl>
 <dd>
 
@@ -2777,7 +3136,10 @@ Get a bar graph of the number of events in each location
 <dd>
 
 ```typescript
-await client.integrations.servicebox.getBarGraph();
+await client.integrations.servicebox.getBarGraph({
+    date: "string",
+    equipe: "string",
+});
 ```
 
 </dd>
@@ -2793,6 +3155,14 @@ await client.integrations.servicebox.getBarGraph();
 <dl>
 <dd>
 
+**request:** `Keet.integrations.GetServiceBoxBarGraph`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Servicebox.RequestOptions`
 
 </dd>
@@ -2804,7 +3174,7 @@ await client.integrations.servicebox.getBarGraph();
 </dl>
 </details>
 
-<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getCalendar</a>() -> Keet.CalendarResponse</code></summary>
+<details><summary><code>client.integrations.servicebox.<a href="/src/api/resources/integrations/resources/servicebox/client/Client.ts">getCalendar</a>({ ...params }) -> Keet.CalendarResponse</code></summary>
 <dl>
 <dd>
 
@@ -2832,7 +3202,11 @@ Get the calendar
 <dd>
 
 ```typescript
-await client.integrations.servicebox.getCalendar();
+await client.integrations.servicebox.getCalendar({
+    date: "string",
+    receptionnnaire: "string",
+    equipe: "string",
+});
 ```
 
 </dd>
@@ -2844,6 +3218,14 @@ await client.integrations.servicebox.getCalendar();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetServiceBoxCalendar`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -3158,6 +3540,515 @@ await client.integrations.venmo.getTransactions();
 <dd>
 
 **requestOptions:** `Venmo.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Integrations Vin
+
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">createSession</a>() -> Keet.CreateSessionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Vin session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.createSession();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">createSalesAppointment</a>({ ...params }) -> Keet.CreateVinAppointmentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a sales appointment
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.createSalesAppointment({
+    leadId: "string",
+    customerId: "string",
+    dealerId: "string",
+    description: "string",
+    endDate: "string",
+    startDate: "string",
+    assignedUserId: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.CreateVinAppointmentRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">getAppointments</a>({ ...params }) -> Keet.GetSalesAppointmentsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of sales appointments
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.getAppointments({
+    date: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetVinAppointmentsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">getUsers</a>() -> Keet.GetUsersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of users and assigned users ids.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.getUsers();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">getDealers</a>() -> Keet.GetVinDealersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of dealers
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.getDealers();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">searchCustomers</a>({ ...params }) -> Keet.SearchVinCustomersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search for customers
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.searchCustomers({
+    firstName: "string",
+    lastName: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.SearchCustomersRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">getVehicles</a>({ ...params }) -> Keet.GetVinVehiclesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of vehicles
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.getVehicles({
+    dealerId: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.GetVinVehiclesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">createCustomer</a>({ ...params }) -> Keet.CreateVinCustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a customer
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.createCustomer({
+    customer: {
+        homePhone: "string",
+        workPhone: "string",
+        cellPhone: "string",
+        firstName: "string",
+        middleName: "string",
+        lastName: "string",
+        email: "string",
+        vehicleNumber: "string",
+    },
+    dealerId: "string",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.CreateVinCustomer`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
 
 </dd>
 </dl>

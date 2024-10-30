@@ -17,7 +17,8 @@ export type OfferedIntegrations =
     | "PPP"
     | "ServiceBox"
     | "DispatchMe"
-    | "Toast";
+    | "Toast"
+    | "Vin";
 
 export const OfferedIntegrations = {
     Venmo: "Venmo",
@@ -35,4 +36,5 @@ export const OfferedIntegrations = {
     ServiceBox: "ServiceBox",
     DispatchMe: "DispatchMe",
     Toast: "Toast",
+    Vin: "Vin",
 } as const;

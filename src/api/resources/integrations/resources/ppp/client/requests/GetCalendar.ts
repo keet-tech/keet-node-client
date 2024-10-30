@@ -6,10 +6,10 @@
  * @example
  *     {
  *         boardId: "string",
- *         calendarId: "string"
+ *         date: "string"
  *     }
  */
 export interface GetCalendar {
     boardId: string;
-    calendarId: string;
+    date: string;
 }

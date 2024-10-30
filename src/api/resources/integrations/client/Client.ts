@@ -15,6 +15,7 @@ import { Servicebox } from "../resources/servicebox/client/Client";
 import { Toast } from "../resources/toast/client/Client";
 import { Uber } from "../resources/uber/client/Client";
 import { Venmo } from "../resources/venmo/client/Client";
+import { Vin } from "../resources/vin/client/Client";
 import { Whatsapp } from "../resources/whatsapp/client/Client";
 import { X } from "../resources/x/client/Client";
 
@@ -110,6 +111,12 @@ export class Integrations {
 
     public get venmo(): Venmo {
         return (this._venmo ??= new Venmo(this._options));
+    }
+
+    protected _vin: Vin | undefined;
+
+    public get vin(): Vin {
+        return (this._vin ??= new Vin(this._options));
     }
 
     protected _whatsapp: Whatsapp | undefined;

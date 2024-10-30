@@ -4,7 +4,7 @@
 
 import * as Keet from "../../../../../index";
 
-export interface LocationIdsResponse {
+export interface ReceptionnairesResponse {
     status: Keet.common.ResponseStatus;
-    locations: string[];
+    receptionnaires: Keet.integrations.ServiceBoxEquippe[];
 }

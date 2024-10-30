@@ -57,8 +57,8 @@ export class Servicebox {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.14",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
+                "X-Fern-SDK-Version": "0.0.15",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -148,8 +148,9 @@ export class Servicebox {
     }
 
     /**
-     * Get the list of locations associated with this account
+     * Get the list of receptionnaires associated with this account
      *
+     * @param {Keet.integrations.GetServiceBoxReceptionnaires} request
      * @param {Servicebox.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -159,13 +160,19 @@ export class Servicebox {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.servicebox.getLocationIds()
+     *     await client.integrations.servicebox.getReceptionnaires({
+     *         equipe: "string"
+     *     })
      */
-    public async getLocationIds(
+    public async getReceptionnaires(
+        request: Keet.integrations.GetServiceBoxReceptionnaires,
         requestOptions?: Servicebox.RequestOptions
-    ): Promise<Keet.integrations.LocationIdsResponse> {
+    ): Promise<Keet.integrations.ReceptionnairesResponse> {
+        const { equipe } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["equipe"] = equipe;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/servicebox/locations"),
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/servicebox/receptionnaires"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -175,19 +182,20 @@ export class Servicebox {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.14",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
+                "X-Fern-SDK-Version": "0.0.15",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.LocationIdsResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.ReceptionnairesResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -266,7 +274,7 @@ export class Servicebox {
     }
 
     /**
-     * Get the list of teams associated with this account
+     * Get the list of equippes associated with this account
      *
      * @param {Servicebox.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -277,11 +285,11 @@ export class Servicebox {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.servicebox.getTeamIds()
+     *     await client.integrations.servicebox.getEquippes()
      */
-    public async getTeamIds(requestOptions?: Servicebox.RequestOptions): Promise<Keet.integrations.TeamIdsResponse> {
+    public async getEquippes(requestOptions?: Servicebox.RequestOptions): Promise<Keet.integrations.EquippesResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/servicebox/teams"),
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/servicebox/equippes"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -291,8 +299,8 @@ export class Servicebox {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.14",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
+                "X-Fern-SDK-Version": "0.0.15",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -303,7 +311,7 @@ export class Servicebox {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.TeamIdsResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.EquippesResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -384,6 +392,7 @@ export class Servicebox {
     /**
      * Get a bar graph of the number of events in each location
      *
+     * @param {Keet.integrations.GetServiceBoxBarGraph} request
      * @param {Servicebox.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -393,9 +402,19 @@ export class Servicebox {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.servicebox.getBarGraph()
+     *     await client.integrations.servicebox.getBarGraph({
+     *         date: "string",
+     *         equipe: "string"
+     *     })
      */
-    public async getBarGraph(requestOptions?: Servicebox.RequestOptions): Promise<Keet.integrations.BarGraphResponse> {
+    public async getBarGraph(
+        request: Keet.integrations.GetServiceBoxBarGraph,
+        requestOptions?: Servicebox.RequestOptions
+    ): Promise<Keet.integrations.BarGraphResponse> {
+        const { date, equipe } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["date"] = date;
+        _queryParams["equipe"] = equipe;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/v1/servicebox/bar-graph"),
             method: "GET",
@@ -407,12 +426,13 @@ export class Servicebox {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.14",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
+                "X-Fern-SDK-Version": "0.0.15",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -500,6 +520,7 @@ export class Servicebox {
     /**
      * Get the calendar
      *
+     * @param {Keet.integrations.GetServiceBoxCalendar} request
      * @param {Servicebox.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -509,9 +530,21 @@ export class Servicebox {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.servicebox.getCalendar()
+     *     await client.integrations.servicebox.getCalendar({
+     *         date: "string",
+     *         receptionnnaire: "string",
+     *         equipe: "string"
+     *     })
      */
-    public async getCalendar(requestOptions?: Servicebox.RequestOptions): Promise<Keet.integrations.CalendarResponse> {
+    public async getCalendar(
+        request: Keet.integrations.GetServiceBoxCalendar,
+        requestOptions?: Servicebox.RequestOptions
+    ): Promise<Keet.integrations.CalendarResponse> {
+        const { date, receptionnnaire, equipe } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["date"] = date;
+        _queryParams["receptionnnaire"] = receptionnnaire;
+        _queryParams["equipe"] = equipe;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/v1/servicebox/calendar"),
             method: "GET",
@@ -523,12 +556,13 @@ export class Servicebox {
                         : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.14",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.14",
+                "X-Fern-SDK-Version": "0.0.15",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
