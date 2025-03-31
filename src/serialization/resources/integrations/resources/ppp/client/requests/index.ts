@@ -1,1 +1,0 @@
-export { CreateAppointment } from "./CreateAppointment";

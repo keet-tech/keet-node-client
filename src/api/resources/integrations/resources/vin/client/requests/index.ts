@@ -1,5 +1,12 @@
 export { type CreateVinAppointmentRequest } from "./CreateVinAppointmentRequest";
 export { type GetVinAppointmentsRequest } from "./GetVinAppointmentsRequest";
+export { type GetVinUsers } from "./GetVinUsers";
+export { type GetVinDealers } from "./GetVinDealers";
 export { type SearchCustomersRequest } from "./SearchCustomersRequest";
 export { type GetVinVehiclesRequest } from "./GetVinVehiclesRequest";
+export { type GetVinLeadSourceRequest } from "./GetVinLeadSourceRequest";
+export { type GetVinLeadTypeRequest } from "./GetVinLeadTypeRequest";
+export { type GetVinCompanyTypeRequest } from "./GetVinCompanyTypeRequest";
 export { type CreateVinCustomer } from "./CreateVinCustomer";
+export { type CreateVinLead } from "./CreateVinLead";
+export { type GetVinAppointmentRequest } from "./GetVinAppointmentRequest";

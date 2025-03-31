@@ -1,0 +1,13 @@
+export { type CreateAestheticRecordsAppointmentRequest } from "./CreateAestheticRecordsAppointmentRequest";
+export { type GetClientsRequest } from "./GetClientsRequest";
+export { type GetClientAppointmentsRequest } from "./GetClientAppointmentsRequest";
+export { type GetClient } from "./GetClient";
+export { type GetClinicsRequest } from "./GetClinicsRequest";
+export { type GetProvidersRequest } from "./GetProvidersRequest";
+export { type GetProducts } from "./GetProducts";
+export { type GetProductPriceList } from "./GetProductPriceList";
+export { type GetProduct } from "./GetProduct";
+export { type GetProviderAvailability } from "./GetProviderAvailability";
+export { type GetAestheticRecordsCalendar } from "./GetAestheticRecordsCalendar";
+export { type GetAestheticRecordsAccountDataRequest } from "./GetAestheticRecordsAccountDataRequest";
+export { type GetAppointmentTypesRequest } from "./GetAppointmentTypesRequest";

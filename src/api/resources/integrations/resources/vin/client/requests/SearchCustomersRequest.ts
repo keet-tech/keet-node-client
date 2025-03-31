@@ -5,11 +5,16 @@
 /**
  * @example
  *     {
- *         firstName: "string",
- *         lastName: "string"
+ *         xAccountToken: "X-Account-Token",
+ *         firstName: "firstName",
+ *         lastName: "lastName"
  *     }
  */
 export interface SearchCustomersRequest {
     firstName: string;
     lastName: string;
+    /**
+     * The account token that is associated with the end user linked to this account
+     */
+    xAccountToken: string;
 }

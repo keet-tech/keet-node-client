@@ -5,6 +5,7 @@
 import * as Keet from "../../../../../index";
 
 export interface LinkedAccount {
+    id: string;
     endUserId: string;
     createdAt: Date;
     integrations: Keet.common.Integration[];

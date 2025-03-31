@@ -11,6 +11,7 @@ export const LinkedAccount: core.serialization.ObjectSchema<
     serializers.common.LinkedAccount.Raw,
     Keet.common.LinkedAccount
 > = core.serialization.object({
+    id: core.serialization.string(),
     endUserId: core.serialization.string(),
     createdAt: core.serialization.date(),
     integrations: core.serialization.list(Integration),
@@ -18,6 +19,7 @@ export const LinkedAccount: core.serialization.ObjectSchema<
 
 export declare namespace LinkedAccount {
     interface Raw {
+        id: string;
         endUserId: string;
         createdAt: string;
         integrations: Integration.Raw[];

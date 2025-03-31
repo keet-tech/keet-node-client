@@ -4,16 +4,14 @@
 
 import * as core from "../../../../../../core";
 import * as Keet from "../../../../../index";
+import * as serializers from "../../../../../../serialization/index";
 import * as environments from "../../../../../../environments";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Vin {
     interface Options {
         token: core.Supplier<core.BearerToken>;
-        /** Override the X-Account-Token header */
-        accountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -23,8 +21,6 @@ export declare namespace Vin {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the X-Account-Token header */
-        accountToken?: string | undefined;
     }
 }
 
@@ -32,125 +28,9 @@ export class Vin {
     constructor(protected readonly _options: Vin.Options) {}
 
     /**
-     * Create a Vin session that you can connect to via playwright. See [this link](/overview/integrations/custom-automations) for more info.
-     *
-     * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Keet.common.UnAuthorizedError}
-     * @throws {@link Keet.common.InternalServerError}
-     * @throws {@link Keet.common.NotFoundError}
-     * @throws {@link Keet.common.BadRequestError}
-     * @throws {@link Keet.common.NotImplementedError}
-     *
-     * @example
-     *     await client.integrations.vin.createSession()
-     */
-    public async createSession(requestOptions?: Vin.RequestOptions): Promise<Keet.common.CreateSessionResponse> {
-        const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/session"),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.common.CreateSessionResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Keet.common.UnAuthorizedError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Keet.common.InternalServerError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 404:
-                    throw new Keet.common.NotFoundError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 400:
-                    throw new Keet.common.BadRequestError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Keet.common.NotImplementedError(
-                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.KeetError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KeetError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.KeetTimeoutError();
-            case "unknown":
-                throw new errors.KeetError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
      * Create a sales appointment
      *
-     * @param {Keet.integrations.CreateVinAppointmentRequest} request
+     * @param {Keet.integrations.vin.CreateVinAppointmentRequest} request
      * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -161,38 +41,37 @@ export class Vin {
      *
      * @example
      *     await client.integrations.vin.createSalesAppointment({
-     *         leadId: "string",
-     *         customerId: "string",
-     *         dealerId: "string",
-     *         description: "string",
-     *         endDate: "string",
-     *         startDate: "string",
-     *         assignedUserId: "string"
+     *         xAccountToken: "X-Account-Token",
+     *         leadId: "leadId",
+     *         customerId: "customerId",
+     *         dealerId: "dealerId",
+     *         description: "description",
+     *         endDate: "endDate",
+     *         startDate: "startDate",
+     *         assignedUserId: "assignedUserId"
      *     })
      */
     public async createSalesAppointment(
-        request: Keet.integrations.CreateVinAppointmentRequest,
+        request: Keet.integrations.vin.CreateVinAppointmentRequest,
         requestOptions?: Vin.RequestOptions
-    ): Promise<Keet.integrations.CreateVinAppointmentResponse> {
+    ): Promise<Keet.integrations.vin.CreateVinAppointmentResponse> {
+        const { xAccountToken, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/sales/appointments"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.integrations.CreateVinAppointmentRequest.jsonOrThrow(request, {
+            body: serializers.integrations.vin.CreateVinAppointmentRequest.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -200,7 +79,7 @@ export class Vin {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.CreateVinAppointmentResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.vin.CreateVinAppointmentResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -281,7 +160,7 @@ export class Vin {
     /**
      * Get a list of sales appointments
      *
-     * @param {Keet.integrations.GetVinAppointmentsRequest} request
+     * @param {Keet.integrations.vin.GetVinAppointmentsRequest} request
      * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -292,31 +171,37 @@ export class Vin {
      *
      * @example
      *     await client.integrations.vin.getAppointments({
-     *         date: "string"
+     *         xAccountToken: "X-Account-Token",
+     *         pageNumber: 1,
+     *         pageSize: 1,
+     *         startDate: "startDate",
+     *         endDate: "endDate",
+     *         dealerId: "dealerId"
      *     })
      */
     public async getAppointments(
-        request: Keet.integrations.GetVinAppointmentsRequest,
+        request: Keet.integrations.vin.GetVinAppointmentsRequest,
         requestOptions?: Vin.RequestOptions
-    ): Promise<Keet.integrations.GetSalesAppointmentsResponse> {
-        const { date } = request;
+    ): Promise<Keet.integrations.vin.GetSalesAppointmentsResponse> {
+        const { pageNumber, pageSize, startDate, endDate, dealerId, xAccountToken } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["date"] = date;
+        _queryParams["pageNumber"] = pageNumber.toString();
+        _queryParams["pageSize"] = pageSize.toString();
+        _queryParams["startDate"] = startDate;
+        _queryParams["endDate"] = endDate;
+        _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/sales/appointments"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -326,7 +211,7 @@ export class Vin {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.GetSalesAppointmentsResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.vin.GetSalesAppointmentsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -407,6 +292,7 @@ export class Vin {
     /**
      * Get a list of users and assigned users ids.
      *
+     * @param {Keet.integrations.vin.GetVinUsers} request
      * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -416,33 +302,40 @@ export class Vin {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.vin.getUsers()
+     *     await client.integrations.vin.getUsers({
+     *         xAccountToken: "X-Account-Token",
+     *         dealerId: "dealerId"
+     *     })
      */
-    public async getUsers(requestOptions?: Vin.RequestOptions): Promise<Keet.integrations.GetUsersResponse> {
+    public async getUsers(
+        request: Keet.integrations.vin.GetVinUsers,
+        requestOptions?: Vin.RequestOptions
+    ): Promise<Keet.integrations.vin.GetUsersResponse> {
+        const { dealerId, xAccountToken } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/users"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.GetUsersResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.vin.GetUsersResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -523,6 +416,7 @@ export class Vin {
     /**
      * Get a list of dealers
      *
+     * @param {Keet.integrations.vin.GetVinDealers} request
      * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -532,24 +426,27 @@ export class Vin {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.integrations.vin.getDealers()
+     *     await client.integrations.vin.getDealers({
+     *         xAccountToken: "X-Account-Token"
+     *     })
      */
-    public async getDealers(requestOptions?: Vin.RequestOptions): Promise<Keet.integrations.GetVinDealersResponse> {
+    public async getDealers(
+        request: Keet.integrations.vin.GetVinDealers,
+        requestOptions?: Vin.RequestOptions
+    ): Promise<Keet.integrations.vin.GetVinDealersResponse> {
+        const { xAccountToken } = request;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/dealers"),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             requestType: "json",
@@ -558,7 +455,7 @@ export class Vin {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.GetVinDealersResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.vin.GetVinDealersResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -639,7 +536,7 @@ export class Vin {
     /**
      * Search for customers
      *
-     * @param {Keet.integrations.SearchCustomersRequest} request
+     * @param {Keet.integrations.vin.SearchCustomersRequest} request
      * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -650,15 +547,16 @@ export class Vin {
      *
      * @example
      *     await client.integrations.vin.searchCustomers({
-     *         firstName: "string",
-     *         lastName: "string"
+     *         xAccountToken: "X-Account-Token",
+     *         firstName: "firstName",
+     *         lastName: "lastName"
      *     })
      */
     public async searchCustomers(
-        request: Keet.integrations.SearchCustomersRequest,
+        request: Keet.integrations.vin.SearchCustomersRequest,
         requestOptions?: Vin.RequestOptions
-    ): Promise<Keet.integrations.SearchVinCustomersResponse> {
-        const { firstName, lastName } = request;
+    ): Promise<Keet.integrations.vin.SearchVinCustomersResponse> {
+        const { firstName, lastName, xAccountToken } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         _queryParams["firstName"] = firstName;
         _queryParams["lastName"] = lastName;
@@ -667,16 +565,13 @@ export class Vin {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -686,7 +581,7 @@ export class Vin {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.SearchVinCustomersResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.vin.SearchVinCustomersResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -767,7 +662,7 @@ export class Vin {
     /**
      * Get a list of vehicles
      *
-     * @param {Keet.integrations.GetVinVehiclesRequest} request
+     * @param {Keet.integrations.vin.GetVinVehiclesRequest} request
      * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -778,14 +673,15 @@ export class Vin {
      *
      * @example
      *     await client.integrations.vin.getVehicles({
-     *         dealerId: "string"
+     *         xAccountToken: "X-Account-Token",
+     *         dealerId: "dealerId"
      *     })
      */
     public async getVehicles(
-        request: Keet.integrations.GetVinVehiclesRequest,
+        request: Keet.integrations.vin.GetVinVehiclesRequest,
         requestOptions?: Vin.RequestOptions
-    ): Promise<Keet.integrations.GetVinVehiclesResponse> {
-        const { dealerId } = request;
+    ): Promise<Keet.integrations.vin.GetVinVehiclesResponse> {
+        const { dealerId, xAccountToken } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
@@ -793,16 +689,13 @@ export class Vin {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -812,7 +705,379 @@ export class Vin {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.GetVinVehiclesResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.vin.GetVinVehiclesResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get a list of the lead sources for adding a customer
+     *
+     * @param {Keet.integrations.vin.GetVinLeadSourceRequest} request
+     * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.vin.getLeadSourceOptions({
+     *         xAccountToken: "X-Account-Token",
+     *         dealerId: "dealerId"
+     *     })
+     */
+    public async getLeadSourceOptions(
+        request: Keet.integrations.vin.GetVinLeadSourceRequest,
+        requestOptions?: Vin.RequestOptions
+    ): Promise<Keet.integrations.vin.GetVinLeadSourceResponse> {
+        const { dealerId, xAccountToken } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["dealerId"] = dealerId;
+        const _response = await core.fetcher({
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/lead-source"),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.vin.GetVinLeadSourceResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get a list of the lead types for adding a customer
+     *
+     * @param {Keet.integrations.vin.GetVinLeadTypeRequest} request
+     * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.vin.getLeadTypeOptions({
+     *         xAccountToken: "X-Account-Token",
+     *         dealerId: "dealerId"
+     *     })
+     */
+    public async getLeadTypeOptions(
+        request: Keet.integrations.vin.GetVinLeadTypeRequest,
+        requestOptions?: Vin.RequestOptions
+    ): Promise<Keet.integrations.vin.GetVinLeadTypeResponse> {
+        const { dealerId, xAccountToken } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["dealerId"] = dealerId;
+        const _response = await core.fetcher({
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/lead-type"),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.vin.GetVinLeadTypeResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get a list of the company types for adding a customer
+     *
+     * @param {Keet.integrations.vin.GetVinCompanyTypeRequest} request
+     * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.vin.getCompanyTypeOptions({
+     *         xAccountToken: "X-Account-Token",
+     *         dealerId: "dealerId"
+     *     })
+     */
+    public async getCompanyTypeOptions(
+        request: Keet.integrations.vin.GetVinCompanyTypeRequest,
+        requestOptions?: Vin.RequestOptions
+    ): Promise<Keet.integrations.vin.GetVinCompanyTypeResponse> {
+        const { dealerId, xAccountToken } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["dealerId"] = dealerId;
+        const _response = await core.fetcher({
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/company-type"),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.vin.GetVinCompanyTypeResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -893,7 +1158,7 @@ export class Vin {
     /**
      * Create a customer
      *
-     * @param {Keet.integrations.CreateVinCustomer} request
+     * @param {Keet.integrations.vin.CreateVinCustomer} request
      * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Keet.common.UnAuthorizedError}
@@ -904,48 +1169,301 @@ export class Vin {
      *
      * @example
      *     await client.integrations.vin.createCustomer({
+     *         xAccountToken: "X-Account-Token",
      *         customer: {
-     *             homePhone: "string",
-     *             workPhone: "string",
-     *             cellPhone: "string",
-     *             firstName: "string",
-     *             middleName: "string",
-     *             lastName: "string",
-     *             email: "string",
-     *             vehicleNumber: "string"
+     *             homePhone: "homePhone",
+     *             firstName: "firstName",
+     *             lastName: "lastName",
+     *             email: "email",
+     *             vehicleNumber: "vehicleNumber"
      *         },
-     *         dealerId: "string"
+     *         dealerId: "dealerId",
+     *         sourceName: "sourceName",
+     *         sourceId: "sourceId",
+     *         leadTypeId: "leadTypeId"
      *     })
      */
     public async createCustomer(
-        request: Keet.integrations.CreateVinCustomer,
+        request: Keet.integrations.vin.CreateVinCustomer,
         requestOptions?: Vin.RequestOptions
-    ): Promise<Keet.integrations.CreateVinCustomerResponse> {
+    ): Promise<Keet.integrations.vin.CreateVinCustomerResponse> {
+        const { xAccountToken, ..._body } = request;
         const _response = await core.fetcher({
             url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/customers"),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.integrations.CreateVinCustomer.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.integrations.vin.CreateVinCustomer.jsonOrThrow(_body, {
+                unrecognizedObjectKeys: "strip",
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.integrations.CreateVinCustomerResponse.parseOrThrow(_response.body, {
+            return serializers.integrations.vin.CreateVinCustomerResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Create a lead
+     *
+     * @param {Keet.integrations.vin.CreateVinLead} request
+     * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.vin.createLead({
+     *         xAccountToken: "X-Account-Token",
+     *         customerId: "customerId",
+     *         dealerId: "dealerId",
+     *         vehicleStockNumber: "vehicleStockNumber",
+     *         sourceId: "sourceId",
+     *         leadTypeId: "leadTypeId"
+     *     })
+     */
+    public async createLead(
+        request: Keet.integrations.vin.CreateVinLead,
+        requestOptions?: Vin.RequestOptions
+    ): Promise<Keet.integrations.vin.CreateVinLeadResponse> {
+        const { xAccountToken, ..._body } = request;
+        const _response = await core.fetcher({
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/leads"),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.integrations.vin.CreateVinLead.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.vin.CreateVinLeadResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError();
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get a sales appointment
+     *
+     * @param {Keet.integrations.vin.GetVinAppointmentRequest} request
+     * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.vin.getAppointment({
+     *         xAccountToken: "X-Account-Token",
+     *         appointmentId: "appointmentId",
+     *         dealerId: "dealerId"
+     *     })
+     */
+    public async getAppointment(
+        request: Keet.integrations.vin.GetVinAppointmentRequest,
+        requestOptions?: Vin.RequestOptions
+    ): Promise<Keet.integrations.vin.GetSalesAppointmentResponse> {
+        const { appointmentId, dealerId, xAccountToken } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["appointmentId"] = appointmentId;
+        _queryParams["dealerId"] = dealerId;
+        const _response = await core.fetcher({
+            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/sales/appointment"),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.vin.GetSalesAppointmentResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

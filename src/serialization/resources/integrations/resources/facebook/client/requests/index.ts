@@ -1,1 +1,0 @@
-export { PostGroupMessage } from "./PostGroupMessage";

@@ -7,8 +7,8 @@ import * as Keet from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
 
 export const CreateVinAppointmentRequest: core.serialization.Schema<
-    serializers.integrations.CreateVinAppointmentRequest.Raw,
-    Keet.integrations.CreateVinAppointmentRequest
+    serializers.integrations.vin.CreateVinAppointmentRequest.Raw,
+    Omit<Keet.integrations.vin.CreateVinAppointmentRequest, "xAccountToken">
 > = core.serialization.object({
     leadId: core.serialization.string(),
     customerId: core.serialization.string(),

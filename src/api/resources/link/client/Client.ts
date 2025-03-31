@@ -12,8 +12,6 @@ import * as errors from "../../../../errors/index";
 export declare namespace Link {
     interface Options {
         token: core.Supplier<core.BearerToken>;
-        /** Override the X-Account-Token header */
-        accountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -23,8 +21,6 @@ export declare namespace Link {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the X-Account-Token header */
-        accountToken?: string | undefined;
     }
 }
 
@@ -47,7 +43,7 @@ export class Link {
      *     await client.link.createLinkToken({
      *         linkConfig: {
      *             endUserId: "<userId>",
-     *             integration: Keet.common.OfferedIntegrations.Instagram,
+     *             integration: Keet.common.OfferedIntegrations.Vin,
      *             companyLogoUri: "https://example.com/logo.png"
      *         }
      *     })
@@ -61,14 +57,10 @@ export class Link {
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

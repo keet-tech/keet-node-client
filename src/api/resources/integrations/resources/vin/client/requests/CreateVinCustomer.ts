@@ -7,20 +7,31 @@ import * as Keet from "../../../../../../index";
 /**
  * @example
  *     {
+ *         xAccountToken: "X-Account-Token",
  *         customer: {
- *             homePhone: "string",
- *             workPhone: "string",
- *             cellPhone: "string",
- *             firstName: "string",
- *             middleName: "string",
- *             lastName: "string",
- *             email: "string",
- *             vehicleNumber: "string"
+ *             homePhone: "homePhone",
+ *             firstName: "firstName",
+ *             lastName: "lastName",
+ *             email: "email",
+ *             vehicleNumber: "vehicleNumber"
  *         },
- *         dealerId: "string"
+ *         dealerId: "dealerId",
+ *         sourceName: "sourceName",
+ *         sourceId: "sourceId",
+ *         leadTypeId: "leadTypeId"
  *     }
  */
 export interface CreateVinCustomer {
-    customer: Keet.integrations.VinCustomer;
+    /**
+     * The account token that is associated with the end user linked to this account
+     */
+    xAccountToken: string;
+    customer: Keet.integrations.vin.VinCustomer;
     dealerId: string;
+    sourceName: string;
+    sourceId: string;
+    /** Defaults to authenticated user */
+    vinUser?: Keet.integrations.vin.VinUser;
+    leadTypeId: string;
+    notes?: string;
 }

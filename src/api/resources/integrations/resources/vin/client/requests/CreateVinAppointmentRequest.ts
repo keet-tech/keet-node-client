@@ -5,16 +5,21 @@
 /**
  * @example
  *     {
- *         leadId: "string",
- *         customerId: "string",
- *         dealerId: "string",
- *         description: "string",
- *         endDate: "string",
- *         startDate: "string",
- *         assignedUserId: "string"
+ *         xAccountToken: "X-Account-Token",
+ *         leadId: "leadId",
+ *         customerId: "customerId",
+ *         dealerId: "dealerId",
+ *         description: "description",
+ *         endDate: "endDate",
+ *         startDate: "startDate",
+ *         assignedUserId: "assignedUserId"
  *     }
  */
 export interface CreateVinAppointmentRequest {
+    /**
+     * The account token that is associated with the end user linked to this account
+     */
+    xAccountToken: string;
     leadId: string;
     customerId: string;
     dealerId: string;

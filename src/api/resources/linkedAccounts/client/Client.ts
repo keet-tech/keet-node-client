@@ -12,8 +12,6 @@ import * as errors from "../../../../errors/index";
 export declare namespace LinkedAccounts {
     interface Options {
         token: core.Supplier<core.BearerToken>;
-        /** Override the X-Account-Token header */
-        accountToken?: core.Supplier<string | undefined>;
     }
 
     interface RequestOptions {
@@ -23,8 +21,6 @@ export declare namespace LinkedAccounts {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the X-Account-Token header */
-        accountToken?: string | undefined;
     }
 }
 
@@ -42,7 +38,7 @@ export class LinkedAccounts {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.linkedAccounts.getLinkedAccount("string")
+     *     await client.linkedAccounts.getLinkedAccount("linkedAccountId")
      */
     public async getLinkedAccount(
         linkedAccountId: string,
@@ -56,14 +52,10 @@ export class LinkedAccounts {
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -163,7 +155,7 @@ export class LinkedAccounts {
      * @throws {@link Keet.common.NotImplementedError}
      *
      * @example
-     *     await client.linkedAccounts.deleteLinkedAccount("string")
+     *     await client.linkedAccounts.deleteLinkedAccount("linkedAccountId")
      */
     public async deleteLinkedAccount(
         linkedAccountId: string,
@@ -177,14 +169,10 @@ export class LinkedAccounts {
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -297,14 +285,10 @@ export class LinkedAccounts {
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
-                "X-Account-Token":
-                    (await core.Supplier.get(this._options.accountToken)) != null
-                        ? await core.Supplier.get(this._options.accountToken)
-                        : undefined,
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
-                "X-Fern-SDK-Version": "0.0.15",
-                "User-Agent": "@keet-tech/keet-node-client/0.0.15",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

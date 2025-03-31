@@ -5,19 +5,30 @@
 import * as serializers from "../../../../../../index";
 import * as Keet from "../../../../../../../api/index";
 import * as core from "../../../../../../../core";
-import { VinCustomer } from "../../types/VinCustomer";
+import { VinCustomer } from "../../resources/types/types/VinCustomer";
+import { VinUser } from "../../resources/types/types/VinUser";
 
 export const CreateVinCustomer: core.serialization.Schema<
-    serializers.integrations.CreateVinCustomer.Raw,
-    Keet.integrations.CreateVinCustomer
+    serializers.integrations.vin.CreateVinCustomer.Raw,
+    Omit<Keet.integrations.vin.CreateVinCustomer, "xAccountToken">
 > = core.serialization.object({
     customer: VinCustomer,
     dealerId: core.serialization.string(),
+    sourceName: core.serialization.string(),
+    sourceId: core.serialization.string(),
+    vinUser: VinUser.optional(),
+    leadTypeId: core.serialization.string(),
+    notes: core.serialization.string().optional(),
 });
 
 export declare namespace CreateVinCustomer {
     interface Raw {
         customer: VinCustomer.Raw;
         dealerId: string;
+        sourceName: string;
+        sourceId: string;
+        vinUser?: VinUser.Raw | null;
+        leadTypeId: string;
+        notes?: string | null;
     }
 }

@@ -5,9 +5,14 @@
 /**
  * @example
  *     {
- *         dealerId: "string"
+ *         xAccountToken: "X-Account-Token",
+ *         dealerId: "dealerId"
  *     }
  */
 export interface GetVinVehiclesRequest {
     dealerId: string;
+    /**
+     * The account token that is associated with the end user linked to this account
+     */
+    xAccountToken: string;
 }

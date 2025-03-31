@@ -5,9 +5,22 @@
 /**
  * @example
  *     {
- *         date: "string"
+ *         xAccountToken: "X-Account-Token",
+ *         pageNumber: 1,
+ *         pageSize: 1,
+ *         startDate: "startDate",
+ *         endDate: "endDate",
+ *         dealerId: "dealerId"
  *     }
  */
 export interface GetVinAppointmentsRequest {
-    date: string;
+    pageNumber: number;
+    pageSize: number;
+    startDate: string;
+    endDate: string;
+    dealerId: string;
+    /**
+     * The account token that is associated with the end user linked to this account
+     */
+    xAccountToken: string;
 }
