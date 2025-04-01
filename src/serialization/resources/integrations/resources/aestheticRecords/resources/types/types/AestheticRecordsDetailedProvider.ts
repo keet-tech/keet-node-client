@@ -24,7 +24,7 @@ export const AestheticRecordsDetailedProvider: core.serialization.ObjectSchema<
     .extend(AestheticRecordsProvider);
 
 export declare namespace AestheticRecordsDetailedProvider {
-    interface Raw extends AestheticRecordsProvider.Raw {
+    export interface Raw extends AestheticRecordsProvider.Raw {
         bio_description?: string | null;
         bio_name?: string | null;
         status: string;

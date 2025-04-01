@@ -10,17 +10,21 @@ import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace LinkedAccounts {
-    interface Options {
+    export interface Options {
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -42,12 +46,12 @@ export class LinkedAccounts {
      */
     public async getLinkedAccount(
         linkedAccountId: string,
-        requestOptions?: LinkedAccounts.RequestOptions
+        requestOptions?: LinkedAccounts.RequestOptions,
     ): Promise<Keet.GetLinkedAccountResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                environments.KeetEnvironment.Production,
-                `/v1/linked-accounts/${encodeURIComponent(linkedAccountId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                `/v1/linked-accounts/${encodeURIComponent(linkedAccountId)}`,
             ),
             method: "GET",
             headers: {
@@ -58,6 +62,7 @@ export class LinkedAccounts {
                 "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -83,7 +88,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -92,7 +97,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -101,7 +106,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -110,7 +115,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -119,7 +124,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -136,7 +141,9 @@ export class LinkedAccounts {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/linked-accounts/{linkedAccountId}.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -159,12 +166,12 @@ export class LinkedAccounts {
      */
     public async deleteLinkedAccount(
         linkedAccountId: string,
-        requestOptions?: LinkedAccounts.RequestOptions
+        requestOptions?: LinkedAccounts.RequestOptions,
     ): Promise<Keet.DeleteLinkedAccountResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                environments.KeetEnvironment.Production,
-                `/v1/linked-accounts/${encodeURIComponent(linkedAccountId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                `/v1/linked-accounts/${encodeURIComponent(linkedAccountId)}`,
             ),
             method: "DELETE",
             headers: {
@@ -175,6 +182,7 @@ export class LinkedAccounts {
                 "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -200,7 +208,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -209,7 +217,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -218,7 +226,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -227,7 +235,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -236,7 +244,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -253,7 +261,9 @@ export class LinkedAccounts {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling DELETE /v1/linked-accounts/{linkedAccountId}.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -278,10 +288,13 @@ export class LinkedAccounts {
      */
     public async getToken(
         request: Keet.GetTokenRequest,
-        requestOptions?: LinkedAccounts.RequestOptions
+        requestOptions?: LinkedAccounts.RequestOptions,
     ): Promise<Keet.GetTokenResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/linked-accounts/token"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/linked-accounts/token",
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -291,6 +304,7 @@ export class LinkedAccounts {
                 "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -317,7 +331,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -326,7 +340,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -335,7 +349,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -344,7 +358,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -353,7 +367,7 @@ export class LinkedAccounts {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -370,7 +384,7 @@ export class LinkedAccounts {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling POST /v1/linked-accounts/token.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,

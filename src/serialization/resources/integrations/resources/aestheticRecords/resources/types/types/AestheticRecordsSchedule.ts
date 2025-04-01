@@ -26,7 +26,7 @@ export const AestheticRecordsSchedule: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsSchedule {
-    interface Raw {
+    export interface Raw {
         id: number;
         provider_id: number;
         clinic_id: number;

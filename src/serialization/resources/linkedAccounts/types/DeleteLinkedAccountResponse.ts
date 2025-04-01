@@ -15,7 +15,7 @@ export const DeleteLinkedAccountResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace DeleteLinkedAccountResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
     }
 }

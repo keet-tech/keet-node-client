@@ -18,7 +18,7 @@ export const VinSalesLead: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinSalesLead {
-    interface Raw {
+    export interface Raw {
         id: number;
         autoId?: number | null;
         vehicle?: VinSalesVehicle.Raw | null;

@@ -13,7 +13,7 @@ export const Integration: core.serialization.ObjectSchema<serializers.common.Int
     });
 
 export declare namespace Integration {
-    interface Raw {
+    export interface Raw {
         integration: string;
         isAlive: boolean;
     }

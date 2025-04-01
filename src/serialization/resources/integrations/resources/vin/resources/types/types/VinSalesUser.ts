@@ -17,7 +17,7 @@ export const VinSalesUser: core.serialization.ObjectSchema<
     .extend(VinUser);
 
 export declare namespace VinSalesUser {
-    interface Raw extends VinUser.Raw {
+    export interface Raw extends VinUser.Raw {
         href?: string | null;
     }
 }

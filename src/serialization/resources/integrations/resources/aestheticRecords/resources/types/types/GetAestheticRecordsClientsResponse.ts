@@ -19,7 +19,7 @@ export const GetAestheticRecordsClientsResponse: core.serialization.ObjectSchema
 });
 
 export declare namespace GetAestheticRecordsClientsResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         clients: AestheticRecordsClientGet.Raw[];
         pagination: AestheticRecordsPagination.Raw;

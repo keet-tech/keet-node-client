@@ -17,7 +17,7 @@ export const SearchVinCustomersResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace SearchVinCustomersResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         customers: VinSearchCustomer.Raw[];
     }

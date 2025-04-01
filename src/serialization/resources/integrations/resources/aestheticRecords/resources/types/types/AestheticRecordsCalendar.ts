@@ -22,7 +22,7 @@ export const AestheticRecordsCalendar: core.serialization.ObjectSchema<
     doctorIds: core.serialization.property("doctor_ids", core.serialization.list(core.serialization.number())),
     serviceIds: core.serialization.property(
         "service_ids",
-        core.serialization.list(core.serialization.unknown()).optional()
+        core.serialization.list(core.serialization.unknown()).optional(),
     ),
     clinicOpensAt: core.serialization.string(),
     clinicClosesAt: core.serialization.string(),
@@ -32,7 +32,7 @@ export const AestheticRecordsCalendar: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsCalendar {
-    interface Raw {
+    export interface Raw {
         clinics: AestheticRecordsClinic.Raw[];
         providers: AestheticRecordsProvider.Raw[];
         clinic_id?: number | null;

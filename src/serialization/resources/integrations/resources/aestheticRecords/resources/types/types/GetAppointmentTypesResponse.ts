@@ -17,7 +17,7 @@ export const GetAppointmentTypesResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetAppointmentTypesResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         appointmentTypes: AestheticRecordsAppointmentType.Raw;
     }

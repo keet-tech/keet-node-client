@@ -19,7 +19,7 @@ export const VinDealer: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinDealer {
-    interface Raw {
+    export interface Raw {
         DealerID: number;
         dealerName: string;
         city: string;

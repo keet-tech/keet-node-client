@@ -27,7 +27,7 @@ export const AestheticRecordsAppointmentBooking: core.serialization.ObjectSchema
 });
 
 export declare namespace AestheticRecordsAppointmentBooking {
-    interface Raw {
+    export interface Raw {
         id: number;
         appointment_id: number;
         booked_by: string;

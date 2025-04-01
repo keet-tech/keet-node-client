@@ -20,7 +20,7 @@ export const CreateVinAppointmentRequest: core.serialization.Schema<
 });
 
 export declare namespace CreateVinAppointmentRequest {
-    interface Raw {
+    export interface Raw {
         leadId: string;
         customerId: string;
         dealerId: string;

@@ -17,7 +17,7 @@ export const GetAestheticRecordsCalendarResponse: core.serialization.ObjectSchem
 });
 
 export declare namespace GetAestheticRecordsCalendarResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         calendar: AestheticRecordsCalendar.Raw;
     }

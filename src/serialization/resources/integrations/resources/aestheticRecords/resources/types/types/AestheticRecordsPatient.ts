@@ -21,7 +21,7 @@ export const AestheticRecordsPatient: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsPatient {
-    interface Raw {
+    export interface Raw {
         id: number;
         firstname: string;
         lastname: string;

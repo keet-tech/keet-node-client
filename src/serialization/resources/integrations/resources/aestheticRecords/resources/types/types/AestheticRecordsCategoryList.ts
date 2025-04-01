@@ -15,7 +15,7 @@ export const AestheticRecordsCategoryList: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsCategoryList {
-    interface Raw {
+    export interface Raw {
         id: number;
         category_name: string;
     }

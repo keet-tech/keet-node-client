@@ -17,7 +17,7 @@ export const GetAestheticRecordsProviderAvailabilityResponse: core.serialization
 });
 
 export declare namespace GetAestheticRecordsProviderAvailabilityResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         availability: AestheticRecordsProviderAvailability.Raw;
     }

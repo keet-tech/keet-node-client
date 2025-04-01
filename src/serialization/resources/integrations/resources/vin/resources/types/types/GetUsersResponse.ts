@@ -17,7 +17,7 @@ export const GetUsersResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetUsersResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         users: VinUser.Raw[];
     }

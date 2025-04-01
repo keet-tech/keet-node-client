@@ -10,7 +10,7 @@ import * as Keet from "../../../../../../index";
  *         xAccountToken: "X-Account-Token",
  *         providerId: 1,
  *         clinicId: 1,
- *         modality: Keet.integrations.aestheticRecords.AestheticRecordsAppointmentModality.InPerson
+ *         modality: "in_person"
  *     }
  */
 export interface GetAppointmentTypesRequest {

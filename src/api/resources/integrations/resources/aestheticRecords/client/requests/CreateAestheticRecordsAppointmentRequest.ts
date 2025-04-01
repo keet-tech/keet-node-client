@@ -19,7 +19,7 @@ import * as Keet from "../../../../../../index";
  *             date: "2023-01-15",
  *             time: "time",
  *             notes: "notes",
- *             typeOfAppointment: Keet.integrations.aestheticRecords.AestheticRecordsAppointmentModality.InPerson,
+ *             typeOfAppointment: "in_person",
  *             outsideScheduledHours: true,
  *             appointmentService: [{
  *                     id: 1,

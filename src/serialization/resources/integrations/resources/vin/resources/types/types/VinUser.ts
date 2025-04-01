@@ -16,7 +16,7 @@ export const VinUser: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinUser {
-    interface Raw {
+    export interface Raw {
         id: number;
         firstName: string;
         lastName?: string | null;

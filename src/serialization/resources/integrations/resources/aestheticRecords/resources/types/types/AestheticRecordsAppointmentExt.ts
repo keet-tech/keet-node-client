@@ -22,7 +22,7 @@ export const AestheticRecordsAppointmentExt: core.serialization.ObjectSchema<
     .extend(AestheticRecordsAppointmentService);
 
 export declare namespace AestheticRecordsAppointmentExt {
-    interface Raw extends AestheticRecordsAppointmentService.Raw {
+    export interface Raw extends AestheticRecordsAppointmentService.Raw {
         appointment_id: number;
         service_id: number;
         created: string;

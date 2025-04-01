@@ -16,7 +16,7 @@ export const GetTokenResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetTokenResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         accountToken: string;
     }

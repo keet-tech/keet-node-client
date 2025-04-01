@@ -17,7 +17,7 @@ export const GetLinkedAccountResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetLinkedAccountResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         linkedAccount: LinkedAccount.Raw;
     }

@@ -24,13 +24,13 @@ export const AestheticRecordsAppointment: core.serialization.ObjectSchema<
     endTime: core.serialization.property("end_time", core.serialization.string().optional()),
     appointmentTimezoneAbbr: core.serialization.property(
         "appointment_timezone_abbr",
-        core.serialization.string().optional()
+        core.serialization.string().optional(),
     ),
     displayStatus: core.serialization.property("display_status", core.serialization.string().optional()),
 });
 
 export declare namespace AestheticRecordsAppointment {
-    interface Raw {
+    export interface Raw {
         id: number;
         patient_id: number;
         appointment_datetime: string;

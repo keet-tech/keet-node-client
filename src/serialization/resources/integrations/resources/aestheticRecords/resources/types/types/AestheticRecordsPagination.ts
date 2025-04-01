@@ -26,7 +26,7 @@ export const AestheticRecordsPagination: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsPagination {
-    interface Raw {
+    export interface Raw {
         current_page: number;
         first_page_url: string;
         from: number;

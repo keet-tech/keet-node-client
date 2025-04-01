@@ -16,7 +16,7 @@ export const AdditionalPaymentInfo: core.serialization.ObjectSchema<
 });
 
 export declare namespace AdditionalPaymentInfo {
-    interface Raw {
+    export interface Raw {
         creditCardNumber: number;
         expirationDate: string;
         cvv: number;

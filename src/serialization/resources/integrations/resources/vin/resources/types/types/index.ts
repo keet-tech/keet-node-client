@@ -28,3 +28,7 @@ export * from "./VinSalesLead";
 export * from "./VinSalesVehicle";
 export * from "./VinSalesAddress";
 export * from "./VinSalesDealer";
+export * from "./CreateVinCallResponse";
+export * from "./VinCustomerContactedCodes";
+export * from "./VinNumberDialedCodes";
+export * from "./VinNextCallTimeSpanTypes";

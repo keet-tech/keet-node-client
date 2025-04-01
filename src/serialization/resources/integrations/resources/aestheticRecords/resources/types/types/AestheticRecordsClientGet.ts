@@ -16,7 +16,7 @@ export const AestheticRecordsClientGet: core.serialization.ObjectSchema<
     .object({
         upcomingAppointmentCount: core.serialization.property(
             "upcoming_appointment_count",
-            core.serialization.number().optional()
+            core.serialization.number().optional(),
         ),
         leadStar: core.serialization.boolean().optional(),
         documentsExpirationDate: core.serialization.unknown().optional(),
@@ -24,19 +24,19 @@ export const AestheticRecordsClientGet: core.serialization.ObjectSchema<
         countryName: core.serialization.property("country_name", core.serialization.unknown().optional()),
         lastAppointment: core.serialization.property(
             "last_appointment",
-            core.serialization.list(AestheticRecordsAppointment).optional()
+            core.serialization.list(AestheticRecordsAppointment).optional(),
         ),
         procedure: core.serialization.list(core.serialization.unknown()).optional(),
         patientMembershipSubscription: core.serialization.property(
             "patient_membership_subscription",
-            core.serialization.list(core.serialization.unknown()).optional()
+            core.serialization.list(core.serialization.unknown()).optional(),
         ),
         clinic: AestheticRecordsClinic.optional(),
     })
     .extend(AestheticRecordsClient);
 
 export declare namespace AestheticRecordsClientGet {
-    interface Raw extends AestheticRecordsClient.Raw {
+    export interface Raw extends AestheticRecordsClient.Raw {
         upcoming_appointment_count?: number | null;
         leadStar?: boolean | null;
         documentsExpirationDate?: unknown | null;

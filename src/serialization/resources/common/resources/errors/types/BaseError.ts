@@ -12,7 +12,7 @@ export const BaseError: core.serialization.ObjectSchema<serializers.common.BaseE
     });
 
 export declare namespace BaseError {
-    interface Raw {
+    export interface Raw {
         error: string;
     }
 }

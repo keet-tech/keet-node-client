@@ -16,7 +16,7 @@ export const AestheticRecordsAppointmentService: core.serialization.ObjectSchema
 });
 
 export declare namespace AestheticRecordsAppointmentService {
-    interface Raw {
+    export interface Raw {
         id: number;
         duration: number;
         confirmDeposit?: boolean | null;

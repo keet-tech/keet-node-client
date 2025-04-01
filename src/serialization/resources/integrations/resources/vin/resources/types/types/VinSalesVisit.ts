@@ -15,7 +15,7 @@ export const VinSalesVisit: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinSalesVisit {
-    interface Raw {
+    export interface Raw {
         id: number;
         href: string;
     }

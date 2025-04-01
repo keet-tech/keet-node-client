@@ -7,30 +7,22 @@ import { AestheticRecords } from "../resources/aestheticRecords/client/Client";
 import { Vin } from "../resources/vin/client/Client";
 
 export declare namespace Integrations {
-    interface Options {
+    export interface Options {
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
-    }
-
-    interface RequestOptions {
-        /** The maximum time to wait for a response in seconds. */
-        timeoutInSeconds?: number;
-        /** The number of times to retry the request. Defaults to 2. */
-        maxRetries?: number;
-        /** A hook to abort the request. */
-        abortSignal?: AbortSignal;
     }
 }
 
 export class Integrations {
-    constructor(protected readonly _options: Integrations.Options) {}
-
     protected _aestheticRecords: AestheticRecords | undefined;
+    protected _vin: Vin | undefined;
+
+    constructor(protected readonly _options: Integrations.Options) {}
 
     public get aestheticRecords(): AestheticRecords {
         return (this._aestheticRecords ??= new AestheticRecords(this._options));
     }
-
-    protected _vin: Vin | undefined;
 
     public get vin(): Vin {
         return (this._vin ??= new Vin(this._options));

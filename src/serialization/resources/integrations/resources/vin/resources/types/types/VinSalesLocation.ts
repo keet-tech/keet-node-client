@@ -17,7 +17,7 @@ export const VinSalesLocation: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinSalesLocation {
-    interface Raw {
+    export interface Raw {
         type: string;
         name: string;
         address: VinSalesAddress.Raw;

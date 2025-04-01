@@ -15,7 +15,7 @@ export const VinLeadType: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinLeadType {
-    interface Raw {
+    export interface Raw {
         leadTypeName: string;
         leadTypeId: string;
     }

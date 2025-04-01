@@ -23,7 +23,7 @@ export const AestheticRecordsClient: core.serialization.ObjectSchema<
     referralSource: core.serialization.property("referral_source", core.serialization.unknown().optional()),
     referralSourceSubcategory: core.serialization.property(
         "referral_source_subcategory",
-        core.serialization.unknown().optional()
+        core.serialization.unknown().optional(),
     ),
     phoneNumber: core.serialization.string().optional(),
     phoneNumber2: core.serialization.property("phoneNumber_2", core.serialization.string().optional()),
@@ -52,7 +52,7 @@ export const AestheticRecordsClient: core.serialization.ObjectSchema<
     accessPortal: core.serialization.property("access_portal", core.serialization.number().optional()),
     totalSaleRelationship: core.serialization.property(
         "total_sale_relationship",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     satisfactionScore: core.serialization.property("satisfaction_score", core.serialization.unknown().optional()),
     averageServiceDays: core.serialization.property("average_service_days", core.serialization.number().optional()),
@@ -66,31 +66,31 @@ export const AestheticRecordsClient: core.serialization.ObjectSchema<
     memberType: core.serialization.property("member_type", core.serialization.unknown().optional()),
     emergencyContactName: core.serialization.property(
         "emergency_contact_name",
-        core.serialization.unknown().optional()
+        core.serialization.unknown().optional(),
     ),
     emergencyContactNumber: core.serialization.property(
         "emergency_contact_number",
-        core.serialization.unknown().optional()
+        core.serialization.unknown().optional(),
     ),
     membershipCancelledReason: core.serialization.property(
         "membership_cancelled_reason",
-        core.serialization.string().optional()
+        core.serialization.string().optional(),
     ),
     uniqueId: core.serialization.property("unique_id", core.serialization.unknown().optional()),
     clinicId: core.serialization.property("clinic_id", core.serialization.number().optional()),
     middlename: core.serialization.unknown().optional(),
     medicalHistoryConsent: core.serialization.property(
         "medical_history_consent",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     cherryPatientId: core.serialization.property("cherry_patient_id", core.serialization.string().optional()),
     cherryCreationProcessing: core.serialization.property(
         "cherry_creation_processing",
-        core.serialization.boolean().optional()
+        core.serialization.boolean().optional(),
     ),
     cherryRefreshingProcessing: core.serialization.property(
         "cherry_refreshing_processing",
-        core.serialization.boolean().optional()
+        core.serialization.boolean().optional(),
     ),
     aspireEnrolledEmail: core.serialization.property("aspire_enrolled_email", core.serialization.string().optional()),
     ghlContactId: core.serialization.property("ghl_contact_id", core.serialization.unknown().optional()),
@@ -100,7 +100,7 @@ export const AestheticRecordsClient: core.serialization.ObjectSchema<
     stripeCustomerId: core.serialization.property("stripe_customer_id", core.serialization.unknown().optional()),
     nonBinaryBodyTemplate: core.serialization.property(
         "non_binary_body_template",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     shopifyCustomerId: core.serialization.property("shopify_customer_id", core.serialization.number().optional()),
     repeatMdPatientId: core.serialization.property("repeat_md_patient_id", core.serialization.unknown().optional()),
@@ -113,7 +113,7 @@ export const AestheticRecordsClient: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsClient {
-    interface Raw {
+    export interface Raw {
         id: number;
         user_id: number;
         firstname: string;

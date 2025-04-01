@@ -34,7 +34,7 @@ export const AestheticRecordsAppointmentRequest: core.serialization.ObjectSchema
 });
 
 export declare namespace AestheticRecordsAppointmentRequest {
-    interface Raw {
+    export interface Raw {
         patientId: number;
         patientName: string;
         patientPhone: string;

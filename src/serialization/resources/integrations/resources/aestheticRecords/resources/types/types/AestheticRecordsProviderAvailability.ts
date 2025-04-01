@@ -15,8 +15,11 @@ export const AestheticRecordsProviderAvailability: core.serialization.ObjectSche
         "available_days",
         core.serialization.record(
             core.serialization.string(),
-            core.serialization.record(core.serialization.string(), core.serialization.list(core.serialization.string()))
-        )
+            core.serialization.record(
+                core.serialization.string(),
+                core.serialization.list(core.serialization.string()),
+            ),
+        ),
     ),
     provider: AestheticRecordsDetailedProvider,
     uniqueDates: core.serialization.property("unique_dates", core.serialization.list(core.serialization.string())),
@@ -27,16 +30,16 @@ export const AestheticRecordsProviderAvailability: core.serialization.ObjectSche
                 core.serialization.string(),
                 core.serialization.record(
                     core.serialization.string(),
-                    core.serialization.list(core.serialization.string())
-                )
+                    core.serialization.list(core.serialization.string()),
+                ),
             )
-            .optional()
+            .optional(),
     ),
     timeFormat: core.serialization.property("time_format", core.serialization.string()),
 });
 
 export declare namespace AestheticRecordsProviderAvailability {
-    interface Raw {
+    export interface Raw {
         available_days: Record<string, Record<string, string[]>>;
         provider: AestheticRecordsDetailedProvider.Raw;
         unique_dates: string[];

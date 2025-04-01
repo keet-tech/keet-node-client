@@ -16,7 +16,7 @@ export const CreateLinkResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace CreateLinkResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         linkToken: string;
     }

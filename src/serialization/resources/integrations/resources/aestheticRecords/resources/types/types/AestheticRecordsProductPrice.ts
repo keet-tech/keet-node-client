@@ -18,13 +18,13 @@ export const AestheticRecordsProductPrice: core.serialization.ObjectSchema<
     pricePerUnit: core.serialization.property("price_per_unit", core.serialization.number()),
     productPricePerClinicId: core.serialization.property(
         "product_price_per_clinic_id",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     productImageUrl: core.serialization.property("product_image_url", core.serialization.string().optional()),
 });
 
 export declare namespace AestheticRecordsProductPrice {
-    interface Raw {
+    export interface Raw {
         id: number;
         product_name?: string | null;
         category_id?: string | null;

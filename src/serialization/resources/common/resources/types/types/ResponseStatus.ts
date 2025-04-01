@@ -12,5 +12,5 @@ export const ResponseStatus: core.serialization.Schema<
 > = core.serialization.enum_(["ok", "error"]);
 
 export declare namespace ResponseStatus {
-    type Raw = "ok" | "error";
+    export type Raw = "ok" | "error";
 }

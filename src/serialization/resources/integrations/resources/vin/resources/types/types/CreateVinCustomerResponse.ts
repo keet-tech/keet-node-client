@@ -15,7 +15,7 @@ export const CreateVinCustomerResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace CreateVinCustomerResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
     }
 }

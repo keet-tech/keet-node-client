@@ -16,7 +16,7 @@ export const CreateVinLeadResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace CreateVinLeadResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         leadId: string;
     }

@@ -15,7 +15,7 @@ export const VinCompanyType: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinCompanyType {
-    interface Raw {
+    export interface Raw {
         companyTypeName: string;
         companyTypeId?: string | null;
     }

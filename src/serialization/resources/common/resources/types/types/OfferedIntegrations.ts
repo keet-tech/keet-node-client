@@ -12,5 +12,5 @@ export const OfferedIntegrations: core.serialization.Schema<
 > = core.serialization.enum_(["Vin", "Aesthetic Records"]);
 
 export declare namespace OfferedIntegrations {
-    type Raw = "Vin" | "Aesthetic Records";
+    export type Raw = "Vin" | "Aesthetic Records";
 }

@@ -24,7 +24,7 @@ export const VinSearchCustomer: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinSearchCustomer {
-    interface Raw {
+    export interface Raw {
         customerName: string;
         nameLine2?: string | null;
         dealerName: string;

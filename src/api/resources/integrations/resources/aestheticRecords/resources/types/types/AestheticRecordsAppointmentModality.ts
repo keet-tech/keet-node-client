@@ -3,7 +3,6 @@
  */
 
 export type AestheticRecordsAppointmentModality = "in_person" | "virtual";
-
 export const AestheticRecordsAppointmentModality = {
     InPerson: "in_person",
     Virtual: "virtual",

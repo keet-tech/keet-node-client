@@ -15,7 +15,7 @@ export const VinLeadSource: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinLeadSource {
-    interface Raw {
+    export interface Raw {
         sourceName: string;
         sourceId: string;
     }

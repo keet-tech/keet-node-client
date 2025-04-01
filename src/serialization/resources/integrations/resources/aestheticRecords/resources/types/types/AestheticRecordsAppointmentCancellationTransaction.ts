@@ -15,7 +15,7 @@ export const AestheticRecordsAppointmentCancellationTransaction: core.serializat
     status: core.serialization.string().optional(),
     authorizeTransactionId: core.serialization.property(
         "authorize_transaction_id",
-        core.serialization.string().optional()
+        core.serialization.string().optional(),
     ),
     chargeTransactionId: core.serialization.property("charge_transaction_id", core.serialization.string().optional()),
     cancellationFee: core.serialization.property("cancellation_fee", core.serialization.number()),
@@ -28,7 +28,7 @@ export const AestheticRecordsAppointmentCancellationTransaction: core.serializat
 });
 
 export declare namespace AestheticRecordsAppointmentCancellationTransaction {
-    interface Raw {
+    export interface Raw {
         id: number;
         appointment_id: number;
         status?: string | null;

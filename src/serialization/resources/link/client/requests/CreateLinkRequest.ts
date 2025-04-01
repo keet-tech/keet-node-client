@@ -13,7 +13,7 @@ export const CreateLinkRequest: core.serialization.Schema<serializers.CreateLink
     });
 
 export declare namespace CreateLinkRequest {
-    interface Raw {
+    export interface Raw {
         linkConfig: LinkConfig.Raw;
     }
 }

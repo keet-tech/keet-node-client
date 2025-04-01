@@ -43,7 +43,7 @@ await client.integrations.aestheticRecords.createAppointment({
         date: "2023-01-15",
         time: "time",
         notes: "notes",
-        typeOfAppointment: Keet.AestheticRecordsAppointmentModality.InPerson,
+        typeOfAppointment: "in_person",
         outsideScheduledHours: true,
         appointmentService: [
             {
@@ -675,7 +675,7 @@ Get a list of provider availability for a given date and service.
 ```typescript
 await client.integrations.aestheticRecords.getAvailability({
     xAccountToken: "X-Account-Token",
-    appointmentType: Keet.AestheticRecordsAppointmentModality.InPerson,
+    appointmentType: "in_person",
     clinicId: 1,
     providerIds: [1, 1],
     serviceIds: [1, 1],
@@ -881,7 +881,7 @@ await client.integrations.aestheticRecords.getAppointmentTypes({
     xAccountToken: "X-Account-Token",
     providerId: 1,
     clinicId: 1,
-    modality: Keet.AestheticRecordsAppointmentModality.InPerson,
+    modality: "in_person",
 });
 ```
 
@@ -1736,6 +1736,81 @@ await client.integrations.vin.getAppointment({
 </dl>
 </details>
 
+<details><summary><code>client.integrations.vin.<a href="/src/api/resources/integrations/resources/vin/client/Client.ts">createCall</a>({ ...params }) -> Keet.CreateVinCallResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a call
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.integrations.vin.createCall({
+    xAccountToken: "X-Account-Token",
+    leadId: "leadId",
+    customerId: "customerId",
+    dealerId: "dealerId",
+    phoneNumber: "phoneNumber",
+    note: "note",
+    customerContactedCode: "Y",
+    numberDialedCode: "Home",
+    nextCallTimeFrame: 1,
+    nextCallTimeSpanType: "Days",
+    outbound: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Keet.integrations.vin.CreateVinCall`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Vin.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Link
 
 <details><summary><code>client.link.<a href="/src/api/resources/link/client/Client.ts">createLinkToken</a>({ ...params }) -> Keet.CreateLinkResponse</code></summary>
@@ -1769,7 +1844,7 @@ Create a link token that can be used to link accounts
 await client.link.createLinkToken({
     linkConfig: {
         endUserId: "<userId>",
-        integration: Keet.OfferedIntegrations.Vin,
+        integration: "Vin",
         companyLogoUri: "https://example.com/logo.png",
     },
 });

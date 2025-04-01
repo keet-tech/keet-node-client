@@ -8,19 +8,24 @@ import * as serializers from "../../../../../../serialization/index";
 import * as environments from "../../../../../../environments";
 import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
+import { toJson } from "../../../../../../core/json";
 
 export declare namespace AestheticRecords {
-    interface Options {
+    export interface Options {
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -53,7 +58,7 @@ export class AestheticRecords {
      *             date: "2023-01-15",
      *             time: "time",
      *             notes: "notes",
-     *             typeOfAppointment: Keet.integrations.aestheticRecords.AestheticRecordsAppointmentModality.InPerson,
+     *             typeOfAppointment: "in_person",
      *             outsideScheduledHours: true,
      *             appointmentService: [{
      *                     id: 1,
@@ -76,11 +81,14 @@ export class AestheticRecords {
      */
     public async createAppointment(
         request: Keet.integrations.aestheticRecords.CreateAestheticRecordsAppointmentRequest,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.CreateAestheticRecordsAppointmentResponse> {
         const { xAccountToken, body: _body } = request;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/appointments"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/appointments",
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -91,6 +99,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -109,7 +118,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -122,7 +131,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -131,7 +140,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -140,7 +149,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -149,7 +158,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -158,7 +167,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -175,7 +184,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling POST /v1/aesthetic-records/appointments.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -202,10 +213,10 @@ export class AestheticRecords {
      */
     public async getClients(
         request: Keet.integrations.aestheticRecords.GetClientsRequest,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsClientsResponse> {
         const { page, pageSize, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
             _queryParams["page"] = page.toString();
         }
@@ -215,7 +226,10 @@ export class AestheticRecords {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/clients"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/clients",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -226,6 +240,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -242,7 +257,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -255,7 +270,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -264,7 +279,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -273,7 +288,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -282,7 +297,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -291,7 +306,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -308,7 +323,7 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/aesthetic-records/clients.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -337,10 +352,10 @@ export class AestheticRecords {
     public async getClientAppointments(
         clientId: number,
         request: Keet.integrations.aestheticRecords.GetClientAppointmentsRequest,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsClientAppointmentsResponse> {
         const { page, pageSize, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
             _queryParams["page"] = page.toString();
         }
@@ -351,8 +366,8 @@ export class AestheticRecords {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                environments.KeetEnvironment.Production,
-                `/v1/aesthetic-records/clients/${encodeURIComponent(clientId)}/appointments`
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                `/v1/aesthetic-records/clients/${encodeURIComponent(clientId)}/appointments`,
             ),
             method: "GET",
             headers: {
@@ -364,6 +379,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -380,7 +396,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -393,7 +409,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -402,7 +418,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -411,7 +427,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -420,7 +436,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -429,7 +445,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -446,7 +462,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/aesthetic-records/clients/{clientId}/appointments.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -475,13 +493,13 @@ export class AestheticRecords {
     public async getClient(
         clientId: number,
         request: Keet.integrations.aestheticRecords.GetClient,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsClientResponse> {
         const { xAccountToken } = request;
         const _response = await core.fetcher({
             url: urlJoin(
-                environments.KeetEnvironment.Production,
-                `/v1/aesthetic-records/clients/${encodeURIComponent(clientId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                `/v1/aesthetic-records/clients/${encodeURIComponent(clientId)}`,
             ),
             method: "GET",
             headers: {
@@ -493,6 +511,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -508,7 +527,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -521,7 +540,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -530,7 +549,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -539,7 +558,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -548,7 +567,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -557,7 +576,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -574,7 +593,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/aesthetic-records/clients/{clientId}.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -601,11 +622,14 @@ export class AestheticRecords {
      */
     public async getClinics(
         request: Keet.integrations.aestheticRecords.GetClinicsRequest,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsClinicsResponse> {
         const { xAccountToken } = request;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/clinics"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/clinics",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -616,6 +640,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -631,7 +656,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -644,7 +669,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -653,7 +678,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -662,7 +687,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -671,7 +696,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -680,7 +705,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -697,7 +722,7 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/aesthetic-records/clinics.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -724,11 +749,14 @@ export class AestheticRecords {
      */
     public async getProviders(
         request: Keet.integrations.aestheticRecords.GetProvidersRequest,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsProviderResponse> {
         const { xAccountToken } = request;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/providers"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/providers",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -739,6 +767,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -754,7 +783,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -767,7 +796,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -776,7 +805,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -785,7 +814,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -794,7 +823,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -803,7 +832,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -820,7 +849,7 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/aesthetic-records/providers.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -847,10 +876,10 @@ export class AestheticRecords {
      */
     public async getProducts(
         request: Keet.integrations.aestheticRecords.GetProducts,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsProductsResponse> {
         const { page, pageSize, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (page != null) {
             _queryParams["page"] = page.toString();
         }
@@ -860,7 +889,10 @@ export class AestheticRecords {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/products/inventory"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/products/inventory",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -871,6 +903,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -887,7 +920,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -900,7 +933,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -909,7 +942,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -918,7 +951,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -927,7 +960,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -936,7 +969,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -953,7 +986,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/aesthetic-records/products/inventory.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -981,10 +1016,10 @@ export class AestheticRecords {
      */
     public async getProductPriceList(
         request: Keet.integrations.aestheticRecords.GetProductPriceList,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsProductPriceListResponse> {
         const { clinicId, page, pageSize, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["clinicId"] = clinicId.toString();
         if (page != null) {
             _queryParams["page"] = page.toString();
@@ -995,7 +1030,10 @@ export class AestheticRecords {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/products/price-list"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/products/price-list",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1006,6 +1044,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1022,7 +1061,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -1035,7 +1074,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1044,7 +1083,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1053,7 +1092,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1062,7 +1101,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1071,7 +1110,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1088,7 +1127,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/aesthetic-records/products/price-list.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1117,13 +1158,13 @@ export class AestheticRecords {
     public async getProduct(
         productId: number,
         request: Keet.integrations.aestheticRecords.GetProduct,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsGetProductResponse> {
         const { xAccountToken } = request;
         const _response = await core.fetcher({
             url: urlJoin(
-                environments.KeetEnvironment.Production,
-                `/v1/aesthetic-records/products/${encodeURIComponent(productId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                `/v1/aesthetic-records/products/${encodeURIComponent(productId)}`,
             ),
             method: "GET",
             headers: {
@@ -1135,6 +1176,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -1150,7 +1192,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -1163,7 +1205,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1172,7 +1214,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1181,7 +1223,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1190,7 +1232,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1199,7 +1241,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1216,7 +1258,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/aesthetic-records/products/{productId}.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1239,7 +1283,7 @@ export class AestheticRecords {
      * @example
      *     await client.integrations.aestheticRecords.getAvailability({
      *         xAccountToken: "X-Account-Token",
-     *         appointmentType: Keet.integrations.aestheticRecords.AestheticRecordsAppointmentModality.InPerson,
+     *         appointmentType: "in_person",
      *         clinicId: 1,
      *         providerIds: [1, 1],
      *         serviceIds: [1, 1],
@@ -1248,21 +1292,27 @@ export class AestheticRecords {
      */
     public async getAvailability(
         request: Keet.integrations.aestheticRecords.GetProviderAvailability,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsProviderAvailabilityResponse> {
         const { appointmentType, clinicId, duration, providerIds, serviceIds, startDate, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["appointmentType"] = appointmentType;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["appointmentType"] =
+            serializers.integrations.aestheticRecords.AestheticRecordsAppointmentModality.jsonOrThrow(appointmentType, {
+                unrecognizedObjectKeys: "strip",
+            });
         _queryParams["clinicId"] = clinicId.toString();
         if (duration != null) {
             _queryParams["duration"] = duration.toString();
         }
 
-        _queryParams["providerIds"] = JSON.stringify(providerIds);
-        _queryParams["serviceIds"] = JSON.stringify(serviceIds);
+        _queryParams["providerIds"] = toJson(providerIds);
+        _queryParams["serviceIds"] = toJson(serviceIds);
         _queryParams["startDate"] = startDate;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/availability"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/availability",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1273,6 +1323,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1289,7 +1340,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -1302,7 +1353,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1311,7 +1362,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1320,7 +1371,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1329,7 +1380,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1338,7 +1389,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1355,7 +1406,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/aesthetic-records/availability.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1386,16 +1439,19 @@ export class AestheticRecords {
      */
     public async getAppointments(
         request: Keet.integrations.aestheticRecords.GetAestheticRecordsCalendar,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsCalendarResponse> {
         const { clinicId, startDate, endDate, providerIds, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["clinicId"] = clinicId.toString();
         _queryParams["startDate"] = startDate;
         _queryParams["endDate"] = endDate;
-        _queryParams["providerIds"] = JSON.stringify(providerIds);
+        _queryParams["providerIds"] = toJson(providerIds);
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/appointments"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/appointments",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1406,6 +1462,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1422,7 +1479,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -1435,7 +1492,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1444,7 +1501,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1453,7 +1510,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1462,7 +1519,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1471,7 +1528,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1488,7 +1545,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/aesthetic-records/appointments.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1515,11 +1574,14 @@ export class AestheticRecords {
      */
     public async getAccountData(
         request: Keet.integrations.aestheticRecords.GetAestheticRecordsAccountDataRequest,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAestheticRecordsAccountData> {
         const { xAccountToken } = request;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/account"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/account",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1530,6 +1592,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -1545,7 +1608,7 @@ export class AestheticRecords {
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
                     breadcrumbsPrefix: ["response"],
-                }
+                },
             );
         }
 
@@ -1558,7 +1621,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1567,7 +1630,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1576,7 +1639,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1585,7 +1648,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1594,7 +1657,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1611,7 +1674,7 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/aesthetic-records/account.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1636,20 +1699,26 @@ export class AestheticRecords {
      *         xAccountToken: "X-Account-Token",
      *         providerId: 1,
      *         clinicId: 1,
-     *         modality: Keet.integrations.aestheticRecords.AestheticRecordsAppointmentModality.InPerson
+     *         modality: "in_person"
      *     })
      */
     public async getAppointmentTypes(
         request: Keet.integrations.aestheticRecords.GetAppointmentTypesRequest,
-        requestOptions?: AestheticRecords.RequestOptions
+        requestOptions?: AestheticRecords.RequestOptions,
     ): Promise<Keet.integrations.aestheticRecords.GetAppointmentTypesResponse> {
         const { providerId, clinicId, modality, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["providerId"] = providerId.toString();
         _queryParams["clinicId"] = clinicId.toString();
-        _queryParams["modality"] = modality;
+        _queryParams["modality"] =
+            serializers.integrations.aestheticRecords.AestheticRecordsAppointmentModality.jsonOrThrow(modality, {
+                unrecognizedObjectKeys: "strip",
+            });
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/aesthetic-records/appointment-types"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/aesthetic-records/appointment-types",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1660,6 +1729,7 @@ export class AestheticRecords {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1686,7 +1756,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1695,7 +1765,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1704,7 +1774,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1713,7 +1783,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1722,7 +1792,7 @@ export class AestheticRecords {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1739,7 +1809,9 @@ export class AestheticRecords {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError(
+                    "Timeout exceeded when calling GET /v1/aesthetic-records/appointment-types.",
+                );
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,

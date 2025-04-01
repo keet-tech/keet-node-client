@@ -12,5 +12,5 @@ export const AestheticRecordsAppointmentModality: core.serialization.Schema<
 > = core.serialization.enum_(["in_person", "virtual"]);
 
 export declare namespace AestheticRecordsAppointmentModality {
-    type Raw = "in_person" | "virtual";
+    export type Raw = "in_person" | "virtual";
 }

@@ -23,7 +23,7 @@ export const GetSalesAppointmentsResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetSalesAppointmentsResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         href: string;
         first: string;

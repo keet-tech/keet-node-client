@@ -18,7 +18,7 @@ export const LinkedAccount: core.serialization.ObjectSchema<
 });
 
 export declare namespace LinkedAccount {
-    interface Raw {
+    export interface Raw {
         id: string;
         endUserId: string;
         createdAt: string;

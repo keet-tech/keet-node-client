@@ -10,17 +10,21 @@ import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Vin {
-    interface Options {
+    export interface Options {
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -53,11 +57,14 @@ export class Vin {
      */
     public async createSalesAppointment(
         request: Keet.integrations.vin.CreateVinAppointmentRequest,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.CreateVinAppointmentResponse> {
         const { xAccountToken, ..._body } = request;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/sales/appointments"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/sales/appointments",
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -68,6 +75,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -96,7 +104,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -105,7 +113,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -114,7 +122,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -123,7 +131,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -132,7 +140,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -149,7 +157,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling POST /v1/vin/sales/appointments.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -181,17 +189,20 @@ export class Vin {
      */
     public async getAppointments(
         request: Keet.integrations.vin.GetVinAppointmentsRequest,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.GetSalesAppointmentsResponse> {
         const { pageNumber, pageSize, startDate, endDate, dealerId, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["pageNumber"] = pageNumber.toString();
         _queryParams["pageSize"] = pageSize.toString();
         _queryParams["startDate"] = startDate;
         _queryParams["endDate"] = endDate;
         _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/sales/appointments"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/sales/appointments",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -202,6 +213,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -228,7 +240,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -237,7 +249,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -246,7 +258,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -255,7 +267,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -264,7 +276,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -281,7 +293,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/sales/appointments.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -309,13 +321,16 @@ export class Vin {
      */
     public async getUsers(
         request: Keet.integrations.vin.GetVinUsers,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.GetUsersResponse> {
         const { dealerId, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/users"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/users",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -326,6 +341,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -352,7 +368,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -361,7 +377,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -370,7 +386,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -379,7 +395,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -388,7 +404,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -405,7 +421,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/users.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -432,11 +448,14 @@ export class Vin {
      */
     public async getDealers(
         request: Keet.integrations.vin.GetVinDealers,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.GetVinDealersResponse> {
         const { xAccountToken } = request;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/dealers"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/dealers",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -447,6 +466,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -472,7 +492,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -481,7 +501,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -490,7 +510,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -499,7 +519,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -508,7 +528,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -525,7 +545,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/dealers.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -554,14 +574,17 @@ export class Vin {
      */
     public async searchCustomers(
         request: Keet.integrations.vin.SearchCustomersRequest,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.SearchVinCustomersResponse> {
         const { firstName, lastName, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["firstName"] = firstName;
         _queryParams["lastName"] = lastName;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/customers"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/customers",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -572,6 +595,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -598,7 +622,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -607,7 +631,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -616,7 +640,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -625,7 +649,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -634,7 +658,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -651,7 +675,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/customers.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -679,13 +703,16 @@ export class Vin {
      */
     public async getVehicles(
         request: Keet.integrations.vin.GetVinVehiclesRequest,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.GetVinVehiclesResponse> {
         const { dealerId, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/vehicles"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/vehicles",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -696,6 +723,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -722,7 +750,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -731,7 +759,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -740,7 +768,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -749,7 +777,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -758,7 +786,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -775,7 +803,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/vehicles.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -803,13 +831,16 @@ export class Vin {
      */
     public async getLeadSourceOptions(
         request: Keet.integrations.vin.GetVinLeadSourceRequest,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.GetVinLeadSourceResponse> {
         const { dealerId, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/lead-source"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/lead-source",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -820,6 +851,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -846,7 +878,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -855,7 +887,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -864,7 +896,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -873,7 +905,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -882,7 +914,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -899,7 +931,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/lead-source.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -927,13 +959,16 @@ export class Vin {
      */
     public async getLeadTypeOptions(
         request: Keet.integrations.vin.GetVinLeadTypeRequest,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.GetVinLeadTypeResponse> {
         const { dealerId, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/lead-type"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/lead-type",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -944,6 +979,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -970,7 +1006,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -979,7 +1015,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -988,7 +1024,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -997,7 +1033,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1006,7 +1042,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1023,7 +1059,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/lead-type.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1051,13 +1087,16 @@ export class Vin {
      */
     public async getCompanyTypeOptions(
         request: Keet.integrations.vin.GetVinCompanyTypeRequest,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.GetVinCompanyTypeResponse> {
         const { dealerId, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/company-type"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/company-type",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1068,6 +1107,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1094,7 +1134,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1103,7 +1143,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1112,7 +1152,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1121,7 +1161,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1130,7 +1170,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1147,7 +1187,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/company-type.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1185,11 +1225,14 @@ export class Vin {
      */
     public async createCustomer(
         request: Keet.integrations.vin.CreateVinCustomer,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.CreateVinCustomerResponse> {
         const { xAccountToken, ..._body } = request;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/customers"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/customers",
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1200,6 +1243,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -1228,7 +1272,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1237,7 +1281,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1246,7 +1290,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1255,7 +1299,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1264,7 +1308,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1281,7 +1325,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling POST /v1/vin/customers.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1313,11 +1357,14 @@ export class Vin {
      */
     public async createLead(
         request: Keet.integrations.vin.CreateVinLead,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.CreateVinLeadResponse> {
         const { xAccountToken, ..._body } = request;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/leads"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/leads",
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1328,6 +1375,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -1354,7 +1402,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1363,7 +1411,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1372,7 +1420,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1381,7 +1429,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1390,7 +1438,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1407,7 +1455,7 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling POST /v1/vin/leads.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,
@@ -1436,14 +1484,17 @@ export class Vin {
      */
     public async getAppointment(
         request: Keet.integrations.vin.GetVinAppointmentRequest,
-        requestOptions?: Vin.RequestOptions
+        requestOptions?: Vin.RequestOptions,
     ): Promise<Keet.integrations.vin.GetSalesAppointmentResponse> {
         const { appointmentId, dealerId, xAccountToken } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["appointmentId"] = appointmentId;
         _queryParams["dealerId"] = dealerId;
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/vin/sales/appointment"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/sales/appointment",
+            ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -1454,6 +1505,7 @@ export class Vin {
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -1480,7 +1532,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -1489,7 +1541,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -1498,7 +1550,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -1507,7 +1559,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -1516,7 +1568,7 @@ export class Vin {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -1533,7 +1585,142 @@ export class Vin {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling GET /v1/vin/sales/appointment.");
+            case "unknown":
+                throw new errors.KeetError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Create a call
+     *
+     * @param {Keet.integrations.vin.CreateVinCall} request
+     * @param {Vin.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Keet.common.UnAuthorizedError}
+     * @throws {@link Keet.common.InternalServerError}
+     * @throws {@link Keet.common.NotFoundError}
+     * @throws {@link Keet.common.BadRequestError}
+     * @throws {@link Keet.common.NotImplementedError}
+     *
+     * @example
+     *     await client.integrations.vin.createCall({
+     *         xAccountToken: "X-Account-Token",
+     *         leadId: "leadId",
+     *         customerId: "customerId",
+     *         dealerId: "dealerId",
+     *         phoneNumber: "phoneNumber",
+     *         note: "note",
+     *         customerContactedCode: "Y",
+     *         numberDialedCode: "Home",
+     *         nextCallTimeFrame: 1,
+     *         nextCallTimeSpanType: "Days",
+     *         outbound: true
+     *     })
+     */
+    public async createCall(
+        request: Keet.integrations.vin.CreateVinCall,
+        requestOptions?: Vin.RequestOptions,
+    ): Promise<Keet.integrations.vin.CreateVinCallResponse> {
+        const { xAccountToken, ..._body } = request;
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/vin/calls",
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "@keet-tech/keet-node-client",
+                "X-Fern-SDK-Version": "0.0.16",
+                "User-Agent": "@keet-tech/keet-node-client/0.0.16",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                "X-Account-Token": xAccountToken,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.integrations.vin.CreateVinCall.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.integrations.vin.CreateVinCallResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new Keet.common.UnAuthorizedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 500:
+                    throw new Keet.common.InternalServerError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 404:
+                    throw new Keet.common.NotFoundError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 400:
+                    throw new Keet.common.BadRequestError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 500:
+                    throw new Keet.common.NotImplementedError(
+                        serializers.common.BaseError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.KeetError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KeetError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling POST /v1/vin/calls.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,

@@ -16,7 +16,7 @@ export const LinkConfig: core.serialization.ObjectSchema<serializers.common.Link
     });
 
 export declare namespace LinkConfig {
-    interface Raw {
+    export interface Raw {
         endUserId: string;
         integration: OfferedIntegrations.Raw;
         companyName?: string | null;

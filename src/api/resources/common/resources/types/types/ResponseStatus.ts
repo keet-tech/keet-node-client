@@ -3,7 +3,6 @@
  */
 
 export type ResponseStatus = "ok" | "error";
-
 export const ResponseStatus = {
     Ok: "ok",
     Error: "error",

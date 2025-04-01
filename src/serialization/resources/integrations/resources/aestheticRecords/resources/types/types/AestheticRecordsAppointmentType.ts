@@ -17,7 +17,7 @@ export const AestheticRecordsAppointmentType: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsAppointmentType {
-    interface Raw {
+    export interface Raw {
         services: AestheticRecordsService.Raw[];
         packages?: unknown;
         clinic?: unknown;

@@ -17,7 +17,7 @@ export const GetVinLeadTypeResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetVinLeadTypeResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         leadType: VinLeadType.Raw[];
     }

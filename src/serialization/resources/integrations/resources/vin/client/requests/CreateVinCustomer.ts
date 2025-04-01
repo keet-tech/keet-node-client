@@ -22,7 +22,7 @@ export const CreateVinCustomer: core.serialization.Schema<
 });
 
 export declare namespace CreateVinCustomer {
-    interface Raw {
+    export interface Raw {
         customer: VinCustomer.Raw;
         dealerId: string;
         sourceName: string;

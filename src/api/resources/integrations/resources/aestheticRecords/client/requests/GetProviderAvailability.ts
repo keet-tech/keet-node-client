@@ -8,7 +8,7 @@ import * as Keet from "../../../../../../index";
  * @example
  *     {
  *         xAccountToken: "X-Account-Token",
- *         appointmentType: Keet.integrations.aestheticRecords.AestheticRecordsAppointmentModality.InPerson,
+ *         appointmentType: "in_person",
  *         clinicId: 1,
  *         providerIds: [1, 1],
  *         serviceIds: [1, 1],

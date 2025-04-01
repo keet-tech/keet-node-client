@@ -19,7 +19,7 @@ export const GetAestheticRecordsProductPriceListResponse: core.serialization.Obj
 });
 
 export declare namespace GetAestheticRecordsProductPriceListResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         priceList: AestheticRecordsProductPrice.Raw[];
         pagination: AestheticRecordsPagination.Raw;

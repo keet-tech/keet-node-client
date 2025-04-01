@@ -22,7 +22,7 @@ export const VinVehicle: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinVehicle {
-    interface Raw {
+    export interface Raw {
         stockNumber: string;
         year: string;
         make: string;

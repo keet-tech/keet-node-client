@@ -3,7 +3,6 @@
  */
 
 export type OfferedIntegrations = "Vin" | "Aesthetic Records";
-
 export const OfferedIntegrations = {
     Vin: "Vin",
     AestheticRecords: "Aesthetic Records",

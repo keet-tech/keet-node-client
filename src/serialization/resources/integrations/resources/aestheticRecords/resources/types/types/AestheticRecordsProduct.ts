@@ -42,7 +42,7 @@ export const AestheticRecordsProduct: core.serialization.ObjectSchema<
     isInventoryEnabled: core.serialization.property("is_inventory_enabled", core.serialization.number().optional()),
     isStockInventoryEnabled: core.serialization.property(
         "is_stock_inventory_enabled",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     isSupplierEnabled: core.serialization.property("is_supplier_enabled", core.serialization.number().optional()),
     isTaxEnabled: core.serialization.property("is_tax_enabled", core.serialization.number().optional()),
@@ -58,7 +58,7 @@ export const AestheticRecordsProduct: core.serialization.ObjectSchema<
     billForWholeUnit: core.serialization.property("bill_for_whole_unit", core.serialization.number().optional()),
     accountMedicalSuppliesInReports: core.serialization.property(
         "account_medical_supplies_in_reports",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     isAutodeductEnabled: core.serialization.property("is_autodeduct_enabled", core.serialization.number().optional()),
     productPerClinic: core.serialization.property("product_per_clinic", core.serialization.number().optional()),
@@ -66,11 +66,11 @@ export const AestheticRecordsProduct: core.serialization.ObjectSchema<
     shopifyProductId: core.serialization.property("shopify_product_id", core.serialization.number().optional()),
     shopifyProductVariantId: core.serialization.property(
         "shopify_product_variant_id",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     shopifyDefaultClinicId: core.serialization.property(
         "shopify_default_clinic_id",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     inventoryType: core.serialization.property("inventory_type", core.serialization.unknown().optional()),
     catId: core.serialization.property("cat_id", core.serialization.number().optional()),
@@ -79,17 +79,17 @@ export const AestheticRecordsProduct: core.serialization.ObjectSchema<
     category: AestheticRecordsCategory.optional(),
     productInventory: core.serialization.property(
         "product_inventory",
-        core.serialization.list(core.serialization.unknown()).optional()
+        core.serialization.list(core.serialization.unknown()).optional(),
     ),
     totalAvailableUnits: core.serialization.property("total_available_units", core.serialization.number().optional()),
     productPricePerClinic: core.serialization.property(
         "product_price_per_clinic",
-        core.serialization.list(AestheticRecordsProductPrice).optional()
+        core.serialization.list(AestheticRecordsProductPrice).optional(),
     ),
 });
 
 export declare namespace AestheticRecordsProduct {
-    interface Raw {
+    export interface Raw {
         id: number;
         batch_id?: unknown | null;
         category_id: string;

@@ -16,7 +16,7 @@ export const AestheticRecordsWorkingHours: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsWorkingHours {
-    interface Raw {
+    export interface Raw {
         date: string;
         schedule: AestheticRecordsSchedule.Raw[];
     }

@@ -23,7 +23,7 @@ export const VinCustomer: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinCustomer {
-    interface Raw {
+    export interface Raw {
         homePhone: string;
         workPhone?: string | null;
         cellPhone?: string | null;

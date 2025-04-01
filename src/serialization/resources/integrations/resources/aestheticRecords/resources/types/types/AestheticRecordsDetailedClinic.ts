@@ -23,16 +23,16 @@ export const AestheticRecordsDetailedClinic: core.serialization.ObjectSchema<
         timezone: core.serialization.string().optional(),
         appointmentNotificationEmails: core.serialization.property(
             "appointment_notification_emails",
-            core.serialization.unknown().optional()
+            core.serialization.unknown().optional(),
         ),
         clinicColor: core.serialization.property("clinic_color", core.serialization.string().optional()),
         smsNotificationsPhone: core.serialization.property(
             "sms_notifications_phone",
-            core.serialization.unknown().optional()
+            core.serialization.unknown().optional(),
         ),
         emailSpecialInstructions: core.serialization.property(
             "email_special_instructions",
-            core.serialization.unknown().optional()
+            core.serialization.unknown().optional(),
         ),
         isAvailableOnline: core.serialization.property("is_available_online", core.serialization.number().optional()),
         clinicCity: core.serialization.property("clinic_city", core.serialization.string().optional()),
@@ -44,22 +44,22 @@ export const AestheticRecordsDetailedClinic: core.serialization.ObjectSchema<
         evolusFacilityId: core.serialization.property("evolus_facility_id", core.serialization.unknown().optional()),
         additionalLocationBooking: core.serialization.property(
             "additional_location_booking",
-            core.serialization.unknown().optional()
+            core.serialization.unknown().optional(),
         ),
         isAvailableEcommerce: core.serialization.property(
             "is_available_ecommerce",
-            core.serialization.number().optional()
+            core.serialization.number().optional(),
         ),
         isTipsEnabled: core.serialization.property("is_tips_enabled", core.serialization.number().optional()),
         repeatMdLocationId: core.serialization.property(
             "repeat_md_location_id",
-            core.serialization.unknown().optional()
+            core.serialization.unknown().optional(),
         ),
     })
     .extend(AestheticRecordsClinic);
 
 export declare namespace AestheticRecordsDetailedClinic {
-    interface Raw extends AestheticRecordsClinic.Raw {
+    export interface Raw extends AestheticRecordsClinic.Raw {
         contact_no?: string | null;
         city?: string | null;
         country?: string | null;

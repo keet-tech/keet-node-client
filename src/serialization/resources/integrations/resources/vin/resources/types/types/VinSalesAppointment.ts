@@ -35,7 +35,7 @@ export const VinSalesAppointment: core.serialization.ObjectSchema<
 });
 
 export declare namespace VinSalesAppointment {
-    interface Raw {
+    export interface Raw {
         id: number;
         dealer: VinSalesDealer.Raw;
         customer: VinSalesCustomer.Raw;

@@ -10,17 +10,21 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Link {
-    interface Options {
+    export interface Options {
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -43,17 +47,20 @@ export class Link {
      *     await client.link.createLinkToken({
      *         linkConfig: {
      *             endUserId: "<userId>",
-     *             integration: Keet.common.OfferedIntegrations.Vin,
+     *             integration: "Vin",
      *             companyLogoUri: "https://example.com/logo.png"
      *         }
      *     })
      */
     public async createLinkToken(
         request: Keet.CreateLinkRequest,
-        requestOptions?: Link.RequestOptions
+        requestOptions?: Link.RequestOptions,
     ): Promise<Keet.CreateLinkResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(environments.KeetEnvironment.Production, "/v1/link/token"),
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ?? environments.KeetEnvironment.Production,
+                "/v1/link/token",
+            ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
@@ -63,6 +70,7 @@ export class Link {
                 "User-Agent": "@keet-tech/keet-node-client/0.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -89,7 +97,7 @@ export class Link {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.InternalServerError(
@@ -98,7 +106,7 @@ export class Link {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Keet.common.NotFoundError(
@@ -107,7 +115,7 @@ export class Link {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 400:
                     throw new Keet.common.BadRequestError(
@@ -116,7 +124,7 @@ export class Link {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Keet.common.NotImplementedError(
@@ -125,7 +133,7 @@ export class Link {
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.KeetError({
@@ -142,7 +150,7 @@ export class Link {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.KeetTimeoutError();
+                throw new errors.KeetTimeoutError("Timeout exceeded when calling POST /v1/link/token.");
             case "unknown":
                 throw new errors.KeetError({
                     message: _response.error.errorMessage,

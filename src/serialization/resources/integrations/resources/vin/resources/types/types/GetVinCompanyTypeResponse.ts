@@ -17,7 +17,7 @@ export const GetVinCompanyTypeResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetVinCompanyTypeResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         companyTypes: VinCompanyType.Raw[];
     }

@@ -40,17 +40,17 @@ export const AestheticRecordsAppointmentRecord: core.serialization.ObjectSchema<
         user: AestheticRecordsUser,
         appointmentServices: core.serialization.property(
             "appointment_services",
-            core.serialization.list(AestheticRecordsAppointmentExt)
+            core.serialization.list(AestheticRecordsAppointmentExt),
         ),
         procedure: core.serialization.unknown().optional(),
         appointmentBooking: core.serialization.property("appointment_booking", AestheticRecordsAppointmentBooking),
         appointmentsCheckin: core.serialization.property(
             "appointments_checkin",
-            core.serialization.unknown().optional()
+            core.serialization.unknown().optional(),
         ),
         appointmentCancellationTransaction: core.serialization.property(
             "appointment_cancellation_transaction",
-            core.serialization.list(AestheticRecordsAppointmentCancellationTransaction)
+            core.serialization.list(AestheticRecordsAppointmentCancellationTransaction),
         ),
         outOfOffice: core.serialization.property("out_of_office", core.serialization.unknown().optional()),
         color: core.serialization.string(),
@@ -61,7 +61,7 @@ export const AestheticRecordsAppointmentRecord: core.serialization.ObjectSchema<
     .extend(AestheticRecordsAppointment);
 
 export declare namespace AestheticRecordsAppointmentRecord {
-    interface Raw extends AestheticRecordsAppointment.Raw {
+    export interface Raw extends AestheticRecordsAppointment.Raw {
         meeting_id?: string | null;
         meeting_type?: string | null;
         invoice_id?: number | null;

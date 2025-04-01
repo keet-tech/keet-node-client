@@ -19,12 +19,12 @@ export const GetAestheticRecordsProductsResponse: core.serialization.ObjectSchem
     pagination: AestheticRecordsPagination,
     categoryList: core.serialization.property(
         "category_list",
-        core.serialization.list(AestheticRecordsCategoryList).optional()
+        core.serialization.list(AestheticRecordsCategoryList).optional(),
     ),
 });
 
 export declare namespace GetAestheticRecordsProductsResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         products: AestheticRecordsProduct.Raw[];
         pagination: AestheticRecordsPagination.Raw;

@@ -19,7 +19,7 @@ export const CreateVinLead: core.serialization.Schema<
 });
 
 export declare namespace CreateVinLead {
-    interface Raw {
+    export interface Raw {
         customerId: string;
         dealerId: string;
         vehicleStockNumber: string;

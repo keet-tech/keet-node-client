@@ -16,7 +16,7 @@ export const GetAestheticRecordsAccountData: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetAestheticRecordsAccountData {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         accountData?: unknown;
     }

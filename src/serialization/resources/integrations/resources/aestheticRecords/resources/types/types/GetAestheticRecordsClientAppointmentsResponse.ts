@@ -16,7 +16,7 @@ export const GetAestheticRecordsClientAppointmentsResponse: core.serialization.O
 });
 
 export declare namespace GetAestheticRecordsClientAppointmentsResponse {
-    interface Raw {
+    export interface Raw {
         appointments?: unknown;
         status: ResponseStatus.Raw;
     }

@@ -10,3 +10,4 @@ export { type GetVinCompanyTypeRequest } from "./GetVinCompanyTypeRequest";
 export { type CreateVinCustomer } from "./CreateVinCustomer";
 export { type CreateVinLead } from "./CreateVinLead";
 export { type GetVinAppointmentRequest } from "./GetVinAppointmentRequest";
+export { type CreateVinCall } from "./CreateVinCall";

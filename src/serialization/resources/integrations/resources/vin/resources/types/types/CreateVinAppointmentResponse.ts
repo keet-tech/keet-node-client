@@ -15,7 +15,7 @@ export const CreateVinAppointmentResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace CreateVinAppointmentResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
     }
 }

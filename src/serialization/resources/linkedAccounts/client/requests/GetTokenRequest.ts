@@ -12,7 +12,7 @@ export const GetTokenRequest: core.serialization.Schema<serializers.GetTokenRequ
     });
 
 export declare namespace GetTokenRequest {
-    interface Raw {
+    export interface Raw {
         publicToken: string;
     }
 }

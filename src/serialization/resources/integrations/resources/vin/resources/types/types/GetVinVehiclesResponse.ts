@@ -17,7 +17,7 @@ export const GetVinVehiclesResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetVinVehiclesResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         vehicles: VinVehicle.Raw[];
     }

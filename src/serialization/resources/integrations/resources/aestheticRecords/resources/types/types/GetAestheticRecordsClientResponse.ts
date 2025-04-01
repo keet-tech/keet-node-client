@@ -17,7 +17,7 @@ export const GetAestheticRecordsClientResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace GetAestheticRecordsClientResponse {
-    interface Raw {
+    export interface Raw {
         status: ResponseStatus.Raw;
         client: AestheticRecordsClientGet.Raw;
     }

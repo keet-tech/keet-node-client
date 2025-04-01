@@ -16,7 +16,7 @@ export const AestheticRecordsLink: core.serialization.ObjectSchema<
 });
 
 export declare namespace AestheticRecordsLink {
-    interface Raw {
+    export interface Raw {
         url?: string | null;
         label: string;
         active: boolean;
